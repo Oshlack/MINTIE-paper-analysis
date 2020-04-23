@@ -8,4 +8,15 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+MINTIE: identifying novel structural and splice variants in transcriptomes using RNA-seq data
+=============================================================================================
+
+**MINTIE** is a **M**ethod for **I**nferring **N**ovel **T**ranscripts and **I**soforms using **E**quivalence classes. 
+
+This site contains the code for generating the figures and analyses presented in the (upcoming) MINTIE paper.
+
+Analysis
+--------
+
+* [Simulation benchmarking](Simulation_benchmarking.html) -- comparison of variants found by
+  MINTIE and 7 other methods in a simulated data set of 1,500 variants.

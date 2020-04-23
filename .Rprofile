@@ -6,3 +6,6 @@ if (requireNamespace("workflowr", quietly = TRUE)) {
 } else {
   message("workflowr package not installed, please run install.packages(\"workflowr\") to use the workflowr functions")
 }
+#### -- Packrat Autoloader (version 0.5.0) -- ####
+source("packrat/init.R")
+#### -- End Packrat Autoloader -- ####

@@ -7,5 +7,6 @@
 analysis/figure
 analysis/*png
 analysis/*html
-analysis/*_cache
+analysis/*cache
 analysis/site_libs
+packrat/lib*/

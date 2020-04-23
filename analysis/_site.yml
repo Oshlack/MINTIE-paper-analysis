@@ -5,8 +5,8 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
+  - text: Simulation Benchmarking
+    href: Simulation_Benchmarking.html
   - text: License
     href: license.html
 output:

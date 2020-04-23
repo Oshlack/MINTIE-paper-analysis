@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Simulation Benchmarking</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MINTIE_Rmarkdown</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Simulation_Benchmarking.html">Simulation Benchmarking</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Simulation Benchmarking</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-04-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>MINTIE_paper_analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200415code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200415)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200415code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200415)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong9f95a7c"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 9f95a7c </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong9f95a7c" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 9f95a7c. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    R/
+    Ignored:    analysis/.DS_Store
+    Ignored:    code/.DS_Store
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  MINTIE_paper_analysis.Rproj
+    Untracked:  analysis/Simulation_Benchmarking.Rmd
+    Untracked:  analysis/cache/
+    Untracked:  code/plot.R
+    Untracked:  code/simu_helper.R
+    Untracked:  data/simu/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Deleted:    MINTIE_Rmarkdown.Rproj
+    Modified:   README.md
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Deleted:    code/README.md
+    Deleted:    data/README.md
+
+Staged changes:
+    Modified:   .gitignore
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code># util
+library(data.table)
+library(dplyr)
+library(here)
+
+# plotting
+library(ggplot2)
+
+# bioinformatics helpers
+library(GenomicRanges)
+library(Rsamtools)</code></pre>
+<pre class="r"><code>source(here(&quot;code/simu_helper.R&quot;))
+source(here(&quot;code/plot.R&quot;))</code></pre>
+<pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
+<div id="simulation-benchmarking" class="section level1">
+<h1>Simulation Benchmarking</h1>
+<p>Here we analyse the results on a simulated data set of 1,500 variants containing fusions, transcribed structural variants and novel splice variants, across 8 methods: MINTIE, TAP, Barnacle, SQUID, JAFFA, Arriba, StringTie and KisSplice.</p>
+<p>The plots show the number of variants detected from each category and the number of false positives. The number of background genes detected in the false positives in displayed as printed output.</p>
+<pre class="r"><code>fus_truth &lt;- read.delim(here(&quot;data/simu/truth/allvars_fusions_simulated.tsv&quot;))
+tsv_nsv_truth &lt;- read.delim(here(&quot;data/simu/truth/allvars_tsvs_splice_simulated.tsv&quot;))
+all_gene_locs &lt;- read.delim(gzfile(here(&quot;data/simu/all_gene_locs.tsv.gz&quot;)))
+bg_gene_ref &lt;- read.delim(here(&quot;data/simu/truth/bg_gene_ref.tsv&quot;), header = TRUE)
+
+# extract truth and background gene names
+var_genes_truth &lt;- unique(c(fus_truth$gene1, fus_truth$gene2, tsv_nsv_truth$gene))
+var_genes_truth &lt;- var_genes_truth[var_genes_truth != &quot;&quot;]
+bg_genes &lt;- bg_gene_ref$gene
+
+# make Genomic Ranges objects from data
+fus_grx &lt;- get_granges(fus_truth)
+tsv_nsv_grx &lt;- get_granges(tsv_nsv_truth)
+bgenes_grx &lt;- get_granges(bg_gene_ref, convert_chrom = TRUE)
+all_gene_grx &lt;- get_granges(all_gene_locs, convert_chrom = TRUE, add_chr = FALSE)
+
+# create results object
+nsv_names &lt;- c(&quot;Extended exon&quot;,
+               &quot;Novel exon&quot;,
+               &quot;Retained intron&quot;,
+               &quot;Truncated exon&quot;,
+               &quot;Unknown splice&quot;)
+tsv_names &lt;- c(&quot;Deletion&quot;,
+               &quot;Insertion&quot;,
+               &quot;Internal tandem duplication&quot;,
+               &quot;Partial tandem duplication&quot;,
+               &quot;Inversion&quot;)
+fus_names &lt;- c(&quot;Fusion (canonical)&quot;,
+               &quot;Fusion (EE)&quot;,
+               &quot;Fusion (NE)&quot;,
+               &quot;Fusion (insertion)&quot;,
+               &quot;Fusion (unpartnered)&quot;)
+vartypes &lt;- c(&quot;False positive&quot;, nsv_names, tsv_names, fus_names)
+
+classes &lt;- c(&quot;False positive&quot;,
+             &quot;Novel splice variant&quot;,
+             &quot;Transcribed structural variant&quot;,
+             &quot;Fusion&quot;)
+results &lt;- data.frame(vartype = factor(vartypes, levels = vartypes),
+                      class = factor(c(classes[1], rep(classes[2:4], each=5)),
+                                     levels = classes[4:1]),
+                      row.names = c(&quot;FP&quot;, &quot;EE&quot;, &quot;NE&quot;, &quot;RI&quot;, &quot;NEJ&quot;, &quot;US&quot;,
+                                    &quot;DEL&quot;, &quot;INS&quot;, &quot;ITD&quot;, &quot;PTD&quot;, &quot;INV&quot;,
+                                    &quot;canonical_fusion&quot;, &quot;EE_fusion&quot;,
+                                    &quot;NE_fusion&quot;, &quot;INS_fusion&quot;, &quot;unpartnered_fusion&quot;))
+
+cols &lt;- c(&quot;#87649aff&quot;, &quot;#bdd888ff&quot;, &quot;#e7d992ff&quot;, &quot;#636363&quot;)
+names(cols) &lt;- c(&quot;Fusion&quot;, &quot;Transcribed structural variant&quot;, &quot;Novel splice variant&quot;, &quot;False positive&quot;)</code></pre>
+<div id="mintie" class="section level3">
+<h3>MINTIE</h3>
+<pre class="r"><code># load data
+mintie_results &lt;- read.delim(here(&quot;data/simu/results/MINTIE/allvars-case_results.tsv&quot;))
+mintie_results &lt;- mintie_results[mintie_results$logFC &gt; 5,]
+
+# extract genes
+mintie_vargenes &lt;- sapply(mintie_results$overlapping_genes, function(x){strsplit(x, &quot;\\||:&quot;)[[1]]})
+mvg &lt;- unlist(mintie_vargenes)
+
+# count found fusions, TSVs and NSVs
+found_fus &lt;- table(fus_truth$fusion_type[fus_truth$gene1 %in% mvg | fus_truth$gene2 %in% mvg])
+found_tsv &lt;- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% mvg])
+
+# count false positives genes
+fp &lt;- sapply(mintie_vargenes, function(x){!any(x %in% var_genes_truth)})
+fp_genes &lt;- unlist(sapply(mintie_results$overlapping_genes[fp], function(x){strsplit(x, &quot;\\||:&quot;)}))
+fp_genes &lt;- fp_genes[fp_genes != &quot;&quot;]
+n_fp &lt;- length(unique(fp_genes))
+
+results &lt;- append_results(results, &quot;MINTIE&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes %in% bg_genes)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 3&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;MINTIE&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tap" class="section level3">
+<h3>TAP</h3>
+<pre class="r"><code># load result data
+tap_svs &lt;- read.delim(here(&quot;data/simu/results/TAP/sv.bedpe&quot;), sep = &quot;\t&quot;, skip = 2)
+tap_nsv &lt;- read.delim(here(&quot;data/simu/results/TAP/novel_splicing.bedpe&quot;), sep = &quot;\t&quot;, skip = 2)
+
+# extract variant genes
+tap_vargenes &lt;- Reduce(union, list(tap_svs$gene1, tap_svs$gene2, tap_nsv$gene))
+
+# count found fusions, TSVs and NSVs
+found_fus &lt;- table(fus_truth$fusion_type[fus_truth$gene1 %in% tap_vargenes | fus_truth$gene2 %in% tap_vargenes])
+found_tsv &lt;- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% tap_vargenes])
+
+# count false positives genes
+fp_svs &lt;- tap_svs[!tap_svs$gene1 %in% var_genes_truth &amp; !tap_svs$gene2 %in% var_genes_truth,]
+fp_nsv &lt;- tap_svs[!tap_svs$gene %in% var_genes_truth,]
+n_fp &lt;- nrow(fp_nsv)
+
+results &lt;- append_results(results, &quot;TAP&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes %in% bg_genes)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 3&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;TAP&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/TAP-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="barnacle" class="section level3">
+<h3>Barnacle</h3>
+<pre class="r"><code># load hg19 truth locations and make Genomic Ranges objects
+hg19_fus1_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/fus_loc1.bed&quot;))
+hg19_fus2_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/fus_loc2.bed&quot;))
+hg19_tsv_nsv_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/tsv_nsv.bed&quot;))
+hg19_bgenes_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/background_genes.bed&quot;))
+
+# load barnacle results and make Genomic Ranges objects
+barnacle_results &lt;- read.delim(here(&quot;data/simu/results/barnacle/allvars-case.barnacle.data&quot;), header=FALSE)$V1
+barnacle_results &lt;- barnacle_results[grep(&quot;OVERLAPPING&quot;, barnacle_results)]
+
+barnacle_grx_a &lt;- get_barnacle_grx(barnacle_results)
+barnacle_grx_b &lt;- get_barnacle_grx(barnacle_results, side_A = FALSE)
+
+# extract hits
+hits &lt;- get_hits(barnacle_grx_a, barnacle_grx_b,
+                 hg19_fus1_grx, hg19_fus2_grx,
+                 hg19_tsv_nsv_grx, hg19_bgenes_grx)
+found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+n_fp &lt;- sum(!1:length(barnacle_grx_a) %in% unique(hits$caller_hits))
+
+results &lt;- append_results(results, &quot;Barnacle&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 10&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;Barnacle&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="squid" class="section level3">
+<h3>SQUID</h3>
+<pre class="r"><code># load data
+squid_results &lt;- read.delim(here(&quot;data/simu/results/squid/results_sv.txt&quot;))
+
+# make GRanges objects
+chr1 &lt;- sapply(squid_results$X..chrom1, convert_chrom, add_chr=FALSE)
+loc1_grx &lt;- GRanges(seqnames = chr1,
+                    ranges = IRanges(start = squid_results$start1, end = squid_results$end1))
+
+chr2 &lt;- sapply(squid_results$chrom2, convert_chrom, add_chr=FALSE)
+loc2_grx &lt;- GRanges(seqnames = chr2,
+                    ranges = IRanges(start = squid_results$start2, end = squid_results$end2))
+
+# get hits
+hits &lt;- get_hits(loc1_grx, loc2_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fps &lt;- squid_results[!rownames(squid_results) %in% hits$caller_hits,]
+fps &lt;- fps[!(fps$X..chrom1 %like% &quot;alt&quot; | fps$chrom2 %like% &quot;alt&quot;),]
+n_fp &lt;-  nrow(fps)
+
+results &lt;- append_results(results, &quot;SQUID&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;SQUID&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/SQUID-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="jaffa" class="section level3">
+<h3>JAFFA</h3>
+<pre class="r"><code># load data
+jaffa_results &lt;- read.delim(here(&quot;data/simu/results/JAFFA/jaffa_results.csv&quot;), sep = &quot;,&quot;)
+
+# make GRanges objects
+chr1 &lt;- sapply(jaffa_results$chrom1, convert_chrom, add_chr=FALSE)
+loc1_grx &lt;- GRanges(seqnames = chr1,
+                    ranges = IRanges(start = jaffa_results$base1, end = jaffa_results$base1))
+
+chr2 &lt;- sapply(jaffa_results$chrom1, convert_chrom, add_chr=FALSE)
+loc2_grx &lt;- GRanges(seqnames = chr2,
+                    ranges = IRanges(start = jaffa_results$base2, end = jaffa_results$base2))
+
+# get hits
+hits &lt;- get_hits(loc1_grx, loc2_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fps &lt;- jaffa_results[!rownames(jaffa_results) %in% hits$caller_hits,]
+fps &lt;- fps[!(fps$chrom1 %like% &quot;alt&quot; | fps$chrom2 %like% &quot;alt&quot;),]
+fp_genes &lt;- unlist(sapply(fps$fusion.genes, strsplit, split=&quot;:&quot;))
+n_fp &lt;- length(unique(fp_genes))
+
+results &lt;- append_results(results, &quot;JAFFA&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;JAFFA&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="arriba" class="section level3">
+<h3>Arriba</h3>
+<pre class="r"><code># load data
+arriba_results &lt;- read.delim(here(&quot;data/simu/results/arriba/fusions.tsv&quot;))
+
+# extract variasnt genes
+arriba_vargenes1 &lt;- sapply(arriba_results$X.gene1, get_arriba_genes)
+arriba_vargenes2 &lt;- sapply(arriba_results$gene2, get_arriba_genes)
+avg &lt;- unlist(list(arriba_vargenes1, arriba_vargenes2))
+
+# tally results
+found_tsv &lt;- table(tsv_nsv_truth[tsv_nsv_truth$gene %in% avg,]$vartype)
+found_fus &lt;- table(fus_truth[fus_truth$gene1 %in% avg | fus_truth$gene2 %in% avg,]$fusion_type)
+
+# get false positives
+fp1 &lt;- sapply(arriba_vargenes1, function(x){!any(x %in% var_genes_truth)})
+fp2 &lt;- sapply(arriba_vargenes2, function(x){!any(x %in% var_genes_truth)})
+fp_genes1 &lt;- arriba_vargenes1[fp1 &amp; fp2]
+fp_genes2 &lt;- arriba_vargenes2[fp1 &amp; fp2]
+fp_genes &lt;- unique(union(fp_genes1, fp_genes2))
+n_fp &lt;- length(fp_genes)
+
+results &lt;- append_results(results, &quot;Arriba&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes%in% bgenes_grx$genes)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;Arriba&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/Arriba-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="stringtie" class="section level3">
+<h3>StringTie</h3>
+<pre class="r"><code># load data and extract transcripts marked as novel
+stringtie_results &lt;- read.delim(here(&quot;data/simu/results/StringTie/fullsimu.gtf&quot;), comment=&quot;#&quot;, header=F)
+stringtie_results &lt;- stringtie_results[!stringtie_results$V9 %like% &quot;ref_gene_id&quot;,]
+stringtie_results &lt;- stringtie_results[stringtie_results$V3 == &quot;transcript&quot;,]
+
+chrom &lt;- sapply(stringtie_results$V1, convert_chrom, add_chr = FALSE)
+stringtie_grx &lt;- GRanges(seqnames = chrom,
+                         ranges = IRanges(start = stringtie_results$V4,
+                                          end = stringtie_results$V5))
+
+
+hits &lt;- get_hits_oneloc(stringtie_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fp_grx &lt;- stringtie_grx[!1:length(hits$caller_hits) %in% hits$caller_hits]
+fp_gene_hits &lt;- all_gene_grx[subjectHits(findOverlaps(fp_grx, all_gene_grx))]
+n_fp &lt;- length(unique(fp_gene_hits$genes))
+
+results &lt;- append_results(results, &quot;StringTie&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;StringTie&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/StringTie-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="kissplice" class="section level3">
+<h3>KisSplice</h3>
+<pre class="r"><code># regenerate gene ranges objects &quot;chr&quot; prefix
+# (this is required as KisSplice&quot;s bam was aligned
+# to a genome with chr prefixes)
+fus_grx &lt;- get_granges(fus_truth, convert_chrom = TRUE)
+tsv_nsv_grx &lt;- get_granges(tsv_nsv_truth, convert_chrom = TRUE)
+bgenes_grx &lt;- get_granges(bg_gene_ref, convert_chrom = FALSE)
+
+# extract hits im fusion and TSV/NSV gene regions
+bam &lt;- here(&quot;data/simu/results/KisSplice/results.bam&quot;)
+fus1_hits &lt;- get_kissplice_hits(bam, fus_grx[[1]])
+fus2_hits &lt;- get_kissplice_hits(bam, fus_grx[[2]])
+tsv_nsv_hits &lt;- get_kissplice_hits(bam, tsv_nsv_grx)
+
+# remame row names to match locations from results
+rownames(fus_truth) &lt;- sapply(fus_truth$loc1, convert_chrom)
+rownames(tsv_nsv_truth) &lt;- sapply(tsv_nsv_truth$loc, convert_chrom)
+
+# tally results
+found_fus &lt;- table(fus_truth[names(fus1_hits)[fus1_hits | fus2_hits],]$fusion_type)
+found_tsv &lt;- table(tsv_nsv_truth[names(tsv_nsv_hits[tsv_nsv_hits]),]$vartype)
+
+# count number of FP hits in background genes
+# first, get all reads that we counted as &quot;hits&quot;
+param &lt;- ScanBamParam(which = c(fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx),
+                      what = c(&quot;pos&quot;))
+all_hits &lt;- scanBam(bam, param = param)
+all_hits &lt;- unique(unlist(all_hits))
+
+# now get all reads in the results and count all
+# reads that were not counted as hits
+param &lt;- ScanBamParam(what = &quot;pos&quot;)
+all_results &lt;- unique(scanBam(bam, param = param)[[1]]$pos)
+fps &lt;- all_results[!all_results %in% all_hits]
+n_fp &lt;- length(fps)
+
+# count the numner of FPs in background genes
+param &lt;- ScanBamParam(which = bgenes_grx, what = c(&quot;pos&quot;))
+bg_hits &lt;- scanBam(bam, param = param)
+bg_hits &lt;- bg_hits[as.numeric(bg_hits) %in% fps]
+
+results &lt;- append_results(results, &quot;KisSplice&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, length(bg_hits)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;KisSplice&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="all-results" class="section level2">
+<h2>All results</h2>
+<p>MINTIE paper Figure 3 containing results from all benchmarked methods.</p>
+<pre class="r"><code>mr &lt;- melt(results, id.vars = c(&quot;vartype&quot;, &quot;class&quot;), variable.name = &quot;method&quot;)
+mr$method &lt;- factor(mr$method,
+                    levels=c(&quot;MINTIE&quot;, &quot;TAP&quot;, &quot;Barnacle&quot;, &quot;SQUID&quot;, &quot;JAFFA&quot;, &quot;Arriba&quot;, &quot;KisSplice&quot;, &quot;StringTie&quot;))
+
+plot_all_simu_benchmarks(mr)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" width="864" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] biomaRt_2.38.0       workflowr_1.6.1      Rsamtools_1.34.1    
+ [4] Biostrings_2.50.2    XVector_0.22.0       GenomicRanges_1.34.0
+ [7] GenomeInfoDb_1.18.2  IRanges_2.16.0       S4Vectors_0.20.1    
+[10] BiocGenerics_0.28.0  ggplot2_3.1.0        here_0.1            
+[13] dplyr_0.8.1          data.table_1.12.0   
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.1             prettyunits_1.0.2      assertthat_0.2.1      
+ [4] rprojroot_1.3-2        digest_0.6.18          R6_2.4.0              
+ [7] plyr_1.8.4             backports_1.1.3        RSQLite_2.1.1         
+[10] evaluate_0.13          httr_1.4.0             pillar_1.3.1          
+[13] zlibbioc_1.28.0        rlang_0.4.2            progress_1.2.0        
+[16] lazyeval_0.2.2         blob_1.1.1             rmarkdown_1.12        
+[19] labeling_0.3           BiocParallel_1.14.2    stringr_1.4.0         
+[22] RCurl_1.95-4.12        bit_1.1-14             munsell_0.5.0         
+[25] compiler_3.5.1         httpuv_1.5.2           xfun_0.5              
+[28] pkgconfig_2.0.2        htmltools_0.3.6        tidyselect_0.2.5      
+[31] tibble_2.1.1           GenomeInfoDbData_1.2.0 codetools_0.2-16      
+[34] XML_3.98-1.19          crayon_1.3.4           withr_2.1.2           
+[37] later_1.0.0            bitops_1.0-6           grid_3.5.1            
+[40] gtable_0.3.0           DBI_1.0.0              git2r_0.26.1          
+[43] magrittr_1.5           scales_1.0.0           stringi_1.4.3         
+[46] reshape2_1.4.3         fs_1.2.7               promises_1.1.0        
+[49] tools_3.5.1            bit64_0.9-7            Biobase_2.42.0        
+[52] glue_1.3.1             purrr_0.3.2            hms_0.4.2             
+[55] yaml_2.2.0             AnnotationDbi_1.44.0   colorspace_1.4-1      
+[58] memoise_1.1.0          knitr_1.22            </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

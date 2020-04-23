@@ -1,0 +1,375 @@
+---
+title: "Simulation Benchmarking"
+output:
+  workflowr::wflow_html:
+      code_folding: hide
+---
+
+```{r knitr, include = FALSE}
+DOCNAME = "Simulation_Benchmarking"
+knitr::opts_chunk$set(autodep        = TRUE,
+                      cache          = TRUE,
+                      cache.path     = paste0("cache/", DOCNAME, "/"),
+                      cache.comments = FALSE,
+                      echo           = TRUE,
+                      error          = FALSE,
+                      fig.align      = "center",
+                      fig.width      = 9,
+                      fig.height     = 5,
+                      message        = FALSE,
+                      warning        = FALSE)
+```
+
+
+```{r libraries, cache = FALSE}
+# util
+library(data.table)
+library(dplyr)
+library(here)
+
+# plotting
+library(ggplot2)
+
+# bioinformatics helpers
+library(GenomicRanges)
+library(Rsamtools)
+```
+
+
+```{r source, cache = FALSE}
+source(here("code/simu_helper.R"))
+source(here("code/plot.R"))
+```
+
+
+```{r options, cache = FALSE}
+options(stringsAsFactors = FALSE)
+```
+
+Simulation Benchmarking
+=======================
+
+Here we analyse the results on a simulated data set of 1,500 variants
+containing fusions, transcribed structural variants and novel splice
+variants, across 8 methods: MINTIE, TAP, Barnacle, SQUID, JAFFA, Arriba,
+StringTie and KisSplice.
+
+The plots show the number of variants detected from each category and
+the number of false positives. The number of background genes detected
+in the false positives in displayed as printed output.
+
+```{r load_truth_data}
+fus_truth <- read.delim(here("data/simu/truth/allvars_fusions_simulated.tsv"))
+tsv_nsv_truth <- read.delim(here("data/simu/truth/allvars_tsvs_splice_simulated.tsv"))
+all_gene_locs <- read.delim(gzfile(here("data/simu/all_gene_locs.tsv.gz")))
+bg_gene_ref <- read.delim(here("data/simu/truth/bg_gene_ref.tsv"), header = TRUE)
+
+# extract truth and background gene names
+var_genes_truth <- unique(c(fus_truth$gene1, fus_truth$gene2, tsv_nsv_truth$gene))
+var_genes_truth <- var_genes_truth[var_genes_truth != ""]
+bg_genes <- bg_gene_ref$gene
+
+# make Genomic Ranges objects from data
+fus_grx <- get_granges(fus_truth)
+tsv_nsv_grx <- get_granges(tsv_nsv_truth)
+bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = TRUE)
+all_gene_grx <- get_granges(all_gene_locs, convert_chrom = TRUE, add_chr = FALSE)
+
+# create results object
+nsv_names <- c("Extended exon",
+               "Novel exon",
+               "Retained intron",
+               "Truncated exon",
+               "Unknown splice")
+tsv_names <- c("Deletion",
+               "Insertion",
+               "Internal tandem duplication",
+               "Partial tandem duplication",
+               "Inversion")
+fus_names <- c("Fusion (canonical)",
+               "Fusion (EE)",
+               "Fusion (NE)",
+               "Fusion (insertion)",
+               "Fusion (unpartnered)")
+vartypes <- c("False positive", nsv_names, tsv_names, fus_names)
+
+classes <- c("False positive",
+             "Novel splice variant",
+             "Transcribed structural variant",
+             "Fusion")
+results <- data.frame(vartype = factor(vartypes, levels = vartypes),
+                      class = factor(c(classes[1], rep(classes[2:4], each=5)),
+                                     levels = classes[4:1]),
+                      row.names = c("FP", "EE", "NE", "RI", "NEJ", "US",
+                                    "DEL", "INS", "ITD", "PTD", "INV",
+                                    "canonical_fusion", "EE_fusion",
+                                    "NE_fusion", "INS_fusion", "unpartnered_fusion"))
+
+cols <- c("#87649aff", "#bdd888ff", "#e7d992ff", "#636363")
+names(cols) <- c("Fusion", "Transcribed structural variant", "Novel splice variant", "False positive")
+```
+
+### MINTIE
+
+
+```{r MINTIE}
+# load data
+mintie_results <- read.delim(here("data/simu/results/MINTIE/allvars-case_results.tsv"))
+mintie_results <- mintie_results[mintie_results$logFC > 5,]
+
+# extract genes
+mintie_vargenes <- sapply(mintie_results$overlapping_genes, function(x){strsplit(x, "\\||:")[[1]]})
+mvg <- unlist(mintie_vargenes)
+
+# count found fusions, TSVs and NSVs
+found_fus <- table(fus_truth$fusion_type[fus_truth$gene1 %in% mvg | fus_truth$gene2 %in% mvg])
+found_tsv <- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% mvg])
+
+# count false positives genes
+fp <- sapply(mintie_vargenes, function(x){!any(x %in% var_genes_truth)})
+fp_genes <- unlist(sapply(mintie_results$overlapping_genes[fp], function(x){strsplit(x, "\\||:")}))
+fp_genes <- fp_genes[fp_genes != ""]
+n_fp <- length(unique(fp_genes))
+
+results <- append_results(results, "MINTIE", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(fp_genes %in% bg_genes)))
+plot_simu_benchmarking(results, "MINTIE")
+```
+
+### TAP
+
+
+```{r TAP}
+# load result data
+tap_svs <- read.delim(here("data/simu/results/TAP/sv.bedpe"), sep = "\t", skip = 2)
+tap_nsv <- read.delim(here("data/simu/results/TAP/novel_splicing.bedpe"), sep = "\t", skip = 2)
+
+# extract variant genes
+tap_vargenes <- Reduce(union, list(tap_svs$gene1, tap_svs$gene2, tap_nsv$gene))
+
+# count found fusions, TSVs and NSVs
+found_fus <- table(fus_truth$fusion_type[fus_truth$gene1 %in% tap_vargenes | fus_truth$gene2 %in% tap_vargenes])
+found_tsv <- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% tap_vargenes])
+
+# count false positives genes
+fp_svs <- tap_svs[!tap_svs$gene1 %in% var_genes_truth & !tap_svs$gene2 %in% var_genes_truth,]
+fp_nsv <- tap_svs[!tap_svs$gene %in% var_genes_truth,]
+n_fp <- nrow(fp_nsv)
+
+results <- append_results(results, "TAP", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(fp_genes %in% bg_genes)))
+plot_simu_benchmarking(results, "TAP")
+```
+
+### Barnacle
+
+
+```{r Barnacle}
+# load hg19 truth locations and make Genomic Ranges objects
+hg19_fus1_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/fus_loc1.bed"))
+hg19_fus2_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/fus_loc2.bed"))
+hg19_tsv_nsv_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/tsv_nsv.bed"))
+hg19_bgenes_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/background_genes.bed"))
+
+# load barnacle results and make Genomic Ranges objects
+barnacle_results <- read.delim(here("data/simu/results/barnacle/allvars-case.barnacle.data"), header=FALSE)$V1
+barnacle_results <- barnacle_results[grep("OVERLAPPING", barnacle_results)]
+
+barnacle_grx_a <- get_barnacle_grx(barnacle_results)
+barnacle_grx_b <- get_barnacle_grx(barnacle_results, side_A = FALSE)
+
+# extract hits
+hits <- get_hits(barnacle_grx_a, barnacle_grx_b,
+                 hg19_fus1_grx, hg19_fus2_grx,
+                 hg19_tsv_nsv_grx, hg19_bgenes_grx)
+found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+n_fp <- sum(!1:length(barnacle_grx_a) %in% unique(hits$caller_hits))
+
+results <- append_results(results, "Barnacle", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+plot_simu_benchmarking(results, "Barnacle")
+```
+
+### SQUID
+
+
+```{r SQUID}
+# load data
+squid_results <- read.delim(here("data/simu/results/squid/results_sv.txt"))
+
+# make GRanges objects
+chr1 <- sapply(squid_results$X..chrom1, convert_chrom, add_chr=FALSE)
+loc1_grx <- GRanges(seqnames = chr1,
+                    ranges = IRanges(start = squid_results$start1, end = squid_results$end1))
+
+chr2 <- sapply(squid_results$chrom2, convert_chrom, add_chr=FALSE)
+loc2_grx <- GRanges(seqnames = chr2,
+                    ranges = IRanges(start = squid_results$start2, end = squid_results$end2))
+
+# get hits
+hits <- get_hits(loc1_grx, loc2_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fps <- squid_results[!rownames(squid_results) %in% hits$caller_hits,]
+fps <- fps[!(fps$X..chrom1 %like% "alt" | fps$chrom2 %like% "alt"),]
+n_fp <-  nrow(fps)
+
+results <- append_results(results, "SQUID", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+plot_simu_benchmarking(results, "SQUID")
+```
+
+### JAFFA
+
+
+```{r JAFFA}
+# load data
+jaffa_results <- read.delim(here("data/simu/results/JAFFA/jaffa_results.csv"), sep = ",")
+
+# make GRanges objects
+chr1 <- sapply(jaffa_results$chrom1, convert_chrom, add_chr=FALSE)
+loc1_grx <- GRanges(seqnames = chr1,
+                    ranges = IRanges(start = jaffa_results$base1, end = jaffa_results$base1))
+
+chr2 <- sapply(jaffa_results$chrom1, convert_chrom, add_chr=FALSE)
+loc2_grx <- GRanges(seqnames = chr2,
+                    ranges = IRanges(start = jaffa_results$base2, end = jaffa_results$base2))
+
+# get hits
+hits <- get_hits(loc1_grx, loc2_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fps <- jaffa_results[!rownames(jaffa_results) %in% hits$caller_hits,]
+fps <- fps[!(fps$chrom1 %like% "alt" | fps$chrom2 %like% "alt"),]
+fp_genes <- unlist(sapply(fps$fusion.genes, strsplit, split=":"))
+n_fp <- length(unique(fp_genes))
+
+results <- append_results(results, "JAFFA", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+plot_simu_benchmarking(results, "JAFFA")
+```
+
+### Arriba
+
+
+```{r Arriba}
+# load data
+arriba_results <- read.delim(here("data/simu/results/arriba/fusions.tsv"))
+
+# extract variasnt genes
+arriba_vargenes1 <- sapply(arriba_results$X.gene1, get_arriba_genes)
+arriba_vargenes2 <- sapply(arriba_results$gene2, get_arriba_genes)
+avg <- unlist(list(arriba_vargenes1, arriba_vargenes2))
+
+# tally results
+found_tsv <- table(tsv_nsv_truth[tsv_nsv_truth$gene %in% avg,]$vartype)
+found_fus <- table(fus_truth[fus_truth$gene1 %in% avg | fus_truth$gene2 %in% avg,]$fusion_type)
+
+# get false positives
+fp1 <- sapply(arriba_vargenes1, function(x){!any(x %in% var_genes_truth)})
+fp2 <- sapply(arriba_vargenes2, function(x){!any(x %in% var_genes_truth)})
+fp_genes1 <- arriba_vargenes1[fp1 & fp2]
+fp_genes2 <- arriba_vargenes2[fp1 & fp2]
+fp_genes <- unique(union(fp_genes1, fp_genes2))
+n_fp <- length(fp_genes)
+
+results <- append_results(results, "Arriba", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(fp_genes%in% bgenes_grx$genes)))
+plot_simu_benchmarking(results, "Arriba")
+```
+
+### StringTie
+
+
+```{r StringTie}
+# load data and extract transcripts marked as novel
+stringtie_results <- read.delim(here("data/simu/results/StringTie/fullsimu.gtf"), comment="#", header=F)
+stringtie_results <- stringtie_results[!stringtie_results$V9 %like% "ref_gene_id",]
+stringtie_results <- stringtie_results[stringtie_results$V3 == "transcript",]
+
+chrom <- sapply(stringtie_results$V1, convert_chrom, add_chr = FALSE)
+stringtie_grx <- GRanges(seqnames = chrom,
+                         ranges = IRanges(start = stringtie_results$V4,
+                                          end = stringtie_results$V5))
+
+
+hits <- get_hits_oneloc(stringtie_grx, fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx, bgenes_grx)
+found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+
+# get false positives
+fp_grx <- stringtie_grx[!1:length(hits$caller_hits) %in% hits$caller_hits]
+fp_gene_hits <- all_gene_grx[subjectHits(findOverlaps(fp_grx, all_gene_grx))]
+n_fp <- length(unique(fp_gene_hits$genes))
+
+results <- append_results(results, "StringTie", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+plot_simu_benchmarking(results, "StringTie")
+```
+
+### KisSplice
+
+
+```{r KisSplice}
+# regenerate gene ranges objects "chr" prefix
+# (this is required as KisSplice"s bam was aligned
+# to a genome with chr prefixes)
+fus_grx <- get_granges(fus_truth, convert_chrom = TRUE)
+tsv_nsv_grx <- get_granges(tsv_nsv_truth, convert_chrom = TRUE)
+bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = FALSE)
+
+# extract hits im fusion and TSV/NSV gene regions
+bam <- here("data/simu/results/KisSplice/results.bam")
+fus1_hits <- get_kissplice_hits(bam, fus_grx[[1]])
+fus2_hits <- get_kissplice_hits(bam, fus_grx[[2]])
+tsv_nsv_hits <- get_kissplice_hits(bam, tsv_nsv_grx)
+
+# remame row names to match locations from results
+rownames(fus_truth) <- sapply(fus_truth$loc1, convert_chrom)
+rownames(tsv_nsv_truth) <- sapply(tsv_nsv_truth$loc, convert_chrom)
+
+# tally results
+found_fus <- table(fus_truth[names(fus1_hits)[fus1_hits | fus2_hits],]$fusion_type)
+found_tsv <- table(tsv_nsv_truth[names(tsv_nsv_hits[tsv_nsv_hits]),]$vartype)
+
+# count number of FP hits in background genes
+# first, get all reads that we counted as "hits"
+param <- ScanBamParam(which = c(fus_grx[[1]], fus_grx[[2]], tsv_nsv_grx),
+                      what = c("pos"))
+all_hits <- scanBam(bam, param = param)
+all_hits <- unique(unlist(all_hits))
+
+# now get all reads in the results and count all
+# reads that were not counted as hits
+param <- ScanBamParam(what = "pos")
+all_results <- unique(scanBam(bam, param = param)[[1]]$pos)
+fps <- all_results[!all_results %in% all_hits]
+n_fp <- length(fps)
+
+# count the numner of FPs in background genes
+param <- ScanBamParam(which = bgenes_grx, what = c("pos"))
+bg_hits <- scanBam(bam, param = param)
+bg_hits <- bg_hits[as.numeric(bg_hits) %in% fps]
+
+results <- append_results(results, "KisSplice", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", length(bg_hits)))
+plot_simu_benchmarking(results, "KisSplice")
+```
+
+## All results
+
+MINTIE paper Figure 3 containing results from all benchmarked methods.
+
+```{r plot_all_results}
+mr <- melt(results, id.vars = c("vartype", "class"), variable.name = "method")
+mr$method <- factor(mr$method,
+                    levels=c("MINTIE", "TAP", "Barnacle", "SQUID", "JAFFA", "Arriba", "KisSplice", "StringTie"))
+
+plot_all_simu_benchmarks(mr)
+```
+
