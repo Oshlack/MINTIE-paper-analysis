@@ -18,5 +18,5 @@ This site contains the code for generating the figures and analyses presented in
 Analysis
 --------
 
-* [Simulation benchmarking](Simulation_benchmarking.html) -- comparison of variants found by
+* [Simulation Benchmarking](Simulation_Benchmarking.html) -- comparison of variants found by
   MINTIE and 7 other methods in a simulated data set of 1,500 variants.
