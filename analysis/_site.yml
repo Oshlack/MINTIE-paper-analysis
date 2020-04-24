@@ -1,7 +1,7 @@
-name: "MINTIE_Rmarkdown"
+name: MINTIE_Rmarkdown
 output_dir: ../docs
 navbar:
-  title: "MINTIE_Rmarkdown"
+  title: MINTIE_Rmarkdown
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: Simulation_Benchmarking.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/Oshlack/MINTIE-paper-analysis
 output:
   workflowr::wflow_html:
     toc: yes
