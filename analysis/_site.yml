@@ -1,7 +1,7 @@
-name: MINTIE_Rmarkdown
+name: MINTIE paper analysis
 output_dir: ../docs
 navbar:
-  title: MINTIE_Rmarkdown
+  title: MINTIE paper analysis
   left:
   - text: Home
     href: index.html

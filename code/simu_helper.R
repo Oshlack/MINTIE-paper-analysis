@@ -97,16 +97,6 @@ get_granges <- function(truth_df, convert_chrom = FALSE, add_chr = TRUE) {
     }
 }
 
-get_granges_from_bed <- function(bed_file) {
-    # get Genomic Ranges object from a bed file
-    bed <- read.delim(bed_file, header = FALSE)
-    colnames(bed)[1:3] <- c('chrom', 'start', 'end')
-    grx <- GRanges(seqnames = bed$chrom,
-                   ranges = IRanges(start = bed$start,
-                                    end = bed$end))
-    return(grx)
-}
-
 get_arriba_genes <- function(genes) {
     # split and return all genes found in Arriba's results
     genes <- strsplit(genes, ',')[[1]]
@@ -137,15 +127,15 @@ get_hits <- function(loc1_grx, loc2_grx, fus1_grx_truth, fus2_grx_truth, tsv_nsv
     caller_hits <- Reduce(union, Map(queryHits, list(olaps1, olaps2, olaps3, olaps4)))
 
     # check overlaps for TSVs and NSVs
-    olaps1 <- suppressWarnings(findOverlaps(tsv_nsv_grx_truth, loc1_grx))
-    olaps2 <- suppressWarnings(findOverlaps(tsv_nsv_grx_truth, loc2_grx))
+    olaps1 <- suppressWarnings(findOverlaps(loc1_grx, tsv_nsv_grx_truth))
+    olaps2 <- suppressWarnings(findOverlaps(loc2_grx, tsv_nsv_grx_truth))
 
     tsv_nsv_truth_hits <- union(subjectHits(olaps1), subjectHits(olaps2))
     caller_hits <- union(caller_hits, union(queryHits(olaps1), queryHits(olaps2)))
 
     # check for overlaps in background genes
-    olaps1 <- suppressWarnings(findOverlaps(bgenes_grx, loc1_grx))
-    olaps2 <- suppressWarnings(findOverlaps(bgenes_grx, loc2_grx))
+    olaps1 <- suppressWarnings(findOverlaps(loc1_grx, bgenes_grx))
+    olaps2 <- suppressWarnings(findOverlaps(loc2_grx, bgenes_grx))
     bg_hits <- union(queryHits(olaps1), queryHits(olaps2))
 
     results <- list(fus_truth_hits, tsv_nsv_truth_hits, caller_hits, bg_hits)
@@ -162,13 +152,13 @@ get_hits_oneloc <- function(loc_grx, fus1_grx_truth, fus2_grx_truth, tsv_nsv_grx
     caller_hits <- union(queryHits(olaps1), queryHits(olaps2))
 
     # check overlaps for TSVs and NSVs
-    olaps <- suppressWarnings(findOverlaps(tsv_nsv_grx_truth, loc_grx))
+    olaps <- suppressWarnings(findOverlaps(loc_grx, tsv_nsv_grx_truth))
 
     tsv_nsv_truth_hits <- subjectHits(olaps)
     caller_hits <- union(caller_hits, queryHits(olaps))
 
     # check for overlaps in background genes
-    olaps <- suppressWarnings(findOverlaps(bgenes_grx, loc_grx))
+    olaps <- suppressWarnings(findOverlaps(loc_grx, bgenes_grx))
     bg_hits <- queryHits(olaps)
 
     results <- list(fus_truth_hits, tsv_nsv_truth_hits, caller_hits, bg_hits)

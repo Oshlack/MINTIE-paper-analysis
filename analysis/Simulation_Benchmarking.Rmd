@@ -62,7 +62,7 @@ in the false positives in displayed as printed output.
 fus_truth <- read.delim(here("data/simu/truth/allvars_fusions_simulated.tsv"))
 tsv_nsv_truth <- read.delim(here("data/simu/truth/allvars_tsvs_splice_simulated.tsv"))
 all_gene_locs <- read.delim(gzfile(here("data/simu/all_gene_locs.tsv.gz")))
-bg_gene_ref <- read.delim(here("data/simu/truth/bg_gene_ref.tsv"), header = TRUE)
+bg_gene_ref <- read.delim(here("data/simu/truth/bg_gene_ref.tsv"))
 
 # extract truth and background gene names
 var_genes_truth <- unique(c(fus_truth$gene1, fus_truth$gene2, tsv_nsv_truth$gene))
@@ -72,7 +72,7 @@ bg_genes <- bg_gene_ref$gene
 # make Genomic Ranges objects from data
 fus_grx <- get_granges(fus_truth)
 tsv_nsv_grx <- get_granges(tsv_nsv_truth)
-bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = TRUE)
+bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = TRUE, add_chr = FALSE)
 all_gene_grx <- get_granges(all_gene_locs, convert_chrom = TRUE, add_chr = FALSE)
 
 # create results object
@@ -132,7 +132,7 @@ fp_genes <- fp_genes[fp_genes != ""]
 n_fp <- length(unique(fp_genes))
 
 results <- append_results(results, "MINTIE", found_fus, found_tsv, n_fp)
-print(paste("Background genes in FPs:", sum(fp_genes %in% bg_genes)))
+print(paste("Background genes in FPs:", sum(unique(fp_genes) %in% bg_genes)))
 plot_simu_benchmarking(results, "MINTIE")
 ```
 
@@ -153,8 +153,9 @@ found_tsv <- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% tap_vargenes])
 
 # count false positives genes
 fp_svs <- tap_svs[!tap_svs$gene1 %in% var_genes_truth & !tap_svs$gene2 %in% var_genes_truth,]
-fp_nsv <- tap_svs[!tap_svs$gene %in% var_genes_truth,]
-n_fp <- nrow(fp_nsv)
+fp_nsv <- tap_nsv[!tap_nsv$gene1 %in% var_genes_truth & !tap_nsv$gene2 %in% var_genes_truth,]
+fp_genes <- unique(c(fp_svs$gene1, fp_svs$gene2, fp_nsv$gene1, fp_nsv$gene2))
+n_fp <- length(fp_genes)
 
 results <- append_results(results, "TAP", found_fus, found_tsv, n_fp)
 print(paste("Background genes in FPs:", sum(fp_genes %in% bg_genes)))
@@ -165,11 +166,23 @@ plot_simu_benchmarking(results, "TAP")
 
 
 ```{r Barnacle}
-# load hg19 truth locations and make Genomic Ranges objects
-hg19_fus1_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/fus_loc1.bed"))
-hg19_fus2_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/fus_loc2.bed"))
-hg19_tsv_nsv_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/tsv_nsv.bed"))
-hg19_bgenes_grx <- get_granges_from_bed(here("data/simu/truth/hg19_liftover/background_genes.bed"))
+# build hg19 version of truth data
+# fusions
+hg19_fus_truth <- fus_truth
+hg19_fus_truth$loc1 <- hg19_fus_truth$hg19_loc1
+hg19_fus_truth$loc2 <- hg19_fus_truth$hg19_loc2
+hg19_fus_truth$loc1[hg19_fus_truth$loc1 == ""] <- "chrZ:1-2" #dummy record for blanks
+hg19_fus_truth$loc2[hg19_fus_truth$loc2 == ""] <- "chrZ:1-2"
+# TSVs/NSVs
+hg19_tsv_nsv_truth <- tsv_nsv_truth
+hg19_tsv_nsv_truth$loc <- hg19_tsv_nsv_truth$hg19_loc
+hg19_tsv_nsv_truth$loc[hg19_tsv_nsv_truth$loc == ""] <- "chrZ:1-2"
+
+# make Genomic Ranges objects
+hg19_fus_grx <- get_granges(hg19_fus_truth, convert_chrom = FALSE)
+hg19_tsv_nsv_grx <- get_granges(hg19_tsv_nsv_truth, convert_chrom = FALSE)
+hg19_bg_gene_ref <- read.delim(here("data/simu/truth/hg19_bg_gene_ref.tsv"))
+hg19_bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = FALSE)
 
 # load barnacle results and make Genomic Ranges objects
 barnacle_results <- read.delim(here("data/simu/results/barnacle/allvars-case.barnacle.data"), header=FALSE)$V1
@@ -180,14 +193,15 @@ barnacle_grx_b <- get_barnacle_grx(barnacle_results, side_A = FALSE)
 
 # extract hits
 hits <- get_hits(barnacle_grx_a, barnacle_grx_b,
-                 hg19_fus1_grx, hg19_fus2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
                  hg19_tsv_nsv_grx, hg19_bgenes_grx)
-found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
-found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
-n_fp <- sum(!1:length(barnacle_grx_a) %in% unique(hits$caller_hits))
+found_fus <- table(hg19_fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(hg19_tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+fps <- !1:length(barnacle_grx_a) %in% unique(hits$caller_hits)
+n_fp <- sum(fps)
 
 results <- append_results(results, "Barnacle", found_fus, found_tsv, n_fp)
-print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% which(fps))))
 plot_simu_benchmarking(results, "Barnacle")
 ```
 
@@ -213,12 +227,12 @@ found_fus <- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
 found_tsv <- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
 
 # get false positives
-fps <- squid_results[!rownames(squid_results) %in% hits$caller_hits,]
+fps <- squid_results[!1:nrow(squid_results) %in% hits$caller_hits,]
 fps <- fps[!(fps$X..chrom1 %like% "alt" | fps$chrom2 %like% "alt"),]
 n_fp <-  nrow(fps)
 
 results <- append_results(results, "SQUID", found_fus, found_tsv, n_fp)
-print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% as.numeric(rownames(fps)))))
 plot_simu_benchmarking(results, "SQUID")
 ```
 
@@ -250,7 +264,7 @@ fp_genes <- unlist(sapply(fps$fusion.genes, strsplit, split=":"))
 n_fp <- length(unique(fp_genes))
 
 results <- append_results(results, "JAFFA", found_fus, found_tsv, n_fp)
-print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% as.numeric(rownames(fps)))))
 plot_simu_benchmarking(results, "JAFFA")
 ```
 
@@ -308,7 +322,7 @@ fp_gene_hits <- all_gene_grx[subjectHits(findOverlaps(fp_grx, all_gene_grx))]
 n_fp <- length(unique(fp_gene_hits$genes))
 
 results <- append_results(results, "StringTie", found_fus, found_tsv, n_fp)
-print(paste("Background genes in FPs:", sum(hits$bg_hits %in% hits$caller_hits)))
+print(paste("Background genes in FPs:", sum(unique(fp_gene_hits$genes) %in% bgenes_grx$genes)))
 plot_simu_benchmarking(results, "StringTie")
 ```
 

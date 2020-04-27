@@ -26,6 +26,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -395,7 +397,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">MINTIE_Rmarkdown</a>
+      <a class="navbar-brand" href="index.html">MINTIE paper analysis</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -410,7 +412,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/Oshlack/MINTIE-paper-analysis">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -435,7 +443,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -444,7 +452,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -453,10 +461,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-23
+<strong>Last updated:</strong> 2020-04-27
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MINTIE-paper-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -472,12 +480,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -544,16 +552,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronge57763b"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> e57763b </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree1096df5339c0644cbd1580e0fb29284b265986a8targetblank1096df5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/1096df5339c0644cbd1580e0fb29284b265986a8" target="_blank">1096df5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstronge57763b" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree1096df5339c0644cbd1580e0fb29284b265986a8targetblank1096df5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version e57763b. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/1096df5339c0644cbd1580e0fb29284b265986a8" target="_blank">1096df5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -571,8 +579,27 @@ Ignored files:
     Ignored:    data/simu/.DS_Store
     Ignored:    data/simu/results/.DS_Store
     Ignored:    data/simu/results/MINTIE/.DS_Store
+    Ignored:    data/simu/results/TAP/.sv.bedpe.swp
     Ignored:    data/simu/truth/.DS_Store
-    Ignored:    data/simu/truth/hg19_liftover/.DS_Store
+    Ignored:    data/simu/truth/.allvars_fusions_simulated.tsv.swp
+    Ignored:    data/simu/truth/.allvars_tsvs_splice_simulated.tsv.swp
+    Ignored:    data/simu/truth/.swp
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/Simulation_Benchmarking.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   code/simu_helper.R
+    Modified:   data/simu/truth/allvars_fusions_simulated.tsv
+    Modified:   data/simu/truth/allvars_tsvs_splice_simulated.tsv
+    Modified:   data/simu/truth/hg19_bg_gene_ref.tsv
+
+Staged changes:
+    Renamed1:   data/simu/truth/hg19_liftover/background_genes.bed
+    Renamed2:   data/simu/truth/hg19_bg_gene_ref.tsv
+    Deleted:    data/simu/truth/hg19_liftover/fus_loc1.bed
+    Deleted:    data/simu/truth/hg19_liftover/fus_loc2.bed
+    Deleted:    data/simu/truth/hg19_liftover/tsv_nsv.bed
 
 </code></pre>
 <p>
@@ -613,10 +640,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/663689c734380313e89bcd30cf5797f186e2a88d/docs/Simulation_Benchmarking.html" target="_blank">663689c</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-e57763b
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/e57763b94e76bcb6f090f345fdf1c6ec4acb1cab/analysis/Simulation_Benchmarking.Rmd" target="_blank">e57763b</a>
 </td>
 <td>
 Marek Cmero
@@ -633,7 +677,7 @@ Initial commit
 html
 </td>
 <td>
-e57763b
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/e57763b94e76bcb6f090f345fdf1c6ec4acb1cab/docs/Simulation_Benchmarking.html" target="_blank">e57763b</a>
 </td>
 <td>
 Marek Cmero
@@ -673,7 +717,7 @@ source(here(&quot;code/plot.R&quot;))</code></pre>
 <pre class="r"><code>fus_truth &lt;- read.delim(here(&quot;data/simu/truth/allvars_fusions_simulated.tsv&quot;))
 tsv_nsv_truth &lt;- read.delim(here(&quot;data/simu/truth/allvars_tsvs_splice_simulated.tsv&quot;))
 all_gene_locs &lt;- read.delim(gzfile(here(&quot;data/simu/all_gene_locs.tsv.gz&quot;)))
-bg_gene_ref &lt;- read.delim(here(&quot;data/simu/truth/bg_gene_ref.tsv&quot;), header = TRUE)
+bg_gene_ref &lt;- read.delim(here(&quot;data/simu/truth/bg_gene_ref.tsv&quot;))
 
 # extract truth and background gene names
 var_genes_truth &lt;- unique(c(fus_truth$gene1, fus_truth$gene2, tsv_nsv_truth$gene))
@@ -683,7 +727,7 @@ bg_genes &lt;- bg_gene_ref$gene
 # make Genomic Ranges objects from data
 fus_grx &lt;- get_granges(fus_truth)
 tsv_nsv_grx &lt;- get_granges(tsv_nsv_truth)
-bgenes_grx &lt;- get_granges(bg_gene_ref, convert_chrom = TRUE)
+bgenes_grx &lt;- get_granges(bg_gene_ref, convert_chrom = TRUE, add_chr = FALSE)
 all_gene_grx &lt;- get_granges(all_gene_locs, convert_chrom = TRUE, add_chr = FALSE)
 
 # create results object
@@ -739,10 +783,47 @@ fp_genes &lt;- fp_genes[fp_genes != &quot;&quot;]
 n_fp &lt;- length(unique(fp_genes))
 
 results &lt;- append_results(results, &quot;MINTIE&quot;, found_fus, found_tsv, n_fp)
-print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes %in% bg_genes)))</code></pre>
-<pre><code>[1] &quot;Background genes in FPs: 3&quot;</code></pre>
+print(paste(&quot;Background genes in FPs:&quot;, sum(unique(fp_genes) %in% bg_genes)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 1&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;MINTIE&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-MINTIE-1">
+Past versions of MINTIE-1.png
+</button>
+</p>
+<div id="fig-MINTIE-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="tap" class="section level3">
 <h3>TAP</h3>
@@ -759,22 +840,72 @@ found_tsv &lt;- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% tap_vargenes
 
 # count false positives genes
 fp_svs &lt;- tap_svs[!tap_svs$gene1 %in% var_genes_truth &amp; !tap_svs$gene2 %in% var_genes_truth,]
-fp_nsv &lt;- tap_svs[!tap_svs$gene %in% var_genes_truth,]
-n_fp &lt;- nrow(fp_nsv)
+fp_nsv &lt;- tap_nsv[!tap_nsv$gene1 %in% var_genes_truth &amp; !tap_nsv$gene2 %in% var_genes_truth,]
+fp_genes &lt;- unique(c(fp_svs$gene1, fp_svs$gene2, fp_nsv$gene1, fp_nsv$gene2))
+n_fp &lt;- length(fp_genes)
 
 results &lt;- append_results(results, &quot;TAP&quot;, found_fus, found_tsv, n_fp)
 print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes %in% bg_genes)))</code></pre>
-<pre><code>[1] &quot;Background genes in FPs: 3&quot;</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 2&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;TAP&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/TAP-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-TAP-1">
+Past versions of TAP-1.png
+</button>
+</p>
+<div id="fig-TAP-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="barnacle" class="section level3">
 <h3>Barnacle</h3>
-<pre class="r"><code># load hg19 truth locations and make Genomic Ranges objects
-hg19_fus1_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/fus_loc1.bed&quot;))
-hg19_fus2_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/fus_loc2.bed&quot;))
-hg19_tsv_nsv_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/tsv_nsv.bed&quot;))
-hg19_bgenes_grx &lt;- get_granges_from_bed(here(&quot;data/simu/truth/hg19_liftover/background_genes.bed&quot;))
+<pre class="r"><code># build hg19 version of truth data
+# fusions
+hg19_fus_truth &lt;- fus_truth
+hg19_fus_truth$loc1 &lt;- hg19_fus_truth$hg19_loc1
+hg19_fus_truth$loc2 &lt;- hg19_fus_truth$hg19_loc2
+hg19_fus_truth$loc1[hg19_fus_truth$loc1 == &quot;&quot;] &lt;- &quot;chrZ:1-2&quot; #dummy record for blanks
+hg19_fus_truth$loc2[hg19_fus_truth$loc2 == &quot;&quot;] &lt;- &quot;chrZ:1-2&quot;
+# TSVs/NSVs
+hg19_tsv_nsv_truth &lt;- tsv_nsv_truth
+hg19_tsv_nsv_truth$loc &lt;- hg19_tsv_nsv_truth$hg19_loc
+hg19_tsv_nsv_truth$loc[hg19_tsv_nsv_truth$loc == &quot;&quot;] &lt;- &quot;chrZ:1-2&quot;
+
+# make Genomic Ranges objects
+hg19_fus_grx &lt;- get_granges(hg19_fus_truth, convert_chrom = FALSE)
+hg19_tsv_nsv_grx &lt;- get_granges(hg19_tsv_nsv_truth, convert_chrom = FALSE)
+hg19_bg_gene_ref &lt;- read.delim(here(&quot;data/simu/truth/hg19_bg_gene_ref.tsv&quot;))
+hg19_bgenes_grx &lt;- get_granges(bg_gene_ref, convert_chrom = FALSE)
 
 # load barnacle results and make Genomic Ranges objects
 barnacle_results &lt;- read.delim(here(&quot;data/simu/results/barnacle/allvars-case.barnacle.data&quot;), header=FALSE)$V1
@@ -785,17 +916,55 @@ barnacle_grx_b &lt;- get_barnacle_grx(barnacle_results, side_A = FALSE)
 
 # extract hits
 hits &lt;- get_hits(barnacle_grx_a, barnacle_grx_b,
-                 hg19_fus1_grx, hg19_fus2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
                  hg19_tsv_nsv_grx, hg19_bgenes_grx)
-found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
-found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
-n_fp &lt;- sum(!1:length(barnacle_grx_a) %in% unique(hits$caller_hits))
+found_fus &lt;- table(hg19_fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(hg19_tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+fps &lt;- !1:length(barnacle_grx_a) %in% unique(hits$caller_hits)
+n_fp &lt;- sum(fps)
 
 results &lt;- append_results(results, &quot;Barnacle&quot;, found_fus, found_tsv, n_fp)
-print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
-<pre><code>[1] &quot;Background genes in FPs: 10&quot;</code></pre>
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% which(fps))))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 3&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;Barnacle&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Barnacle-1">
+Past versions of Barnacle-1.png
+</button>
+</p>
+<div id="fig-Barnacle-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="squid" class="section level3">
 <h3>SQUID</h3>
@@ -817,15 +986,52 @@ found_fus &lt;- table(fus_truth[hits$fus_truth_hits,]$fusion_type)
 found_tsv &lt;- table(tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
 
 # get false positives
-fps &lt;- squid_results[!rownames(squid_results) %in% hits$caller_hits,]
+fps &lt;- squid_results[!1:nrow(squid_results) %in% hits$caller_hits,]
 fps &lt;- fps[!(fps$X..chrom1 %like% &quot;alt&quot; | fps$chrom2 %like% &quot;alt&quot;),]
 n_fp &lt;-  nrow(fps)
 
 results &lt;- append_results(results, &quot;SQUID&quot;, found_fus, found_tsv, n_fp)
-print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% as.numeric(rownames(fps)))))</code></pre>
 <pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;SQUID&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/SQUID-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-SQUID-1">
+Past versions of SQUID-1.png
+</button>
+</p>
+<div id="fig-SQUID-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="jaffa" class="section level3">
 <h3>JAFFA</h3>
@@ -853,10 +1059,47 @@ fp_genes &lt;- unlist(sapply(fps$fusion.genes, strsplit, split=&quot;:&quot;))
 n_fp &lt;- length(unique(fp_genes))
 
 results &lt;- append_results(results, &quot;JAFFA&quot;, found_fus, found_tsv, n_fp)
-print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% as.numeric(rownames(fps)))))</code></pre>
 <pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;JAFFA&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-JAFFA-1">
+Past versions of JAFFA-1.png
+</button>
+</p>
+<div id="fig-JAFFA-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="arriba" class="section level3">
 <h3>Arriba</h3>
@@ -885,6 +1128,43 @@ print(paste(&quot;Background genes in FPs:&quot;, sum(fp_genes%in% bgenes_grx$ge
 <pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;Arriba&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/Arriba-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Arriba-1">
+Past versions of Arriba-1.png
+</button>
+</p>
+<div id="fig-Arriba-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="stringtie" class="section level3">
 <h3>StringTie</h3>
@@ -909,10 +1189,47 @@ fp_gene_hits &lt;- all_gene_grx[subjectHits(findOverlaps(fp_grx, all_gene_grx))]
 n_fp &lt;- length(unique(fp_gene_hits$genes))
 
 results &lt;- append_results(results, &quot;StringTie&quot;, found_fus, found_tsv, n_fp)
-print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% hits$caller_hits)))</code></pre>
-<pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
+print(paste(&quot;Background genes in FPs:&quot;, sum(unique(fp_gene_hits$genes) %in% bgenes_grx$genes)))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 1&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;StringTie&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/StringTie-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-StringTie-1">
+Past versions of StringTie-1.png
+</button>
+</p>
+<div id="fig-StringTie-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="kissplice" class="section level3">
 <h3>KisSplice</h3>
@@ -961,6 +1278,43 @@ print(paste(&quot;Background genes in FPs:&quot;, length(bg_hits)))</code></pre>
 <pre><code>[1] &quot;Background genes in FPs: 0&quot;</code></pre>
 <pre class="r"><code>plot_simu_benchmarking(results, &quot;KisSplice&quot;)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KisSplice-1">
+Past versions of KisSplice-1.png
+</button>
+</p>
+<div id="fig-KisSplice-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="all-results" class="section level2">
 <h2>All results</h2>
@@ -971,6 +1325,43 @@ mr$method &lt;- factor(mr$method,
 
 plot_all_simu_benchmarks(mr)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_all_results-1">
+Past versions of plot_all_results-1.png
+</button>
+</p>
+<div id="fig-plot_all_results-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">1096df5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -995,33 +1386,28 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] biomaRt_2.38.0       workflowr_1.6.1      Rsamtools_1.34.1    
- [4] Biostrings_2.50.2    XVector_0.22.0       GenomicRanges_1.34.0
- [7] GenomeInfoDb_1.18.2  IRanges_2.16.0       S4Vectors_0.20.1    
-[10] BiocGenerics_0.28.0  ggplot2_3.1.0        here_0.1            
-[13] dplyr_0.8.1          data.table_1.12.0   
+ [1] Rsamtools_1.34.1     Biostrings_2.50.2    XVector_0.22.0      
+ [4] GenomicRanges_1.34.0 GenomeInfoDb_1.18.2  IRanges_2.16.0      
+ [7] S4Vectors_0.20.1     BiocGenerics_0.28.0  ggplot2_3.1.0       
+[10] here_0.1             dplyr_0.8.1          data.table_1.12.0   
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.1             prettyunits_1.0.2      assertthat_0.2.1      
- [4] rprojroot_1.3-2        digest_0.6.18          R6_2.4.0              
- [7] plyr_1.8.4             backports_1.1.3        RSQLite_2.1.1         
-[10] evaluate_0.13          httr_1.4.0             pillar_1.3.1          
-[13] zlibbioc_1.28.0        rlang_0.4.2            progress_1.2.0        
-[16] lazyeval_0.2.2         blob_1.1.1             rmarkdown_1.12        
-[19] labeling_0.3           BiocParallel_1.14.2    stringr_1.4.0         
-[22] RCurl_1.95-4.12        bit_1.1-14             munsell_0.5.0         
-[25] compiler_3.5.1         httpuv_1.5.2           xfun_0.5              
-[28] pkgconfig_2.0.2        htmltools_0.3.6        tidyselect_0.2.5      
-[31] tibble_2.1.1           GenomeInfoDbData_1.2.0 codetools_0.2-16      
-[34] XML_3.98-1.19          crayon_1.3.4           withr_2.1.2           
-[37] later_1.0.0            bitops_1.0-6           grid_3.5.1            
-[40] gtable_0.3.0           DBI_1.0.0              git2r_0.26.1          
-[43] magrittr_1.5           scales_1.0.0           stringi_1.4.3         
-[46] reshape2_1.4.3         fs_1.2.7               promises_1.1.0        
-[49] tools_3.5.1            bit64_0.9-7            Biobase_2.42.0        
-[52] glue_1.3.1             purrr_0.3.2            hms_0.4.2             
-[55] yaml_2.2.0             AnnotationDbi_1.44.0   colorspace_1.4-1      
-[58] memoise_1.1.0          knitr_1.22            </code></pre>
+ [1] tidyselect_0.2.5       xfun_0.5               reshape2_1.4.3        
+ [4] purrr_0.3.2            colorspace_1.4-1       htmltools_0.3.6       
+ [7] yaml_2.2.0             rlang_0.4.2            later_1.0.0           
+[10] pillar_1.3.1           glue_1.3.1             withr_2.1.2           
+[13] BiocParallel_1.14.2    GenomeInfoDbData_1.2.0 plyr_1.8.4            
+[16] stringr_1.4.0          zlibbioc_1.28.0        munsell_0.5.0         
+[19] gtable_0.3.0           workflowr_1.6.1        codetools_0.2-16      
+[22] evaluate_0.13          labeling_0.3           knitr_1.22            
+[25] httpuv_1.5.2           Rcpp_1.0.1             promises_1.1.0        
+[28] scales_1.0.0           backports_1.1.3        fs_1.2.7              
+[31] digest_0.6.18          stringi_1.4.3          grid_3.5.1            
+[34] rprojroot_1.3-2        tools_3.5.1            bitops_1.0-6          
+[37] magrittr_1.5           lazyeval_0.2.2         RCurl_1.95-4.12       
+[40] tibble_2.1.1           crayon_1.3.4           whisker_0.3-2         
+[43] pkgconfig_2.0.2        assertthat_0.2.1       rmarkdown_1.12        
+[46] R6_2.4.0               git2r_0.26.1           compiler_3.5.1        </code></pre>
 </div>
 </div>
 </div>

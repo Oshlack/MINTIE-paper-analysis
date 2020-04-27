@@ -10,3 +10,4 @@ analysis/*html
 analysis/*cache
 analysis/site_libs
 packrat/lib*/
+*swp
