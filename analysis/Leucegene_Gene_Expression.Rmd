@@ -1,0 +1,137 @@
+---
+title: "Leucegene Gene Expression"
+output:
+  workflowr::wflow_html:
+      code_folding: hide
+---
+
+```{r knitr, include = FALSE}
+DOCNAME = "Leucegene_Gene_Expression"
+knitr::opts_chunk$set(autodep        = TRUE,
+                      cache          = TRUE,
+                      cache.path     = paste0("cache/", DOCNAME, "/"),
+                      cache.comments = FALSE,
+                      echo           = TRUE,
+                      error          = FALSE,
+                      fig.align      = "center",
+                      fig.width      = 9,
+                      fig.height     = 5,
+                      message        = FALSE,
+                      warning        = FALSE)
+```
+
+
+```{r libraries, cache = FALSE}
+# util
+library(data.table)
+library(dplyr)
+library(here)
+library(stringr)
+
+# plotting
+library(ggplot2)
+library(RColorBrewer)
+
+# bioinformatics/stats helpers
+library(tximport)
+library(limma)
+library(matrixStats)
+```
+
+
+```{r source, cache = FALSE}
+source(here("code/plot.R"))
+```
+
+
+```{r options, cache = FALSE}
+options(stringsAsFactors = FALSE)
+```
+
+Leucegene Gene Expression
+=========================
+
+Here we generate a PCA plot for all the Leucegene samples used in the MINTIE
+paper KMT2A-PTD and normal sample analyses, and perform a few small expression
+analyses presented in the paper.
+
+```{r load_data}
+salmon_dir <- here("data/salmon_out")
+
+# construct list of quant.sf files 
+quant_files <- list.files(salmon_dir) %>% 
+                    str_c(salmon_dir, ., "quant.sf", sep = "/")
+
+# transcript > gene reference file for CHESS
+tx2gene <- read.delim(gzfile(here("data/ref/tx2gene.txt.gz")))
+
+# import quant files
+txi <- tximport(quant_files,
+                type = "salmon",
+                countsFromAbundance = "lengthScaledTPM",
+                tx2gene = tx2gene,
+                ignoreTxVersion = FALSE)
+
+# load sample info
+celltype <- read.delim(here("data/leucegene/celltypes_info.tsv"))
+kmt2a_samples <- read.delim(here("data/leucegene/KMT2A-PTD_samples.txt"), header = FALSE)$V1
+aml_controls <- read.delim(here("data/leucegene/selected_13_CBF_AML_controls.txt"), header = FALSE)$V1
+nup_samples <- read.delim(here("data/leucegene/NUP98-NSD1_samples.txt"), header = FALSE)$V1
+
+# reduced normal control set (used in KMT2A-PTD analysis)
+s1 <- celltype$SRX_ID[celltype$cell_type == "Total white blood cells"][1]
+s2 <- celltype$SRX_ID[celltype$cell_type == "Monocytes"][1]
+s3 <- celltype$SRX_ID[celltype$cell_type == "Granulocytes"][1]
+reduced_normal_controls <- c(s1, s2, s3)
+```
+
+## PCA plot
+
+PCA of gene expression derived from Salmon quantification for
+Leucegene KMT2A-PTD and normals. Normal samples used as controls
+in the reduced set of controls are circled.
+
+```{r PCA_plot}
+# get counts matrix
+counts <- txi$counts
+colnames(counts) <- list.files(salmon_dir)
+
+# variance stabilised, log2 CPM transformation
+ve <- voom(counts)$E
+
+# select 500 most variable genes
+select <- order(rowVars(ve), decreasing = T)[1:500]
+
+# perform PCA amd select first two components
+pr <- prcomp(ve[select,])
+pc <- data.frame(pr$rotation[,1:2])
+pc$sample <- rownames(pc)
+
+# attach labels
+pc <- left_join(pc, celltype, by = c("sample" = "SRX_ID"))
+pc$cell_type[pc$sample %in% kmt2a_samples] <- "KMT2A-PTD"
+pc$cell_type[pc$sample %in% nup_samples] <- "NUP98-NSD1"
+pc$cell_type[pc$sample %in% aml_controls] <- "CBF AML controls"
+pc <- pc[!is.na(pc$cell_type),]
+
+# make colour mappings
+cols <- brewer.pal(8, "RdBu")
+names(cols) <- c("KMT2A-PTD",
+                 "CBF AML controls",
+                 "Granulocytes",
+                 "Monocytes",
+                 "Total white blood cells",
+                 "T-cells",
+                 "B-cells")
+pc$cell_type <- factor(pc$cell_type, levels = names(cols))
+
+# plot
+ggplot(pc, aes(PC1, PC2, colour = cell_type)) +
+    geom_point(size = 2.5) +
+    theme_bw() +
+    scale_color_manual(values = cols) +
+    theme(legend.title = element_blank()) +
+    geom_point(data = pc[pc$sample %in% reduced_normal_controls,],
+               shape = 1, size = 5, fill = NA, colour = 'darkgrey')
+```
+

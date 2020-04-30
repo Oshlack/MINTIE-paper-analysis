@@ -61,7 +61,7 @@ in the false positives in displayed as printed output.
 ```{r load_truth_data}
 fus_truth <- read.delim(here("data/simu/truth/allvars_fusions_simulated.tsv"))
 tsv_nsv_truth <- read.delim(here("data/simu/truth/allvars_tsvs_splice_simulated.tsv"))
-all_gene_locs <- read.delim(gzfile(here("data/simu/all_gene_locs.tsv.gz")))
+all_gene_locs <- read.delim(gzfile(here("data/ref/all_gene_locs.tsv.gz")))
 bg_gene_ref <- read.delim(here("data/simu/truth/bg_gene_ref.tsv"))
 
 # extract truth and background gene names

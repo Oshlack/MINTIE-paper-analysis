@@ -15,8 +15,10 @@ MINTIE: identifying novel structural and splice variants in transcriptomes using
 
 This site contains the code for generating the figures and analyses presented in the (upcoming) MINTIE paper.
 
-Analysis
+Analyses
 --------
 
 * [Simulation Benchmarking](Simulation_Benchmarking.html) -- comparison of variants found by
   MINTIE and 7 other methods in a simulated data set of 1,500 variants.
+* [Leucegene Gene Expression](Leucegene_Gene_Expression.html) -- PCA plot for Leucegene KMT2A-PTD
+  and normals cohorts and other analyses.
