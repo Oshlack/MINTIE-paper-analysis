@@ -7,6 +7,10 @@ navbar:
     href: index.html
   - text: Simulation Benchmarking
     href: Simulation_Benchmarking.html
+  - text: Leucegene Gene Expression
+    href: Leucegene_Gene_Expression.html
+  - text: Leucegene Normals
+    href: Leucegene_Normals.html
   - text: License
     href: license.html
   right:
