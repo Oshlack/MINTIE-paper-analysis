@@ -22,3 +22,5 @@ Analyses
   MINTIE and 7 other methods in a simulated data set of 1,500 variants.
 * [Leucegene Gene Expression](Leucegene_Gene_Expression.html) -- PCA plot for Leucegene KMT2A-PTD
   and normals cohorts and other analyses.
+* [Leucegene Normals](Leucegene_Normals.html) -- analysis of MINTIE run on Leucegene non-cancer
+  samples.

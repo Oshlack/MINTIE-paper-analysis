@@ -1,0 +1,121 @@
+---
+title: "Leucegene Normals"
+output:
+  workflowr::wflow_html:
+      code_folding: hide
+---
+
+```{r knitr, include = FALSE}
+DOCNAME = "Leucegene_Gene_Expression"
+knitr::opts_chunk$set(autodep        = TRUE,
+                      cache          = TRUE,
+                      cache.path     = paste0("cache/", DOCNAME, "/"),
+                      cache.comments = FALSE,
+                      echo           = TRUE,
+                      error          = FALSE,
+                      fig.align      = "center",
+                      fig.width      = 9,
+                      fig.height     = 5,
+                      message        = FALSE,
+                      warning        = FALSE)
+```
+
+
+```{r libraries, cache = FALSE}
+# util
+library(data.table)
+library(dplyr)
+library(here)
+library(stringr)
+
+# plotting
+library(ggplot2)
+
+# bioinformatics/stats helpers
+library(edgeR)
+```
+
+
+```{r options, cache = FALSE}
+options(stringsAsFactors = FALSE)
+```
+
+Leucegene Normals
+=================
+
+Here we generate the results presented in the MINTIE paper, of the method
+run on a set of non-cancer samples obtained from Leucegene.
+
+
+```{r load_data}
+# load MINTIE results from leucegene normals
+normals_results_dir <- "data/leucegene/normals_results"
+normals_results <- list.files(here(normals_results_dir), full.names = TRUE) %>% 
+                        lapply(., read.delim) %>%
+                        rbindlist() %>%
+                        filter(logFC > 5)
+
+# load cell type info and add to results
+celltype <- read.delim(here("data/leucegene/celltypes_info.tsv"))
+normals_results <- inner_join(normals_results, celltype,
+                              by = c("sample" = "SRX_ID"))
+```
+
+## Variant Genes
+
+MINTIE paper Figure 4 showing the number of variant genes called across
+the Leucegene normal samples.
+
+```{r plot_variant_genes}
+var_genes <- normals_results$overlapping_genes %>% 
+                str_split("\\||:")
+
+repeat_rows <- rep(1:nrow(normals_results), sapply(var_genes, length))
+results_by_gene <- data.table(normals_results[repeat_rows,])
+results_by_gene$gene <- unlist(var_genes)
+
+results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "cell_type")]
+results_summary <- results_summary %>% arrange(cell_type, V1) %>% data.table()
+results_summary$sample <- factor(results_summary$sample,
+                                 levels = results_summary$sample)
+
+# reorder cell types by total
+results_totals <- results_summary[, sum(V1), by = c("cell_type")] %>%
+                    arrange(desc(V1))
+results_summary$cell_type <- factor(results_summary$cell_type,
+                                    levels = results_totals$cell_type)
+
+ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
+    geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
+    theme_bw() +
+    xlab("") +
+    ylab("Genes with variants")
+```
+
+## Protein Coding Genes
+
+Proportion of protein coding genes observed in the MINTIE results.
+
+```{r protein_coding_proportion}
+# load CHESS gene reference containing gene types
+chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
+
+# join gene info with results and summarise by gene type
+gene_count <- left_join(results_by_gene, chess_genes, by = c("gene" = "Gene_Name")) %>%
+                group_by(Gene_Type) %>%
+                summarise(n_genes = length(unique(gene))) %>%
+                data.table()
+
+n_protein_coding <- gene_count[gene_count$Gene_Type == "protein_coding", "n_genes"]
+print(paste("proportion of protein coding genes =", n_protein_coding / sum(gene_count$n_genes)))
+```
+
+## Controls Comparison
+
+MINTIE Supplementary Figure 3 showing variant genes called in Leucegene
+Total White Blood Cell samples with different cell types as control groups.
+
+```{r controls_comparison}
+
+```
+

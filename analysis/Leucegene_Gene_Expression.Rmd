@@ -35,14 +35,9 @@ library(RColorBrewer)
 # bioinformatics/stats helpers
 library(tximport)
 library(limma)
+library(edgeR)
 library(matrixStats)
 ```
-
-
-```{r source, cache = FALSE}
-source(here("code/plot.R"))
-```
-
 
 ```{r options, cache = FALSE}
 options(stringsAsFactors = FALSE)
@@ -56,11 +51,13 @@ paper KMT2A-PTD and normal sample analyses, and perform a few small expression
 analyses presented in the paper.
 
 ```{r load_data}
-salmon_dir <- here("data/salmon_out")
+salmon_dir <- here("data/leucegene/salmon_out")
 
 # construct list of quant.sf files 
-quant_files <- list.files(salmon_dir) %>% 
-                    str_c(salmon_dir, ., "quant.sf", sep = "/")
+quant_files <- list.files(salmon_dir,
+                          full.names = TRUE,
+                          recursive = TRUE,
+                          pattern = "quant.sf")
 
 # transcript > gene reference file for CHESS
 tx2gene <- read.delim(gzfile(here("data/ref/tx2gene.txt.gz")))
@@ -87,9 +84,9 @@ reduced_normal_controls <- c(s1, s2, s3)
 
 ## PCA plot
 
-PCA of gene expression derived from Salmon quantification for
-Leucegene KMT2A-PTD and normals. Normal samples used as controls
-in the reduced set of controls are circled.
+MINTIE paper Supplememtary Figure 1. PCA of gene expression derived
+from Salmon quantification for Leucegene KMT2A-PTD and normals. Normal
+samples used as controls in the reduced set of controls are circled.
 
 ```{r PCA_plot}
 # get counts matrix
@@ -133,5 +130,30 @@ ggplot(pc, aes(PC1, PC2, colour = cell_type)) +
     theme(legend.title = element_blank()) +
     geom_point(data = pc[pc$sample %in% reduced_normal_controls,],
                shape = 1, size = 5, fill = NA, colour = 'darkgrey')
+```
+
+## Expressed genes
+
+Number of expressed genes found in Leucegene normals and percentage of those
+genes that are protein coding.
+
+```{r}
+# load CHESS gene reference containing gene types
+chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
+
+# construct a normal counts matrix of "expressed" counts
+# (>1 CPM in at least one sample)
+normal_counts <- counts[,colnames(counts) %in% celltype$SRX_ID]
+keep <- rowSums(cpm(normal_counts) > 1) >= 1
+normal_counts <- normal_counts[keep,]
+
+# get gene info
+expressed_genes <- rownames(normal_counts)
+gene_types <- table(chess_genes$Gene_Type[chess_genes$Gene_Name %in% expressed_genes])
+
+print(paste(length(expressed_genes), "expressed genes found in Leucegene normals."))
+print(gene_types)
+print(paste("Proportion of expressed genes that are protein coding:",
+            gene_types["protein_coding"] / length(expressed_genes)))
 ```
 
