@@ -11,4 +11,5 @@ analysis/*cache
 analysis/site_libs
 packrat/lib*/
 data/leucegene/salmon_out/*
+output/Leucegene_gene_counts.tsv
 *swp
