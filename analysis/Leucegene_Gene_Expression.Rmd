@@ -8,7 +8,7 @@ output:
 ```{r knitr, include = FALSE}
 DOCNAME = "Leucegene_Gene_Expression"
 knitr::opts_chunk$set(autodep        = TRUE,
-                      cache          = TRUE,
+                      cache          = FALSE,
                       cache.path     = paste0("cache/", DOCNAME, "/"),
                       cache.comments = FALSE,
                       echo           = TRUE,
@@ -50,7 +50,7 @@ Here we generate a PCA plot for all the Leucegene samples used in the MINTIE
 paper KMT2A-PTD and normal sample analyses, and perform a few small expression
 analyses presented in the paper.
 
-```{r load_data}
+```{r load_data, cache = TRUE}
 salmon_dir <- here("data/leucegene/salmon_out")
 
 # construct list of quant.sf files 
@@ -92,6 +92,7 @@ samples used as controls in the reduced set of controls are circled.
 # get counts matrix
 counts <- txi$counts
 colnames(counts) <- list.files(salmon_dir)
+write.table(counts, file = here("output/Leucegene_gene_counts.tsv"), sep = "\t", quote = FALSE, row.names = FALSE)
 
 # variance stabilised, log2 CPM transformation
 ve <- voom(counts)$E
@@ -137,7 +138,7 @@ ggplot(pc, aes(PC1, PC2, colour = cell_type)) +
 Number of expressed genes found in Leucegene normals and percentage of those
 genes that are protein coding.
 
-```{r}
+```{r expressed_genes}
 # load CHESS gene reference containing gene types
 chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
 
@@ -156,4 +157,3 @@ print(gene_types)
 print(paste("Proportion of expressed genes that are protein coding:",
             gene_types["protein_coding"] / length(expressed_genes)))
 ```
-

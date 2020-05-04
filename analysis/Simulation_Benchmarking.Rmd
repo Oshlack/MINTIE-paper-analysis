@@ -8,7 +8,7 @@ output:
 ```{r knitr, include = FALSE}
 DOCNAME = "Simulation_Benchmarking"
 knitr::opts_chunk$set(autodep        = TRUE,
-                      cache          = TRUE,
+                      cache          = FALSE,
                       cache.path     = paste0("cache/", DOCNAME, "/"),
                       cache.comments = FALSE,
                       echo           = TRUE,

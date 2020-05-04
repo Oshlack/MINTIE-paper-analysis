@@ -8,7 +8,7 @@ output:
 ```{r knitr, include = FALSE}
 DOCNAME = "Leucegene_Gene_Expression"
 knitr::opts_chunk$set(autodep        = TRUE,
-                      cache          = TRUE,
+                      cache          = FALSE,
                       cache.path     = paste0("cache/", DOCNAME, "/"),
                       cache.comments = FALSE,
                       echo           = TRUE,
@@ -40,12 +40,16 @@ library(edgeR)
 options(stringsAsFactors = FALSE)
 ```
 
+
+```{r source, cache = FALSE}
+source(here("code/leucegene_helper.R"))
+```
+
 Leucegene Normals
 =================
 
 Here we generate the results presented in the MINTIE paper, of the method
 run on a set of non-cancer samples obtained from Leucegene.
-
 
 ```{r load_data}
 # load MINTIE results from leucegene normals
@@ -59,6 +63,22 @@ normals_results <- list.files(here(normals_results_dir), full.names = TRUE) %>%
 celltype <- read.delim(here("data/leucegene/celltypes_info.tsv"))
 normals_results <- inner_join(normals_results, celltype,
                               by = c("sample" = "SRX_ID"))
+```
+
+## Variant Summary
+
+Summary results for variants called by MINTIE on Leucegene normals.
+
+```{r}
+summary_by_sample <- normals_results %>%
+                        group_by(sample) %>%
+                        summarise(variants = length(unique(variant_id)))
+summary_by_class <- collate_vartypes(normals_results) %>%
+                        group_by(class) %>%
+                        summarise(variants = length(unique(variant_id))) %>%
+                        mutate(fraction = variants / sum(variants))
+print(summary_by_sample)
+print(summary_by_class)
 ```
 
 ## Variant Genes
@@ -79,6 +99,9 @@ results_summary <- results_summary %>% arrange(cell_type, V1) %>% data.table()
 results_summary$sample <- factor(results_summary$sample,
                                  levels = results_summary$sample)
 
+print("Summary of variant genes called across samples:")
+summary(results_summary$V1)
+
 # reorder cell types by total
 results_totals <- results_summary[, sum(V1), by = c("cell_type")] %>%
                     arrange(desc(V1))
@@ -89,6 +112,31 @@ ggplot(results_summary, aes(cell_type, V1, group=sample)) +
     geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
     theme_bw() +
     xlab("") +
+    ylab("Genes with variants")
+```
+
+## Library Size and Variant Number Correlation
+
+Perform correlation calculation on the library size and number of variant
+genes found per sample.
+
+[Leucegene Gene Expression](Leucegene_Gene_Expression.html) notebook must be
+run before this chunk to generate the expression counts matrix.
+
+```{r libsize_var_cor}
+# load counts data, calculate library sizes and add to results summary
+counts <- fread(here("output/Leucegene_gene_counts.tsv"))
+libsizes <- apply(counts, 2, sum) %>% data.frame()
+colnames(libsizes) <- "libsize"
+libsizes$sample <- factor(rownames(libsizes),
+                          levels = results_summary$sample)
+results_summary <- left_join(results_summary, libsizes, by ="sample", "sample")
+
+lib_var_cor <- cor(results_summary$libsize, results_summary$V1, method = "spearman")
+print(paste("Spearman correlation between library size and variant genes called:", lib_var_cor))
+ggplot(results_summary, aes(libsize, V1, colour = cell_type)) +
+    geom_point() +
+    theme_bw() +
     ylab("Genes with variants")
 ```
 
@@ -116,6 +164,56 @@ MINTIE Supplementary Figure 3 showing variant genes called in Leucegene
 Total White Blood Cell samples with different cell types as control groups.
 
 ```{r controls_comparison}
+# get TWBC results
+controls_comp <- normals_results[normals_results$cell_type == "Total white blood cells",]
+controls_comp$controls <- "twbc"
+controls_comp$cell_type <- NULL
 
+# load comparisons against all other controls
+controls_test_dir <- here("data/leucegene/normals_controls_test_results")
+celltypes <- list.files(controls_test_dir)
+for (celltype in celltypes) {
+    tmp <- str_c(controls_test_dir, celltype, sep = "/") %>%
+            list.files(., full.names = TRUE) %>%
+            lapply(., read.delim) %>%
+            rbindlist() %>%
+            filter(logFC > 5) %>%
+            mutate(controls = celltype)
+    controls_comp <- rbind(controls_comp, tmp)
+}
+
+# extract variant genes and make summary
+var_genes <- controls_comp$overlapping_genes %>%
+                str_split("\\||:")
+
+repeat_rows <- rep(1:nrow(controls_comp), sapply(var_genes, length))
+results_by_gene <- data.table(controls_comp[repeat_rows,])
+results_by_gene$gene <- unlist(var_genes)
+
+results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "controls")]
+results_summary <- results_summary %>% arrange(sample, V1) %>% data.table()
+results_summary$sample <- factor(results_summary$sample,
+                                 levels = unique(results_summary$sample))
+
+# reorder by totals across different controls
+results_totals <- results_summary[, sum(V1), by = c("controls")] %>%
+                    arrange(V1)
+results_summary$controls <- factor(results_summary$controls,
+                                    levels = results_totals$controls)
+
+print("Total variant genes called using different controls:")
+print(results_summary)
+
+ggplot(results_summary, aes(sample, V1, fill=controls)) +
+    geom_bar(position=position_dodge2(width=0.9, preserve="single"), stat="identity") +
+    theme_bw() +
+    xlab("") +
+    ylab("Genes with variants") +
+    scale_fill_brewer(palette = "RdYlBu",
+                      labels =  c("mono" = "Monocytes",
+                                  "twbc" = "Total white blood cells",
+                                  "gran" = "Granulocytes",
+                                  "tc" = "T-Cells",
+                                  "bc" = "B-Cells"))
 ```
 
