@@ -11,7 +11,7 @@
 
 
 
-<title>Leucegene Normals</title>
+<title>Leucegene Validation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -445,7 +445,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Leucegene Normals</h1>
+<h1 class="title toc-ignore">Leucegene Validation</h1>
 
 </div>
 
@@ -606,7 +606,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/Leucegene_Normals.Rmd</code>) and HTML (<code>docs/Leucegene_Normals.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/Leucegene_Validation.Rmd</code>) and HTML (<code>docs/Leucegene_Validation.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -635,7 +635,24 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/ff4b1dc2a29ff0d025a8bdbb6116e8ced7da136e/analysis/Leucegene_Normals.Rmd" target="_blank">ff4b1dc</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/44d8c370654ae6e176c0a86683ed2d95890c0200/analysis/Leucegene_Validation.Rmd" target="_blank">44d8c37</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-06
+</td>
+<td>
+Build leucegene validation notebook.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/ff4b1dc2a29ff0d025a8bdbb6116e8ced7da136e/analysis/Leucegene_Validation.Rmd" target="_blank">ff4b1dc</a>
 </td>
 <td>
 Marek Cmero
@@ -645,74 +662,6 @@ Marek Cmero
 </td>
 <td>
 Leucegene results
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/358aa53d68acc377f4eca81bd919c2cc2b9b3f72/docs/Leucegene_Normals.html" target="_blank">358aa53</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/453d754398ac058d75d1b096c6217d25c028549f/analysis/Leucegene_Normals.Rmd" target="_blank">453d754</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-04
-</td>
-<td>
-Added controls comparison in normals analysis. Added variant class collation function. Added variant summary for
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/Leucegene_Normals.html" target="_blank">4a5d6ae</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/9556ebb67fcee8884d57646f4a86dfbd02f42a61/analysis/Leucegene_Normals.Rmd" target="_blank">9556ebb</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-01
-</td>
-<td>
-Added leucegene normals analysis. Added expressed genes analysis to leucegene gene expression analysis.
 </td>
 </tr>
 </tbody>
@@ -735,231 +684,43 @@ library(ggplot2)
 library(edgeR)</code></pre>
 <pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code>source(here(&quot;code/leucegene_helper.R&quot;))</code></pre>
-<div id="leucegene-normals" class="section level1">
-<h1>Leucegene Normals</h1>
-<p>Here we generate the results presented in the MINTIE paper, of the method run on a set of non-cancer samples obtained from Leucegene.</p>
-<pre class="r"><code># load MINTIE results from leucegene normals
-normals_results_dir &lt;- here(&quot;data/leucegene/normals_results&quot;)
-normals_results &lt;- list.files(normals_results_dir, full.names = TRUE) %&gt;% 
-                        lapply(., read.delim) %&gt;%
-                        rbindlist() %&gt;%
-                        filter(logFC &gt; 5)
+<div id="leucegene-validation" class="section level1">
+<h1>Leucegene Validation</h1>
+<pre class="r"><code># load SRX to patient ID lookup table
+kmt2a_patient_lookup &lt;- read.delim(here(&quot;data/leucegene/sample_info/KMT2A-PTD_samples.txt&quot;),
+                                   header = FALSE,
+                                   col.names = c(&quot;sample&quot;, &quot;patient&quot;))
 
-# load cell type info and add to results
-celltype &lt;- read.delim(here(&quot;data/leucegene/sample_info/celltypes_info.tsv&quot;))
-normals_results &lt;- inner_join(normals_results, celltype,
-                              by = c(&quot;sample&quot; = &quot;SRX_ID&quot;))</code></pre>
-<div id="variant-summary" class="section level2">
-<h2>Variant Summary</h2>
-<p>Summary results for variants called by MINTIE on Leucegene normals.</p>
-<pre class="r"><code>summary_by_sample &lt;- normals_results %&gt;%
-                        group_by(sample) %&gt;%
-                        summarise(variants = length(unique(variant_id)))
-summary_by_class &lt;- collate_vartypes(normals_results) %&gt;%
-                        group_by(class) %&gt;%
-                        summarise(variants = length(unique(variant_id))) %&gt;%
-                        mutate(fraction = variants / sum(variants))
-print(summary_by_sample)</code></pre>
-<pre><code># A tibble: 23 x 2
-   sample    variants
-   &lt;chr&gt;        &lt;int&gt;
- 1 SRX372044      181
- 2 SRX372045      137
- 3 SRX372046      213
- 4 SRX372047      639
- 5 SRX372048     1119
- 6 SRX372049      143
- 7 SRX372050      497
- 8 SRX372051      449
- 9 SRX372052      235
-10 SRX372053       75
-# … with 13 more rows</code></pre>
-<pre class="r"><code>print(summary_by_class)</code></pre>
-<pre><code># A tibble: 4 x 3
-  class                          variants fraction
-  &lt;chr&gt;                             &lt;int&gt;    &lt;dbl&gt;
-1 Fusion                               69   0.0117
-2 Novel splice variant               1992   0.338 
-3 Transcribed structural variant     1234   0.210 
-4 Unknown                            2593   0.440 </code></pre>
-</div>
-<div id="variant-genes" class="section level2">
-<h2>Variant Genes</h2>
-<p>MINTIE paper Figure 4 showing the number of variant genes called across the Leucegene normal samples.</p>
-<pre class="r"><code>var_genes &lt;- normals_results$overlapping_genes %&gt;% 
-                str_split(&quot;\\||:&quot;)
-
-repeat_rows &lt;- rep(1:nrow(normals_results), sapply(var_genes, length))
-results_by_gene &lt;- data.table(normals_results[repeat_rows,])
-results_by_gene$gene &lt;- unlist(var_genes)
-
-results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;sample&quot;, &quot;cell_type&quot;)]
-results_summary &lt;- results_summary %&gt;% arrange(cell_type, V1) %&gt;% data.table()
-results_summary$sample &lt;- factor(results_summary$sample,
-                                 levels = results_summary$sample)
-
-print(&quot;Summary of variant genes called across samples:&quot;)</code></pre>
-<pre><code>[1] &quot;Summary of variant genes called across samples:&quot;</code></pre>
-<pre class="r"><code>summary(results_summary$V1)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   81.0   130.5   155.0   186.7   218.0   496.0 </code></pre>
-<pre class="r"><code># reorder cell types by total
-results_totals &lt;- results_summary[, sum(V1), by = c(&quot;cell_type&quot;)] %&gt;%
-                    arrange(desc(V1))
-results_summary$cell_type &lt;- factor(results_summary$cell_type,
-                                    levels = results_totals$cell_type)
-
-ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
-    geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
-    theme_bw() +
-    xlab(&quot;&quot;) +
-    ylab(&quot;Genes with variants&quot;)</code></pre>
-<p><img src="figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" width="864" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_variant_genes-1">
-Past versions of plot_variant_genes-1.png
-</button>
-</p>
-<div id="fig-plot_variant_genes-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">4a5d6ae</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-01
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="library-size-and-variant-number-correlation" class="section level2">
-<h2>Library Size and Variant Number Correlation</h2>
-<p>Perform correlation calculation on the library size and number of variant genes found per sample.</p>
-<p><a href="Leucegene_Gene_Expression.html">Leucegene Gene Expression</a> notebook must be run before this chunk to generate the expression counts matrix.</p>
-<pre class="r"><code># load counts data, calculate library sizes and add to results summary
-counts &lt;- fread(here(&quot;output/Leucegene_gene_counts.tsv&quot;))
-libsizes &lt;- apply(counts, 2, sum) %&gt;% data.frame()
-colnames(libsizes) &lt;- &quot;libsize&quot;
-libsizes$sample &lt;- factor(rownames(libsizes),
-                          levels = results_summary$sample)
-results_summary &lt;- left_join(results_summary, libsizes, by =&quot;sample&quot;, &quot;sample&quot;)
-
-lib_var_cor &lt;- cor(results_summary$libsize, results_summary$V1, method = &quot;spearman&quot;)
-print(paste(&quot;Spearman correlation between library size and variant genes called:&quot;, lib_var_cor))</code></pre>
-<pre><code>[1] &quot;Spearman correlation between library size and variant genes called: 0.140845074722306&quot;</code></pre>
-<pre class="r"><code>ggplot(results_summary, aes(libsize, V1, colour = cell_type)) +
-    geom_point() +
-    theme_bw() +
-    ylab(&quot;Genes with variants&quot;)</code></pre>
-<p><img src="figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" width="864" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-libsize_var_cor-1">
-Past versions of libsize_var_cor-1.png
-</button>
-</p>
-<div id="fig-libsize_var_cor-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/358aa53d68acc377f4eca81bd919c2cc2b9b3f72/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">358aa53</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="protein-coding-genes" class="section level2">
-<h2>Protein Coding Genes</h2>
-<p>Proportion of protein coding genes observed in the MINTIE results.</p>
-<pre class="r"><code># load CHESS gene reference containing gene types
-chess_genes &lt;- read.delim(gzfile(here(&quot;data/ref/chess2.2.genes.gz&quot;)))
-
-# join gene info with results and summarise by gene type
-gene_count &lt;- left_join(results_by_gene, chess_genes, by = c(&quot;gene&quot; = &quot;Gene_Name&quot;)) %&gt;%
-                group_by(Gene_Type) %&gt;%
-                summarise(n_genes = length(unique(gene))) %&gt;%
-                data.table()
-
-n_protein_coding &lt;- gene_count[gene_count$Gene_Type == &quot;protein_coding&quot;, &quot;n_genes&quot;]
-print(paste(&quot;proportion of protein coding genes =&quot;, n_protein_coding / sum(gene_count$n_genes)))</code></pre>
-<pre><code>[1] &quot;proportion of protein coding genes = 0.81547619047619&quot;</code></pre>
-</div>
-<div id="controls-comparison" class="section level2">
-<h2>Controls Comparison</h2>
-<p>MINTIE Supplementary Figure 3 showing variant genes called in Leucegene Total White Blood Cell samples with different cell types as control groups.</p>
-<pre class="r"><code># get TWBC results
-controls_comp &lt;- normals_results[normals_results$cell_type == &quot;Total white blood cells&quot;,]
-controls_comp$controls &lt;- &quot;twbc&quot;
-controls_comp$cell_type &lt;- NULL
+kmt2a_results_dir &lt;- here(&quot;data/leucegene/KMT2A-PTD_results&quot;)
 
 # load comparisons against all other controls
-controls_test_dir &lt;- here(&quot;data/leucegene/normals_controls_test_results&quot;)
-celltypes &lt;- list.files(controls_test_dir)
-for (celltype in celltypes) {
-    tmp &lt;- str_c(controls_test_dir, celltype, sep = &quot;/&quot;) %&gt;%
+kmt2a_results &lt;- NULL
+control_sets &lt;- list.files(kmt2a_results_dir)
+for (controls in control_sets) {
+    tmp &lt;- str_c(kmt2a_results_dir, controls, sep = &quot;/&quot;) %&gt;%
             list.files(., full.names = TRUE) %&gt;%
             lapply(., read.delim) %&gt;%
             rbindlist() %&gt;%
             filter(logFC &gt; 5) %&gt;%
-            mutate(controls = celltype)
-    controls_comp &lt;- rbind(controls_comp, tmp)
+            mutate(controls = controls)
+    kmt2a_results &lt;- rbind(kmt2a_results, tmp)
 }
-
-# extract variant genes and make summary
-var_genes &lt;- controls_comp$overlapping_genes %&gt;%
+kmt2a_results &lt;- inner_join(kmt2a_results, kmt2a_patient_lookup, by = &quot;sample&quot;)</code></pre>
+<div id="kmt2a-ptd-controls-comparison" class="section level2">
+<h2>KMT2A-PTD controls comparison</h2>
+<p>MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in the Leucegene cohort containing KMT2A PTDs.</p>
+<pre class="r"><code># extract variant genes and make summary
+var_genes &lt;- kmt2a_results$overlapping_genes %&gt;%
                 str_split(&quot;\\||:&quot;)
 
-repeat_rows &lt;- rep(1:nrow(controls_comp), sapply(var_genes, length))
-results_by_gene &lt;- data.table(controls_comp[repeat_rows,])
+repeat_rows &lt;- rep(1:nrow(kmt2a_results), sapply(var_genes, length))
+results_by_gene &lt;- data.table(kmt2a_results[repeat_rows,])
 results_by_gene$gene &lt;- unlist(var_genes)
 
-results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;sample&quot;, &quot;controls&quot;)]
-results_summary &lt;- results_summary %&gt;% arrange(sample, V1) %&gt;% data.table()
-results_summary$sample &lt;- factor(results_summary$sample,
-                                 levels = unique(results_summary$sample))
+results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;patient&quot;, &quot;controls&quot;)]
+results_summary &lt;- results_summary %&gt;% arrange(controls, V1) %&gt;% data.table()
+results_summary$patient &lt;- factor(results_summary$patient,
+                                 levels = unique(results_summary$patient))
 
 # reorder by totals across different controls
 results_totals &lt;- results_summary[, sum(V1), by = c(&quot;controls&quot;)] %&gt;%
@@ -969,72 +730,109 @@ results_summary$controls &lt;- factor(results_summary$controls,
 
 print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
 <pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
-<pre class="r"><code>print(results_summary)</code></pre>
-<pre><code>       sample controls  V1
- 1: SRX372044     mono 187
- 2: SRX372044     twbc 193
- 3: SRX372044     gran 279
- 4: SRX372044       tc 329
- 5: SRX372044       bc 365
- 6: SRX372045     gran 130
- 7: SRX372045     mono 138
- 8: SRX372045     twbc 156
- 9: SRX372045       bc 345
-10: SRX372045       tc 378
-11: SRX372046     mono 192
-12: SRX372046     twbc 233
-13: SRX372046     gran 247
-14: SRX372046       tc 419
-15: SRX372046       bc 443</code></pre>
-<pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill=controls)) +
-    geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
+<pre class="r"><code>results_summary %&gt;%
+    group_by(controls) %&gt;%
+    summarise(min = min(V1), median = median(V1), max = max(V1)) %&gt;%
+    data.frame() %&gt;%
+    print()</code></pre>
+<pre><code>                 controls min median  max
+1            AML_controls 129  213.5 2093
+2         normal_controls 266  508.0 2365
+3 normal_controls_reduced 501  794.0 2562</code></pre>
+<pre class="r"><code>ggplot(results_summary, aes(patient, V1, fill=controls)) +
+    geom_bar(position = position_dodge2(width  =0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
     theme_bw() +
     xlab(&quot;&quot;) +
     ylab(&quot;Genes with variants&quot;) +
-    scale_fill_brewer(palette = &quot;RdYlBu&quot;,
-                      labels =  c(&quot;mono&quot; = &quot;Monocytes&quot;,
-                                  &quot;twbc&quot; = &quot;Total white blood cells&quot;,
-                                  &quot;gran&quot; = &quot;Granulocytes&quot;,
-                                  &quot;tc&quot; = &quot;T-Cells&quot;,
-                                  &quot;bc&quot; = &quot;B-Cells&quot;))</code></pre>
-<p><img src="figure/Leucegene_Normals.Rmd/controls_comparison-1.png" width="864" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-controls_comparison-1">
-Past versions of controls_comparison-1.png
-</button>
-</p>
-<div id="fig-controls_comparison-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/358aa53d68acc377f4eca81bd919c2cc2b9b3f72/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">358aa53</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
+    coord_flip() +
+    theme(legend.position = &quot;bottom&quot;) +
+    scale_fill_brewer(palette=&quot;Dark2&quot;,
+                      labels =  c(&quot;AML_controls&quot; = &quot;13 AMLs&quot;,
+                                  &quot;normal_controls&quot; = &quot;13 normals&quot;,
+                                  &quot;normal_controls_reduced&quot; = &quot;3 normals&quot;))</code></pre>
+<p><img src="figure/Leucegene_Validation.Rmd/KMT2A-PTD_controls_comparison-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
+<div id="kmt2a-variants-found-in-cohort" class="section level2">
+<h2>KMT2A variants found in cohort</h2>
+<p>MINTIE paper Supplementary Table 1. Shows whether MINITE found a KMT2A SV in each sample for the given control group. Coverage obtained from <a href="https://doi.org/10.1101/295808">Audemard et al</a>. <a href="https://www.biorxiv.org/highwire/filestream/93175/field_highwire_adjunct_files/1/295808-2.zip">spreadsheet containing the Leucegene results</a> must be manually added to <code>data/leucegene/sample_info</code> to run the code.</p>
+<pre class="r"><code># load results from km paper for coverage of KMT2A PTDs
+kmt2a_lgene_km_results &lt;- read.csv(here(&quot;data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls&quot;), sep=&quot;\t&quot;) %&gt;%
+                            mutate(patient = Sample) %&gt;%
+                            group_by(patient) %&gt;%
+                            summarise(coverage = max(Min.coverage))
+
+# check whether MINTIE found a KMT2A SV in each control set
+found_using_cancon &lt;- get_samples_with_kmt2a_sv(kmt2a_results, &quot;AML_controls&quot;)
+found_using_norcon &lt;- get_samples_with_kmt2a_sv(kmt2a_results, &quot;normal_controls&quot;)
+found_using_redcon &lt;- get_samples_with_kmt2a_sv(kmt2a_results, &quot;normal_controls_reduced&quot;)
+
+# make the table
+kmt2a_control_comp &lt;- inner_join(kmt2a_patient_lookup, kmt2a_lgene_km_results, by = &quot;patient&quot;) %&gt;%
+                        arrange(desc(coverage))
+kmt2a_control_comp$found_using_cancon &lt;- kmt2a_control_comp$sample %in% found_using_cancon
+kmt2a_control_comp$found_using_norcon &lt;- kmt2a_control_comp$sample %in% found_using_norcon
+kmt2a_control_comp$found_using_redcon &lt;- kmt2a_control_comp$sample %in% found_using_redcon
+
+print(kmt2a_control_comp)</code></pre>
+<pre><code>      sample patient coverage found_using_cancon found_using_norcon
+1  SRX958906  07H152      158               TRUE               TRUE
+2  SRX332646  09H115      125               TRUE               TRUE
+3  SRX957230  06H146       87               TRUE               TRUE
+4  SRX957223  05H111       79               TRUE               TRUE
+5  SRX332659  11H021       63               TRUE               TRUE
+6  SRX332633  05H050       58               TRUE               TRUE
+7  SRX959061  13H150       58               TRUE               TRUE
+8  SRX959044  13H048       57               TRUE               TRUE
+9  SRX958974  10H070       53               TRUE               TRUE
+10 SRX958963  10H007       50               TRUE               TRUE
+11 SRX958959  09H106       49               TRUE               TRUE
+12 SRX959060  13H141       45               TRUE               TRUE
+13 SRX958945  09H058       29               TRUE               TRUE
+14 SRX958907  07H155       23               TRUE               TRUE
+15 SRX381854  08H112       22               TRUE               TRUE
+16 SRX332645  09H113       17               TRUE               TRUE
+17 SRX959001  11H183       16              FALSE              FALSE
+18 SRX381852  08H012       15              FALSE              FALSE
+19 SRX958932  08H138       15              FALSE              FALSE
+20 SRX381865  11H008       13              FALSE              FALSE
+21 SRX958873  06H048       10              FALSE              FALSE
+22 SRX958922  08H063        6              FALSE              FALSE
+23 SRX958961  10H001        6              FALSE              FALSE
+24 SRX958844  04H111        3              FALSE              FALSE
+   found_using_redcon
+1                TRUE
+2                TRUE
+3                TRUE
+4                TRUE
+5                TRUE
+6                TRUE
+7                TRUE
+8                TRUE
+9                TRUE
+10               TRUE
+11               TRUE
+12               TRUE
+13               TRUE
+14               TRUE
+15               TRUE
+16               TRUE
+17              FALSE
+18              FALSE
+19              FALSE
+20              FALSE
+21              FALSE
+22              FALSE
+23              FALSE
+24              FALSE</code></pre>
 </div>
+<div id="selected-leucegene-variants-found-by-mintie" class="section level2">
+<h2>Selected Leucegene variants found by MINTIE</h2>
+<pre class="r"><code>truth &lt;- read.delim(here(&quot;data/leucegene/sample_info/variant_validation_table.tsv&quot;), sep = &quot;\t&quot;)
+leucegene_results_dir &lt;- here(&quot;data/leucegene/validation_results&quot;)
+validation &lt;- list.files(leucegene_results_dir, full.names = TRUE) %&gt;%
+                lapply(., read.delim) %&gt;%
+                rbindlist() %&gt;%
+                filter(logFC &gt; 5)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1067,17 +865,16 @@ loaded via a namespace (and not attached):
  [7] git2r_0.26.1       workflowr_1.6.1    tools_3.5.1       
 [10] digest_0.6.18      lattice_0.20-38    evaluate_0.13     
 [13] tibble_2.1.1       gtable_0.3.0       pkgconfig_2.0.2   
-[16] rlang_0.4.2        cli_1.1.0          yaml_2.2.0        
-[19] xfun_0.5           withr_2.1.2        knitr_1.22        
-[22] fs_1.2.7           locfit_1.5-9.1     rprojroot_1.3-2   
-[25] grid_3.5.1         tidyselect_0.2.5   glue_1.3.1        
-[28] R6_2.4.0           fansi_0.4.0        rmarkdown_1.12    
-[31] purrr_0.3.2        magrittr_1.5       whisker_0.3-2     
-[34] backports_1.1.3    scales_1.0.0       promises_1.1.0    
-[37] htmltools_0.3.6    assertthat_0.2.1   colorspace_1.4-1  
-[40] httpuv_1.5.2       labeling_0.3       utf8_1.1.4        
-[43] stringi_1.4.3      lazyeval_0.2.2     munsell_0.5.0     
-[46] crayon_1.3.4      </code></pre>
+[16] rlang_0.4.2        yaml_2.2.0         xfun_0.5          
+[19] withr_2.1.2        knitr_1.22         fs_1.2.7          
+[22] locfit_1.5-9.1     rprojroot_1.3-2    grid_3.5.1        
+[25] tidyselect_0.2.5   glue_1.3.1         R6_2.4.0          
+[28] rmarkdown_1.12     purrr_0.3.2        magrittr_1.5      
+[31] whisker_0.3-2      backports_1.1.3    scales_1.0.0      
+[34] promises_1.1.0     htmltools_0.3.6    assertthat_0.2.1  
+[37] colorspace_1.4-1   httpuv_1.5.2       labeling_0.3      
+[40] stringi_1.4.3      lazyeval_0.2.2     munsell_0.5.0     
+[43] crayon_1.3.4      </code></pre>
 </div>
 </div>
 </div>
