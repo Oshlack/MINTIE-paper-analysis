@@ -75,7 +75,7 @@ kmt2a_results <- inner_join(kmt2a_results, kmt2a_patient_lookup, by = "sample")
 ## KMT2A-PTD controls comparison
 
 MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in the Leucegene
-cohort containing KMT2A PTDs . 
+cohort containing KMT2A PTDs. 
 
 ```{r KMT2A-PTD_controls_comparison, fig.height = 10, fig.width = 8}
 # extract variant genes and make summary
