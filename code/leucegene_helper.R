@@ -23,3 +23,15 @@ collate_vartypes <- function(results) {
 
     return(results)
 }
+
+get_samples_with_kmt2a_sv <- function(results, controls) {
+    # return unique samples with KMT2A hard/soft
+    # clipped variant transcripts
+    samples <- results %>%
+                filter(controls == controls,
+                       variant_type %in% c("FUS", "UN"),
+                       overlapping_genes %like% "KMT2A") %>%
+                pull(sample) %>%
+                unique()
+    return(samples)
+}

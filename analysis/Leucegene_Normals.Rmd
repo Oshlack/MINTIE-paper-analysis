@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r knitr, include = FALSE}
-DOCNAME = "Leucegene_Gene_Expression"
+DOCNAME = "Leucegene_Normals"
 knitr::opts_chunk$set(autodep        = TRUE,
                       cache          = FALSE,
                       cache.path     = paste0("cache/", DOCNAME, "/"),
@@ -53,14 +53,14 @@ run on a set of non-cancer samples obtained from Leucegene.
 
 ```{r load_data}
 # load MINTIE results from leucegene normals
-normals_results_dir <- "data/leucegene/normals_results"
-normals_results <- list.files(here(normals_results_dir), full.names = TRUE) %>% 
+normals_results_dir <- here("data/leucegene/normals_results")
+normals_results <- list.files(normals_results_dir, full.names = TRUE) %>% 
                         lapply(., read.delim) %>%
                         rbindlist() %>%
                         filter(logFC > 5)
 
 # load cell type info and add to results
-celltype <- read.delim(here("data/leucegene/celltypes_info.tsv"))
+celltype <- read.delim(here("data/leucegene/sample_info/celltypes_info.tsv"))
 normals_results <- inner_join(normals_results, celltype,
                               by = c("sample" = "SRX_ID"))
 ```

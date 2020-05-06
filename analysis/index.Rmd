@@ -24,3 +24,5 @@ Analyses
   and normals cohorts and other analyses.
 * [Leucegene Normals](Leucegene_Normals.html) -- analysis of MINTIE run on Leucegene non-cancer
   samples.
+* [Leucegene Validation](Leucegene_Validation.html) -- known variants found by MINTIE in the
+  Leucegene cohort.

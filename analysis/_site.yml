@@ -11,6 +11,8 @@ navbar:
     href: Leucegene_Gene_Expression.html
   - text: Leucegene Normals
     href: Leucegene_Normals.html
+  - text: Leucegene Validation
+    href: Leucegene_Validation.html
   - text: License
     href: license.html
   right:

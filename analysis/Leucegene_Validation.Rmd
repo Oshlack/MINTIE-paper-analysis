@@ -1,0 +1,159 @@
+---
+title: "Leucegene Validation"
+output:
+  workflowr::wflow_html:
+      code_folding: hide
+---
+
+```{r knitr, include = FALSE}
+DOCNAME = "Leucegene_Validation"
+knitr::opts_chunk$set(autodep        = TRUE,
+                      cache          = FALSE,
+                      cache.path     = paste0("cache/", DOCNAME, "/"),
+                      cache.comments = FALSE,
+                      echo           = TRUE,
+                      error          = FALSE,
+                      fig.align      = "center",
+                      fig.width      = 9,
+                      fig.height     = 5,
+                      message        = FALSE,
+                      warning        = FALSE)
+```
+
+
+```{r libraries, cache = FALSE}
+# util
+library(data.table)
+library(dplyr)
+library(here)
+library(stringr)
+
+# plotting
+library(ggplot2)
+
+# bioinformatics/stats helpers
+library(edgeR)
+```
+
+
+```{r options, cache = FALSE}
+options(stringsAsFactors = FALSE)
+```
+
+
+```{r source, cache = FALSE}
+source(here("code/leucegene_helper.R"))
+```
+
+Leucegene Validation
+====================
+
+
+```{r load_data}
+# load SRX to patient ID lookup table
+kmt2a_patient_lookup <- read.delim(here("data/leucegene/sample_info/KMT2A-PTD_samples.txt"),
+                                   header = FALSE,
+                                   col.names = c("sample", "patient"))
+
+kmt2a_results_dir <- here("data/leucegene/KMT2A-PTD_results")
+
+# load comparisons against all other controls
+kmt2a_results <- NULL
+control_sets <- list.files(kmt2a_results_dir)
+for (controls in control_sets) {
+    tmp <- str_c(kmt2a_results_dir, controls, sep = "/") %>%
+            list.files(., full.names = TRUE) %>%
+            lapply(., read.delim) %>%
+            rbindlist() %>%
+            filter(logFC > 5) %>%
+            mutate(controls = controls)
+    kmt2a_results <- rbind(kmt2a_results, tmp)
+}
+kmt2a_results <- inner_join(kmt2a_results, kmt2a_patient_lookup, by = "sample")
+```
+
+## KMT2A-PTD controls comparison
+
+MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in the Leucegene
+cohort containing KMT2A PTDs . 
+
+```{r KMT2A-PTD_controls_comparison, fig.height = 10, fig.width = 8}
+# extract variant genes and make summary
+var_genes <- kmt2a_results$overlapping_genes %>%
+                str_split("\\||:")
+
+repeat_rows <- rep(1:nrow(kmt2a_results), sapply(var_genes, length))
+results_by_gene <- data.table(kmt2a_results[repeat_rows,])
+results_by_gene$gene <- unlist(var_genes)
+
+results_summary <- results_by_gene[, length(unique(gene)), by = c("patient", "controls")]
+results_summary <- results_summary %>% arrange(controls, V1) %>% data.table()
+results_summary$patient <- factor(results_summary$patient,
+                                 levels = unique(results_summary$patient))
+
+# reorder by totals across different controls
+results_totals <- results_summary[, sum(V1), by = c("controls")] %>%
+                    arrange(V1)
+results_summary$controls <- factor(results_summary$controls,
+                                    levels = results_totals$controls)
+
+print("Total variant genes called using different controls:")
+results_summary %>%
+    group_by(controls) %>%
+    summarise(min = min(V1), median = median(V1), max = max(V1)) %>%
+    data.frame() %>%
+    print()
+
+ggplot(results_summary, aes(patient, V1, fill=controls)) +
+    geom_bar(position = position_dodge2(width  =0.9, preserve = "single"), stat = "identity") +
+    theme_bw() +
+    xlab("") +
+    ylab("Genes with variants") +
+    coord_flip() +
+    theme(legend.position = "bottom") +
+    scale_fill_brewer(palette="Dark2",
+                      labels =  c("AML_controls" = "13 AMLs",
+                                  "normal_controls" = "13 normals",
+                                  "normal_controls_reduced" = "3 normals"))
+```
+
+## KMT2A variants found in cohort
+
+MINTIE paper Supplementary Table 1. Shows whether MINITE found a KMT2A SV in each sample
+for the given control group. Coverage obtained from [Audemard et al](https://doi.org/10.1101/295808).
+[spreadsheet containing the Leucegene results](https://www.biorxiv.org/highwire/filestream/93175/field_highwire_adjunct_files/1/295808-2.zip)
+must be manually added to `data/leucegene/sample_info` to run the code.
+
+```{r}
+# load results from km paper for coverage of KMT2A PTDs
+kmt2a_lgene_km_results <- read.csv(here("data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls"), sep="\t") %>%
+                            mutate(patient = Sample) %>%
+                            group_by(patient) %>%
+                            summarise(coverage = max(Min.coverage))
+
+# check whether MINTIE found a KMT2A SV in each control set
+found_using_cancon <- get_samples_with_kmt2a_sv(kmt2a_results, "AML_controls")
+found_using_norcon <- get_samples_with_kmt2a_sv(kmt2a_results, "normal_controls")
+found_using_redcon <- get_samples_with_kmt2a_sv(kmt2a_results, "normal_controls_reduced")
+
+# make the table
+kmt2a_control_comp <- inner_join(kmt2a_patient_lookup, kmt2a_lgene_km_results, by = "patient") %>%
+                        arrange(desc(coverage))
+kmt2a_control_comp$found_using_cancon <- kmt2a_control_comp$sample %in% found_using_cancon
+kmt2a_control_comp$found_using_norcon <- kmt2a_control_comp$sample %in% found_using_norcon
+kmt2a_control_comp$found_using_redcon <- kmt2a_control_comp$sample %in% found_using_redcon
+
+print(kmt2a_control_comp)
+```
+
+## Selected Leucegene variants found by MINTIE
+
+```{r}
+truth <- read.delim(here("data/leucegene/sample_info/variant_validation_table.tsv"), sep = "\t")
+leucegene_results_dir <- here("data/leucegene/validation_results")
+validation <- list.files(leucegene_results_dir, full.names = TRUE) %>%
+                lapply(., read.delim) %>%
+                rbindlist() %>%
+                filter(logFC > 5)
+```
+

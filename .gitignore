@@ -11,5 +11,6 @@ analysis/*cache
 analysis/site_libs
 packrat/lib*/
 data/leucegene/salmon_out/*
+data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
 output/Leucegene_gene_counts.tsv
 *swp
