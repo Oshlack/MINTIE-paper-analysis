@@ -5,13 +5,13 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Simulation Benchmarking
+  - text: Simulation
     href: Simulation_Benchmarking.html
-  - text: Leucegene Gene Expression
+  - text: PCA
     href: Leucegene_Gene_Expression.html
-  - text: Leucegene Normals
+  - text: Normals
     href: Leucegene_Normals.html
-  - text: Leucegene Validation
+  - text: Validation
     href: Leucegene_Validation.html
   - text: License
     href: license.html
