@@ -57,7 +57,7 @@ kmt2a_patient_lookup <- read.delim(here("data/leucegene/sample_info/KMT2A-PTD_sa
 
 kmt2a_results_dir <- here("data/leucegene/KMT2A-PTD_results")
 
-# load comparisons against all other controls
+# load KMT2A cohort comparisons against all other controls
 kmt2a_results <- NULL
 control_sets <- list.files(kmt2a_results_dir)
 for (controls in control_sets) {
@@ -70,6 +70,14 @@ for (controls in control_sets) {
     kmt2a_results <- rbind(kmt2a_results, tmp)
 }
 kmt2a_results <- inner_join(kmt2a_results, kmt2a_patient_lookup, by = "sample")
+
+# load other validation reults and truth table
+truth <- read.delim(here("data/leucegene/sample_info/variant_validation_table.tsv"), sep = "\t")
+leucegene_results_dir <- here("data/leucegene/validation_results")
+validation <- list.files(leucegene_results_dir, full.names = TRUE) %>%
+                lapply(., read.delim) %>%
+                rbindlist() %>%
+                filter(logFC > 5)
 ```
 
 ## KMT2A-PTD controls comparison
@@ -139,21 +147,24 @@ found_using_redcon <- get_samples_with_kmt2a_sv(kmt2a_results, "normal_controls_
 # make the table
 kmt2a_control_comp <- inner_join(kmt2a_patient_lookup, kmt2a_lgene_km_results, by = "patient") %>%
                         arrange(desc(coverage))
-kmt2a_control_comp$found_using_cancon <- kmt2a_control_comp$sample %in% found_using_cancon
-kmt2a_control_comp$found_using_norcon <- kmt2a_control_comp$sample %in% found_using_norcon
-kmt2a_control_comp$found_using_redcon <- kmt2a_control_comp$sample %in% found_using_redcon
+kmt2a_control_comp$`13_AMLs` <- kmt2a_control_comp$sample %in% found_using_cancon
+kmt2a_control_comp$`13_normals` <- kmt2a_control_comp$sample %in% found_using_norcon
+kmt2a_control_comp$`3_normals` <- kmt2a_control_comp$sample %in% found_using_redcon
 
 print(kmt2a_control_comp)
 ```
 
-## Selected Leucegene variants found by MINTIE
+## Leucegene variants found by MINTIE
 
 ```{r}
-truth <- read.delim(here("data/leucegene/sample_info/variant_validation_table.tsv"), sep = "\t")
-leucegene_results_dir <- here("data/leucegene/validation_results")
-validation <- list.files(leucegene_results_dir, full.names = TRUE) %>%
-                lapply(., read.delim) %>%
-                rbindlist() %>%
-                filter(logFC > 5)
+# add KMT2A results against AML controls as validation
+validation <- filter(kmt2a_results, controls == "AML_controls") %>%
+                select(-c(controls, patient)) %>%
+                rbind(., validation)
+
+rowwise(truth) %>% 
+    mutate(found = is_variant_in_sample(Experiment, gene1, gene2, variant, validation)) %>%
+    data.frame() %>%
+    print()
 ```
 
