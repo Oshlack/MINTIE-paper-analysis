@@ -561,16 +561,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreebbc278a2ce8cc4777cf358cd4d3552461341a4ddtargetblankbbc278aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/bbc278a2ce8cc4777cf358cd4d3552461341a4dd" target="_blank">bbc278a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreebbc278a2ce8cc4777cf358cd4d3552461341a4ddtargetblankbbc278aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/bbc278a2ce8cc4777cf358cd4d3552461341a4dd" target="_blank">bbc278a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -591,8 +591,12 @@ Ignored files:
     Ignored:    data/simu/.DS_Store
     Ignored:    output/Leucegene_gene_counts.tsv
 
+Untracked files:
+    Untracked:  analysis/RCH_B-ALL.Rmd
+
 Unstaged changes:
     Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -631,6 +635,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bbc278a2ce8cc4777cf358cd4d3552461341a4dd/analysis/Leucegene_Normals.Rmd" target="_blank">bbc278a</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Refactoring
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/87b4e62442a254ec41b1ffdd6b55824a14a9463e/docs/Leucegene_Normals.html" target="_blank">87b4e62</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -781,10 +819,7 @@ library(here)
 library(stringr)
 
 # plotting
-library(ggplot2)
-
-# bioinformatics/stats helpers
-library(edgeR)</code></pre>
+library(ggplot2)</code></pre>
 <pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code>source(here(&quot;code/leucegene_helper.R&quot;))</code></pre>
 <div id="leucegene-normals" class="section level1">
@@ -838,28 +873,8 @@ print(summary_by_sample)</code></pre>
 <div id="variant-genes" class="section level2">
 <h2>Variant Genes</h2>
 <p>MINTIE paper Figure 4 showing the number of variant genes called across the Leucegene normal samples.</p>
-<pre class="r"><code>var_genes &lt;- normals_results$overlapping_genes %&gt;% 
-                str_split(&quot;\\||:&quot;)
-
-repeat_rows &lt;- rep(1:nrow(normals_results), sapply(var_genes, length))
-results_by_gene &lt;- data.table(normals_results[repeat_rows,])
-results_by_gene$gene &lt;- unlist(var_genes)
-
-results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;sample&quot;, &quot;cell_type&quot;)]
-results_summary &lt;- results_summary %&gt;% arrange(cell_type, V1) %&gt;% data.table()
-results_summary$sample &lt;- factor(results_summary$sample,
-                                 levels = results_summary$sample)
-
-print(&quot;Summary of variant genes called across samples:&quot;)</code></pre>
-<pre><code>[1] &quot;Summary of variant genes called across samples:&quot;</code></pre>
-<pre class="r"><code>summary(results_summary$V1)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   81.0   130.5   155.0   186.7   218.0   496.0 </code></pre>
-<pre class="r"><code># reorder cell types by total
-results_totals &lt;- results_summary[, sum(V1), by = c(&quot;cell_type&quot;)] %&gt;%
-                    arrange(desc(V1))
-results_summary$cell_type &lt;- factor(results_summary$cell_type,
-                                    levels = results_totals$cell_type)
+<pre class="r"><code>results_summary &lt;- get_results_summary(mutate(normals_results, group_var = cell_type),
+                                       group_var_name = &quot;cell_type&quot;)
 
 ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
     geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
@@ -970,6 +985,7 @@ Marek Cmero
 chess_genes &lt;- read.delim(gzfile(here(&quot;data/ref/chess2.2.genes.gz&quot;)))
 
 # join gene info with results and summarise by gene type
+results_by_gene &lt;- get_results_by_gene(normals_results)
 gene_count &lt;- left_join(results_by_gene, chess_genes, by = c(&quot;gene&quot; = &quot;Gene_Name&quot;)) %&gt;%
                 group_by(Gene_Type) %&gt;%
                 summarise(n_genes = length(unique(gene))) %&gt;%
@@ -991,7 +1007,9 @@ controls_comp$cell_type &lt;- NULL
 controls_test_dir &lt;- here(&quot;data/leucegene/normals_controls_test_results&quot;)
 controls_comp &lt;- load_controls_comparison(controls_test_dir) %&gt;%
                     rbind(controls_comp, .)
-results_summary &lt;- get_controls_results_summary(controls_comp)
+results_summary &lt;- get_results_summary(mutate(controls_comp,
+                                              group_var = controls),
+                                       group_var_name = &quot;controls&quot;)
 
 print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
 <pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
@@ -1048,6 +1066,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/87b4e62442a254ec41b1ffdd6b55824a14a9463e/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">87b4e62</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/358aa53d68acc377f4eca81bd919c2cc2b9b3f72/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">358aa53</a>
 </td>
 <td>
@@ -1084,26 +1113,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] edgeR_3.24.3      limma_3.38.3      ggplot2_3.1.0     stringr_1.4.0    
-[5] here_0.1          dplyr_0.8.1       data.table_1.12.0
+[1] ggplot2_3.1.0     stringr_1.4.0     here_0.1          dplyr_0.8.1      
+[5] data.table_1.12.0
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.1         RColorBrewer_1.1-2 plyr_1.8.4        
  [4] compiler_3.5.1     pillar_1.3.1       later_1.0.0       
  [7] git2r_0.26.1       workflowr_1.6.1    tools_3.5.1       
-[10] digest_0.6.18      lattice_0.20-38    evaluate_0.13     
-[13] tibble_2.1.1       gtable_0.3.0       pkgconfig_2.0.2   
-[16] rlang_0.4.2        cli_1.1.0          yaml_2.2.0        
-[19] xfun_0.5           withr_2.1.2        knitr_1.22        
-[22] fs_1.2.7           locfit_1.5-9.1     rprojroot_1.3-2   
-[25] grid_3.5.1         tidyselect_0.2.5   glue_1.3.1        
-[28] R6_2.4.0           fansi_0.4.0        rmarkdown_1.12    
-[31] purrr_0.3.2        magrittr_1.5       whisker_0.3-2     
-[34] backports_1.1.3    scales_1.0.0       promises_1.1.0    
-[37] htmltools_0.3.6    assertthat_0.2.1   colorspace_1.4-1  
-[40] httpuv_1.5.2       labeling_0.3       utf8_1.1.4        
-[43] stringi_1.4.3      lazyeval_0.2.2     munsell_0.5.0     
-[46] crayon_1.3.4      </code></pre>
+[10] digest_0.6.18      evaluate_0.13      tibble_2.1.1      
+[13] gtable_0.3.0       pkgconfig_2.0.2    rlang_0.4.2       
+[16] cli_1.1.0          yaml_2.2.0         xfun_0.5          
+[19] withr_2.1.2        knitr_1.22         fs_1.2.7          
+[22] rprojroot_1.3-2    grid_3.5.1         tidyselect_0.2.5  
+[25] glue_1.3.1         R6_2.4.0           fansi_0.4.0       
+[28] rmarkdown_1.12     purrr_0.3.2        magrittr_1.5      
+[31] whisker_0.3-2      backports_1.1.3    scales_1.0.0      
+[34] promises_1.1.0     htmltools_0.3.6    assertthat_0.2.1  
+[37] colorspace_1.4-1   httpuv_1.5.2       labeling_0.3      
+[40] utf8_1.1.4         stringi_1.4.3      lazyeval_0.2.2    
+[43] munsell_0.5.0      crayon_1.3.4      </code></pre>
 </div>
 </div>
 </div>
