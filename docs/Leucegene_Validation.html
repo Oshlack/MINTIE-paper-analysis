@@ -561,16 +561,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed8d5b9674ab37d849c418d03aeb63df57a80556dtargetblankd8d5b96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d8d5b9674ab37d849c418d03aeb63df57a80556d" target="_blank">d8d5b96</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed8d5b9674ab37d849c418d03aeb63df57a80556dtargetblankd8d5b96a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d8d5b9674ab37d849c418d03aeb63df57a80556d" target="_blank">d8d5b96</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -631,6 +631,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/af503f253494b562986aef0e6a9e18b5d17d22c6/analysis/Leucegene_Validation.Rmd" target="_blank">af503f2</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Refactoring
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/5c045b534e7c10361889255bbefe79111089f01a/docs/Leucegene_Validation.html" target="_blank">5c045b5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -729,17 +763,7 @@ kmt2a_patient_lookup &lt;- read.delim(here(&quot;data/leucegene/sample_info/KMT2
 kmt2a_results_dir &lt;- here(&quot;data/leucegene/KMT2A-PTD_results&quot;)
 
 # load KMT2A cohort comparisons against all other controls
-kmt2a_results &lt;- NULL
-control_sets &lt;- list.files(kmt2a_results_dir)
-for (controls in control_sets) {
-    tmp &lt;- str_c(kmt2a_results_dir, controls, sep = &quot;/&quot;) %&gt;%
-            list.files(., full.names = TRUE) %&gt;%
-            lapply(., read.delim) %&gt;%
-            rbindlist() %&gt;%
-            filter(logFC &gt; 5) %&gt;%
-            mutate(controls = controls)
-    kmt2a_results &lt;- rbind(kmt2a_results, tmp)
-}
+kmt2a_results &lt;- load_controls_comparison(kmt2a_results_dir)
 kmt2a_results &lt;- inner_join(kmt2a_results, kmt2a_patient_lookup, by = &quot;sample&quot;)
 
 # load other validation reults and truth table
@@ -752,24 +776,7 @@ validation &lt;- list.files(leucegene_results_dir, full.names = TRUE) %&gt;%
 <div id="kmt2a-ptd-controls-comparison" class="section level2">
 <h2>KMT2A-PTD controls comparison</h2>
 <p>MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in the Leucegene cohort containing KMT2A PTDs.</p>
-<pre class="r"><code># extract variant genes and make summary
-var_genes &lt;- kmt2a_results$overlapping_genes %&gt;%
-                str_split(&quot;\\||:&quot;)
-
-repeat_rows &lt;- rep(1:nrow(kmt2a_results), sapply(var_genes, length))
-results_by_gene &lt;- data.table(kmt2a_results[repeat_rows,])
-results_by_gene$gene &lt;- unlist(var_genes)
-
-results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;patient&quot;, &quot;controls&quot;)]
-results_summary &lt;- results_summary %&gt;% arrange(controls, V1) %&gt;% data.table()
-results_summary$patient &lt;- factor(results_summary$patient,
-                                 levels = unique(results_summary$patient))
-
-# reorder by totals across different controls
-results_totals &lt;- results_summary[, sum(V1), by = c(&quot;controls&quot;)] %&gt;%
-                    arrange(V1)
-results_summary$controls &lt;- factor(results_summary$controls,
-                                    levels = results_totals$controls)
+<pre class="r"><code>results_summary &lt;- get_controls_results_summary(mutate(kmt2a_results, sample = patient))
 
 print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
 <pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
@@ -782,8 +789,8 @@ print(&quot;Total variant genes called using different controls:&quot;)</code></
 1            AML_controls 129  213.5 2093
 2         normal_controls 266  508.0 2365
 3 normal_controls_reduced 501  794.0 2562</code></pre>
-<pre class="r"><code>ggplot(results_summary, aes(patient, V1, fill=controls)) +
-    geom_bar(position = position_dodge2(width  =0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
+<pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill = controls)) +
+    geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
     theme_bw() +
     xlab(&quot;&quot;) +
     ylab(&quot;Genes with variants&quot;) +

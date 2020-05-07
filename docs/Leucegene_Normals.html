@@ -561,16 +561,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed8d5b9674ab37d849c418d03aeb63df57a80556dtargetblankd8d5b96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d8d5b9674ab37d849c418d03aeb63df57a80556d" target="_blank">d8d5b96</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed8d5b9674ab37d849c418d03aeb63df57a80556dtargetblankd8d5b96a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeaf503f253494b562986aef0e6a9e18b5d17d22c6targetblankaf503f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d8d5b9674ab37d849c418d03aeb63df57a80556d" target="_blank">d8d5b96</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/af503f253494b562986aef0e6a9e18b5d17d22c6" target="_blank">af503f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -631,6 +631,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/af503f253494b562986aef0e6a9e18b5d17d22c6/analysis/Leucegene_Normals.Rmd" target="_blank">af503f2</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Refactoring
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/5c045b534e7c10361889255bbefe79111089f01a/docs/Leucegene_Normals.html" target="_blank">5c045b5</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -955,55 +989,29 @@ controls_comp$cell_type &lt;- NULL
 
 # load comparisons against all other controls
 controls_test_dir &lt;- here(&quot;data/leucegene/normals_controls_test_results&quot;)
-celltypes &lt;- list.files(controls_test_dir)
-for (celltype in celltypes) {
-    tmp &lt;- str_c(controls_test_dir, celltype, sep = &quot;/&quot;) %&gt;%
-            list.files(., full.names = TRUE) %&gt;%
-            lapply(., read.delim) %&gt;%
-            rbindlist() %&gt;%
-            filter(logFC &gt; 5) %&gt;%
-            mutate(controls = celltype)
-    controls_comp &lt;- rbind(controls_comp, tmp)
-}
-
-# extract variant genes and make summary
-var_genes &lt;- controls_comp$overlapping_genes %&gt;%
-                str_split(&quot;\\||:&quot;)
-
-repeat_rows &lt;- rep(1:nrow(controls_comp), sapply(var_genes, length))
-results_by_gene &lt;- data.table(controls_comp[repeat_rows,])
-results_by_gene$gene &lt;- unlist(var_genes)
-
-results_summary &lt;- results_by_gene[, length(unique(gene)), by = c(&quot;sample&quot;, &quot;controls&quot;)]
-results_summary &lt;- results_summary %&gt;% arrange(sample, V1) %&gt;% data.table()
-results_summary$sample &lt;- factor(results_summary$sample,
-                                 levels = unique(results_summary$sample))
-
-# reorder by totals across different controls
-results_totals &lt;- results_summary[, sum(V1), by = c(&quot;controls&quot;)] %&gt;%
-                    arrange(V1)
-results_summary$controls &lt;- factor(results_summary$controls,
-                                    levels = results_totals$controls)
+controls_comp &lt;- load_controls_comparison(controls_test_dir) %&gt;%
+                    rbind(controls_comp, .)
+results_summary &lt;- get_controls_results_summary(controls_comp)
 
 print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
 <pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
 <pre class="r"><code>print(results_summary)</code></pre>
-<pre><code>       sample controls  V1
- 1: SRX372044     mono 187
- 2: SRX372044     twbc 193
- 3: SRX372044     gran 279
- 4: SRX372044       tc 329
- 5: SRX372044       bc 365
- 6: SRX372045     gran 130
- 7: SRX372045     mono 138
- 8: SRX372045     twbc 156
- 9: SRX372045       bc 345
-10: SRX372045       tc 378
-11: SRX372046     mono 192
-12: SRX372046     twbc 233
-13: SRX372046     gran 247
-14: SRX372046       tc 419
-15: SRX372046       bc 443</code></pre>
+<pre><code>      sample controls  V1
+1  SRX372045       bc 345
+2  SRX372044       bc 365
+3  SRX372046       bc 443
+4  SRX372045     gran 130
+5  SRX372046     gran 247
+6  SRX372044     gran 279
+7  SRX372045     mono 138
+8  SRX372044     mono 187
+9  SRX372046     mono 192
+10 SRX372044       tc 329
+11 SRX372045       tc 378
+12 SRX372046       tc 419
+13 SRX372045     twbc 156
+14 SRX372044     twbc 193
+15 SRX372046     twbc 233</code></pre>
 <pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill=controls)) +
     geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
     theme_bw() +
