@@ -30,9 +30,6 @@ library(stringr)
 
 # plotting
 library(ggplot2)
-
-# bioinformatics/stats helpers
-library(edgeR)
 ```
 
 
@@ -76,7 +73,10 @@ MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in 
 cohort containing KMT2A PTDs. 
 
 ```{r KMT2A-PTD_controls_comparison, fig.height = 10, fig.width = 8}
-results_summary <- get_controls_results_summary(mutate(kmt2a_results, sample = patient))
+results_summary <- get_results_summary(mutate(kmt2a_results,
+                                              sample = patient,
+                                              group_var = controls),
+                                       group_var_name = "controls")
 
 print("Total variant genes called using different controls:")
 results_summary %>%

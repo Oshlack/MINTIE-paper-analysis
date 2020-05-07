@@ -30,9 +30,6 @@ library(stringr)
 
 # plotting
 library(ggplot2)
-
-# bioinformatics/stats helpers
-library(edgeR)
 ```
 
 
@@ -87,26 +84,8 @@ MINTIE paper Figure 4 showing the number of variant genes called across
 the Leucegene normal samples.
 
 ```{r plot_variant_genes}
-var_genes <- normals_results$overlapping_genes %>% 
-                str_split("\\||:")
-
-repeat_rows <- rep(1:nrow(normals_results), sapply(var_genes, length))
-results_by_gene <- data.table(normals_results[repeat_rows,])
-results_by_gene$gene <- unlist(var_genes)
-
-results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "cell_type")]
-results_summary <- results_summary %>% arrange(cell_type, V1) %>% data.table()
-results_summary$sample <- factor(results_summary$sample,
-                                 levels = results_summary$sample)
-
-print("Summary of variant genes called across samples:")
-summary(results_summary$V1)
-
-# reorder cell types by total
-results_totals <- results_summary[, sum(V1), by = c("cell_type")] %>%
-                    arrange(desc(V1))
-results_summary$cell_type <- factor(results_summary$cell_type,
-                                    levels = results_totals$cell_type)
+results_summary <- get_results_summary(mutate(normals_results, group_var = cell_type),
+                                       group_var_name = "cell_type")
 
 ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
     geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
@@ -149,6 +128,7 @@ Proportion of protein coding genes observed in the MINTIE results.
 chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
 
 # join gene info with results and summarise by gene type
+results_by_gene <- get_results_by_gene(normals_results)
 gene_count <- left_join(results_by_gene, chess_genes, by = c("gene" = "Gene_Name")) %>%
                 group_by(Gene_Type) %>%
                 summarise(n_genes = length(unique(gene))) %>%
@@ -173,7 +153,9 @@ controls_comp$cell_type <- NULL
 controls_test_dir <- here("data/leucegene/normals_controls_test_results")
 controls_comp <- load_controls_comparison(controls_test_dir) %>%
                     rbind(controls_comp, .)
-results_summary <- get_controls_results_summary(controls_comp)
+results_summary <- get_results_summary(mutate(controls_comp,
+                                              group_var = controls),
+                                       group_var_name = "controls")
 
 print("Total variant genes called using different controls:")
 print(results_summary)

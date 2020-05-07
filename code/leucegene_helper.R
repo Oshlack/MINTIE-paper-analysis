@@ -41,17 +41,25 @@ load_controls_comparison <- function(results_dir, logFC_cutoff = 5) {
     return(results)
 }
 
-get_controls_results_summary <- function(results) {
-    # extract variant genes and make summary
+get_results_by_gene <- function(results) {
+    # split MINTIE's results so that each unique
+    # gene in the overlapping genes field appears
+    # on a separate record row
     var_genes <- results$overlapping_genes %>%
-                  str_split("\\||:")
+        str_split("\\||:")
 
     repeat_rows <- rep(1:nrow(results), sapply(var_genes, length))
     results_by_gene <- data.table(results[repeat_rows,])
     results_by_gene$gene <- unlist(var_genes)
 
-    results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "controls")]
-    results_summary <- results_summary %>% arrange(controls, V1)
+    return(results_by_gene)
+}
+
+get_results_summary <- function(results, group_var_name = "controls") {
+    # extract variant genes and make summary
+    results_by_gene <- get_results_by_gene(results)
+    results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "group_var")]
+    results_summary <- results_summary %>% arrange(group_var, V1)
 
     # reorder samples by total variants
     sample_totals <- data.table(results_summary)[, sum(V1), by = c("sample")] %>%
@@ -59,11 +67,12 @@ get_controls_results_summary <- function(results) {
     results_summary$sample <- factor(results_summary$sample,
                                       levels = sample_totals$sample)
 
-    # reorder by totals across different controls
-    control_totals <- data.table(results_summary)[, sum(V1), by = c("controls")] %>%
+    # reorder by totals across different group_var
+    control_totals <- data.table(results_summary)[, sum(V1), by = c("group_var")] %>%
                         arrange(V1)
-    results_summary$controls <- factor(results_summary$controls,
-                                       levels = control_totals$controls)
+    results_summary$group_var <- factor(results_summary$group_var,
+                                       levels = control_totals$group_var)
+    colnames(results_summary)[2] <- group_var_name
 
     return(results_summary)
 }
