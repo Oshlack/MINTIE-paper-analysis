@@ -1,0 +1,130 @@
+---
+title: "RCH B-ALL"
+output:
+  workflowr::wflow_html:
+      code_folding: hide
+---
+
+```{r knitr, include = FALSE}
+DOCNAME = "RCH_B-ALL"
+knitr::opts_chunk$set(autodep        = TRUE,
+                      cache          = FALSE,
+                      cache.path     = paste0("cache/", DOCNAME, "/"),
+                      cache.comments = FALSE,
+                      echo           = TRUE,
+                      error          = FALSE,
+                      fig.align      = "center",
+                      fig.width      = 9,
+                      fig.height     = 5,
+                      message        = FALSE,
+                      warning        = FALSE)
+```
+
+
+```{r libraries, cache = FALSE}
+# util
+library(data.table)
+library(dplyr)
+library(here)
+library(stringr)
+
+# plotting
+library(ggplot2)
+```
+
+
+```{r options, cache = FALSE}
+options(stringsAsFactors = FALSE)
+```
+
+
+```{r source, cache = FALSE}
+source(here("code/leucegene_helper.R"))
+```
+
+
+RCH B-ALL results
+=================
+
+Here we analyse the results of MINTIE run on the RCH B-ALL cohort.
+
+```{r load_data, cache = TRUE}
+rch_ball_results_dir <- here("data/RCH_B-ALL")
+rch_ball_results <- list.files(rch_ball_results_dir, full.names = TRUE) %>%
+                        lapply(., read.delim) %>%
+                        rbindlist() %>%
+                        filter(logFC > 5)
+
+# rename IDs to be consistent with doi: 10.1182/bloodadvances.2019001008
+rch_ball_results$sample <- rch_ball_results$sample %>% 
+                            str_split("^EKL-|^EKL|^PE15R-MLM-") %>%
+                            lapply(., str_c, collapse = "") %>%
+                            unlist() %>%
+                            str_c("B-ALL_", .)
+
+# list of ALL-associated genes
+all_genes <- read.delim(here("data/ref/ALL_associated_genes.txt"), header=FALSE)$V1
+```
+
+## Variant genes called
+
+Supplementary Figure 4 in the MINTIE paper. Shows the overall number of variant
+genes called by MINTIE in the RCH B-ALL cohort
+
+```{r results_overview}
+results_by_gene <- get_results_by_gene(rch_ball_results)
+results_summary <- results_by_gene[, length(unique(gene)), by = "sample"]
+results_summary <- results_summary %>% arrange(desc(V1))
+results_summary$sample <- factor(results_summary$sample,
+                                 levels = results_summary$sample)
+print("Variant genes called summary:")
+summary(results_summary$V1)
+
+ggplot(results_summary, aes(sample, V1)) + 
+    geom_bar(position=position_dodge(width=0.8), stat="identity") +
+    theme_bw() + xlab("") + ylab("# variant genes") +
+    scale_fill_brewer(palette = "Set2") +
+    theme(legend.position = "bottom",
+          axis.text.x = element_text(size = 7, angle = 90))
+```
+
+## ALL-associated genes called
+
+Supplementary Figure 5 in the MINTIE paper. Shows recurrently called variants in
+ALL-associated genes in RCH B-ALL cohort. 
+
+```{r ALL_associated_genes}
+all_gene_results <- filter(results_by_gene, gene %in% all_genes) %>%
+                        collate_vartypes()
+
+# make list of recurrently mutated genes
+recurrent_genes <- group_by(all_gene_results, gene) %>%
+                        summarise(var_count = length(unique(variant_id))) %>%
+                        filter(var_count > 4) %>%
+                        arrange(desc(var_count))
+
+# make summary data frame
+all_gene_summary <- group_by(all_gene_results, gene, class) %>%
+                        summarise(var_count = length(unique(variant_id))) %>%
+                        filter(gene %in% recurrent_genes$gene)
+all_gene_summary$gene <- factor(all_gene_summary$gene,
+                                levels = recurrent_genes$gene)
+
+# define category colours and plot
+cols <- c("#87649aff",
+          "#bdd888ff",
+          "#e7d992ff",
+          "#bdbdbd")
+names(cols) <- c("Fusion",
+                 "Transcribed structural variant",
+                 "Novel splice variant",
+                 "Unknown")
+ggplot(all_gene_summary, aes(gene, var_count, fill = class)) +
+    geom_bar(sta = "identity") +
+    theme_bw() +
+    xlab("") +
+    scale_fill_manual(values = cols) +
+    theme(legend.position = "bottom",
+          axis.text.x = element_text(angle = 90))
+```
+

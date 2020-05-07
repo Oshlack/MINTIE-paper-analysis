@@ -45,8 +45,11 @@ source(here("code/leucegene_helper.R"))
 Leucegene Validation
 ====================
 
+Here we analyse the results of MINTIE run on a number of Leucegene samples,
+including the effect of controls on a cohort with KMT2A-PTD variants. We also
+check whether MINTIE has called known variants within the cohort.
 
-```{r load_data}
+```{r load_data, cache = TRUE}
 # load SRX to patient ID lookup table
 kmt2a_patient_lookup <- read.delim(here("data/leucegene/sample_info/KMT2A-PTD_samples.txt"),
                                    header = FALSE,
@@ -105,7 +108,7 @@ for the given control group. Coverage obtained from [Audemard et al](https://doi
 [spreadsheet containing the Leucegene results](https://www.biorxiv.org/highwire/filestream/93175/field_highwire_adjunct_files/1/295808-2.zip)
 must be manually added to `data/leucegene/sample_info` to run the code.
 
-```{r}
+```{r KMT2A-PTDs_in_cohort}
 # load results from km paper for coverage of KMT2A PTDs
 kmt2a_lgene_km_results <- read.csv(here("data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls"), sep="\t") %>%
                             mutate(patient = Sample) %>%
@@ -129,7 +132,7 @@ print(kmt2a_control_comp)
 
 ## Leucegene variants found by MINTIE
 
-```{r}
+```{r leucegene_variants_validation}
 # add KMT2A results against AML controls as validation
 validation <- filter(kmt2a_results, controls == "AML_controls") %>%
                 select(-c(controls, patient)) %>%
