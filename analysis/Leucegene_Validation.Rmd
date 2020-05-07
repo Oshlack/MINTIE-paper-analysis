@@ -58,17 +58,7 @@ kmt2a_patient_lookup <- read.delim(here("data/leucegene/sample_info/KMT2A-PTD_sa
 kmt2a_results_dir <- here("data/leucegene/KMT2A-PTD_results")
 
 # load KMT2A cohort comparisons against all other controls
-kmt2a_results <- NULL
-control_sets <- list.files(kmt2a_results_dir)
-for (controls in control_sets) {
-    tmp <- str_c(kmt2a_results_dir, controls, sep = "/") %>%
-            list.files(., full.names = TRUE) %>%
-            lapply(., read.delim) %>%
-            rbindlist() %>%
-            filter(logFC > 5) %>%
-            mutate(controls = controls)
-    kmt2a_results <- rbind(kmt2a_results, tmp)
-}
+kmt2a_results <- load_controls_comparison(kmt2a_results_dir)
 kmt2a_results <- inner_join(kmt2a_results, kmt2a_patient_lookup, by = "sample")
 
 # load other validation reults and truth table
@@ -86,24 +76,7 @@ MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in 
 cohort containing KMT2A PTDs. 
 
 ```{r KMT2A-PTD_controls_comparison, fig.height = 10, fig.width = 8}
-# extract variant genes and make summary
-var_genes <- kmt2a_results$overlapping_genes %>%
-                str_split("\\||:")
-
-repeat_rows <- rep(1:nrow(kmt2a_results), sapply(var_genes, length))
-results_by_gene <- data.table(kmt2a_results[repeat_rows,])
-results_by_gene$gene <- unlist(var_genes)
-
-results_summary <- results_by_gene[, length(unique(gene)), by = c("patient", "controls")]
-results_summary <- results_summary %>% arrange(controls, V1) %>% data.table()
-results_summary$patient <- factor(results_summary$patient,
-                                 levels = unique(results_summary$patient))
-
-# reorder by totals across different controls
-results_totals <- results_summary[, sum(V1), by = c("controls")] %>%
-                    arrange(V1)
-results_summary$controls <- factor(results_summary$controls,
-                                    levels = results_totals$controls)
+results_summary <- get_controls_results_summary(mutate(kmt2a_results, sample = patient))
 
 print("Total variant genes called using different controls:")
 results_summary %>%
@@ -112,8 +85,8 @@ results_summary %>%
     data.frame() %>%
     print()
 
-ggplot(results_summary, aes(patient, V1, fill=controls)) +
-    geom_bar(position = position_dodge2(width  =0.9, preserve = "single"), stat = "identity") +
+ggplot(results_summary, aes(sample, V1, fill = controls)) +
+    geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
     theme_bw() +
     xlab("") +
     ylab("Genes with variants") +

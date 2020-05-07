@@ -24,6 +24,50 @@ collate_vartypes <- function(results) {
     return(results)
 }
 
+load_controls_comparison <- function(results_dir, logFC_cutoff = 5) {
+    # load MINTIE results from analysis
+    # containing sets of controls
+    results <- NULL
+    controls <- list.files(results_dir)
+    for (control in controls) {
+        tmp <- str_c(results_dir, control, sep = "/") %>%
+            list.files(., full.names = TRUE) %>%
+            lapply(., read.delim) %>%
+            rbindlist() %>%
+            filter(logFC > logFC_cutoff) %>%
+            mutate(controls = control)
+        results <- rbind(results, tmp)
+    }
+    return(results)
+}
+
+get_controls_results_summary <- function(results) {
+    # extract variant genes and make summary
+    var_genes <- results$overlapping_genes %>%
+                  str_split("\\||:")
+
+    repeat_rows <- rep(1:nrow(results), sapply(var_genes, length))
+    results_by_gene <- data.table(results[repeat_rows,])
+    results_by_gene$gene <- unlist(var_genes)
+
+    results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "controls")]
+    results_summary <- results_summary %>% arrange(controls, V1)
+
+    # reorder samples by total variants
+    sample_totals <- data.table(results_summary)[, sum(V1), by = c("sample")] %>%
+                        arrange(V1)
+    results_summary$sample <- factor(results_summary$sample,
+                                      levels = sample_totals$sample)
+
+    # reorder by totals across different controls
+    control_totals <- data.table(results_summary)[, sum(V1), by = c("controls")] %>%
+                        arrange(V1)
+    results_summary$controls <- factor(results_summary$controls,
+                                       levels = control_totals$controls)
+
+    return(results_summary)
+}
+
 get_samples_with_kmt2a_sv <- function(results, controls) {
     # return unique samples with KMT2A hard/soft
     # clipped variant transcripts

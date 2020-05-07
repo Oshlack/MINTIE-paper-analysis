@@ -171,35 +171,9 @@ controls_comp$cell_type <- NULL
 
 # load comparisons against all other controls
 controls_test_dir <- here("data/leucegene/normals_controls_test_results")
-celltypes <- list.files(controls_test_dir)
-for (celltype in celltypes) {
-    tmp <- str_c(controls_test_dir, celltype, sep = "/") %>%
-            list.files(., full.names = TRUE) %>%
-            lapply(., read.delim) %>%
-            rbindlist() %>%
-            filter(logFC > 5) %>%
-            mutate(controls = celltype)
-    controls_comp <- rbind(controls_comp, tmp)
-}
-
-# extract variant genes and make summary
-var_genes <- controls_comp$overlapping_genes %>%
-                str_split("\\||:")
-
-repeat_rows <- rep(1:nrow(controls_comp), sapply(var_genes, length))
-results_by_gene <- data.table(controls_comp[repeat_rows,])
-results_by_gene$gene <- unlist(var_genes)
-
-results_summary <- results_by_gene[, length(unique(gene)), by = c("sample", "controls")]
-results_summary <- results_summary %>% arrange(sample, V1) %>% data.table()
-results_summary$sample <- factor(results_summary$sample,
-                                 levels = unique(results_summary$sample))
-
-# reorder by totals across different controls
-results_totals <- results_summary[, sum(V1), by = c("controls")] %>%
-                    arrange(V1)
-results_summary$controls <- factor(results_summary$controls,
-                                    levels = results_totals$controls)
+controls_comp <- load_controls_comparison(controls_test_dir) %>%
+                    rbind(controls_comp, .)
+results_summary <- get_controls_results_summary(controls_comp)
 
 print("Total variant genes called using different controls:")
 print(results_summary)
