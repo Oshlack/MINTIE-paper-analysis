@@ -133,3 +133,17 @@ is_variant_in_sample <- function(srx_id, gene1, gene2, vartype, results) {
 
     return(nrow(hits_gene1) > 0 | nrow(hits_gene2) > 0)
 }
+
+get_gene_stats <- function(bygene, results) {
+    # print how many variants across how many
+    # samples were found for the given gene
+    # expects a gene summary table
+    gene_summary <- filter(results, gene == bygene)
+    paste("We found",
+          gene_summary$var_count %>% sum(),
+          "variants across",
+          gene_summary$sample %>% unique %>% length(),
+          "samples in",
+          bygene) %>%
+        return()
+}

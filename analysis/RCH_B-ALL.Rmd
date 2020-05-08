@@ -69,7 +69,7 @@ all_genes <- read.delim(here("data/ref/ALL_associated_genes.txt"), header=FALSE)
 ## Variant genes called
 
 Supplementary Figure 4 in the MINTIE paper. Shows the overall number of variant
-genes called by MINTIE in the RCH B-ALL cohort
+genes called by MINTIE in the RCH B-ALL cohort.
 
 ```{r results_overview}
 results_by_gene <- get_results_by_gene(rch_ball_results)
@@ -97,6 +97,13 @@ ALL-associated genes in RCH B-ALL cohort.
 all_gene_results <- filter(results_by_gene, gene %in% all_genes) %>%
                         collate_vartypes()
 
+paste("We found", 
+      all_gene_results$variant_id %>% unique() %>% length(),
+      "variants across",
+      all_gene_results$gene %>% unique() %>% length(),
+      "unique genes") %>%
+    print()
+
 # make list of recurrently mutated genes
 recurrent_genes <- group_by(all_gene_results, gene) %>%
                         summarise(var_count = length(unique(variant_id))) %>%
@@ -104,7 +111,7 @@ recurrent_genes <- group_by(all_gene_results, gene) %>%
                         arrange(desc(var_count))
 
 # make summary data frame
-all_gene_summary <- group_by(all_gene_results, gene, class) %>%
+all_gene_summary <- group_by(all_gene_results, gene, class, sample) %>%
                         summarise(var_count = length(unique(variant_id))) %>%
                         filter(gene %in% recurrent_genes$gene)
 all_gene_summary$gene <- factor(all_gene_summary$gene,
@@ -123,8 +130,22 @@ ggplot(all_gene_summary, aes(gene, var_count, fill = class)) +
     geom_bar(sta = "identity") +
     theme_bw() +
     xlab("") +
+    ylab("Variants") +
     scale_fill_manual(values = cols) +
     theme(legend.position = "bottom",
           axis.text.x = element_text(angle = 90))
+
+# print stats of top 3 gene
+all_gene_summary %>%
+    group_by(gene) %>%
+    summarise(total_vars = sum(var_count)) %>%
+    pull(gene) %>%
+    as.character() %>%
+    head(3) %>%
+    lapply(., get_gene_stats, all_gene_summary) %>%
+    unlist() %>%
+    str_c("\n") %>%
+    paste0(collapse = "") %>%
+    cat()
 ```
 
