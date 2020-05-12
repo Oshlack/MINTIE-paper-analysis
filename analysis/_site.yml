@@ -13,6 +13,8 @@ navbar:
     href: Leucegene_Normals.html
   - text: Validation
     href: Leucegene_Validation.html
+  - text: B-ALLs
+    href: RCH_B-ALL.html
   - text: License
     href: license.html
   right:

@@ -48,7 +48,7 @@ RCH B-ALL results
 
 Here we analyse the results of MINTIE run on the RCH B-ALL cohort.
 
-```{r load_data, cache = TRUE}
+```{r load_data, cache = FALSE}
 rch_ball_results_dir <- here("data/RCH_B-ALL")
 rch_ball_results <- list.files(rch_ball_results_dir, full.names = TRUE) %>%
                         lapply(., read.delim) %>%
