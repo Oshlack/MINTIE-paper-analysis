@@ -185,7 +185,7 @@ hg19_bg_gene_ref <- read.delim(here("data/simu/truth/hg19_bg_gene_ref.tsv"))
 hg19_bgenes_grx <- get_granges(bg_gene_ref, convert_chrom = FALSE)
 
 # load barnacle results and make Genomic Ranges objects
-barnacle_results <- read.delim(here("data/simu/results/barnacle/allvars-case.barnacle.data"), header=FALSE)$V1
+barnacle_results <- read.delim(here("data/simu/results/Barnacle/allvars-case.barnacle.data"), header=FALSE)$V1
 barnacle_results <- barnacle_results[grep("OVERLAPPING", barnacle_results)]
 
 barnacle_grx_a <- get_barnacle_grx(barnacle_results)
@@ -210,7 +210,7 @@ plot_simu_benchmarking(results, "Barnacle")
 
 ```{r SQUID}
 # load data
-squid_results <- read.delim(here("data/simu/results/squid/results_sv.txt"))
+squid_results <- read.delim(here("data/simu/results/SQUID/results_sv.txt"))
 
 # make GRanges objects
 chr1 <- sapply(squid_results$X..chrom1, convert_chrom, add_chr=FALSE)
@@ -273,7 +273,7 @@ plot_simu_benchmarking(results, "JAFFA")
 
 ```{r Arriba}
 # load data
-arriba_results <- read.delim(here("data/simu/results/arriba/fusions.tsv"))
+arriba_results <- read.delim(here("data/simu/results/Arriba/fusions.tsv"))
 
 # extract variasnt genes
 arriba_vargenes1 <- sapply(arriba_results$X.gene1, get_arriba_genes)
