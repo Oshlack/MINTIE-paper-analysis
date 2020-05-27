@@ -7,7 +7,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -29,6 +28,14 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -90,6 +97,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -250,12 +258,56 @@ $(document).ready(function () {
 }
 </style>
 
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <style type="text/css">
 
@@ -304,6 +356,8 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -382,13 +436,6 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 <div class="btn-group pull-right">
@@ -426,7 +473,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-18
+<strong>Last updated:</strong> 2020-05-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -436,7 +483,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -517,30 +564,43 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/3aee9261d68e21bc2e5e29f14992a5e4cd953eed" target="_blank">3aee926</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree36c35a96ec79b47790a381dfdbbd9d59362eddf8targetblank36c35a9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/36c35a96ec79b47790a381dfdbbd9d59362eddf8" target="_blank">36c35a9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree36c35a96ec79b47790a381dfdbbd9d59362eddf8targetblank36c35a9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/36c35a96ec79b47790a381dfdbbd9d59362eddf8" target="_blank">36c35a9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/Leucegene_Gene_Expression_cache/
+    Ignored:    analysis/Leucegene_Normals_cache/
+    Ignored:    analysis/RCH_B-ALL_cache/
     Ignored:    analysis/cache/
+    Ignored:    data/.DS_Store
     Ignored:    data/RCH_B-ALL/
+    Ignored:    data/leucegene/.DS_Store
+    Ignored:    data/leucegene/KMT2A-PTD_results/.DS_Store
+    Ignored:    data/leucegene/normals_controls_test_results/.DS_Store
     Ignored:    data/leucegene/salmon_out/
     Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
+    Ignored:    data/simu/.DS_Store
+    Ignored:    data/simu/results/.DS_Store
     Ignored:    output/Leucegene_gene_counts.tsv
     Ignored:    packrat/lib-R/
     Ignored:    packrat/lib-ext/
     Ignored:    packrat/lib/
-    Ignored:    packrat/src/
-
-Untracked files:
-    Untracked:  .here
 
 </code></pre>
 <p>
@@ -555,7 +615,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/Simulation_Benchmarking.Rmd</code>) and HTML (<code>docs/Simulation_Benchmarking.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -584,7 +644,7 @@ Message
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/3aee9261d68e21bc2e5e29f14992a5e4cd953eed/docs/Simulation_Benchmarking.html" target="_blank">3aee926</a>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/37028624941296e758779a0eafecc35fd9882a27/docs/Simulation_Benchmarking.html" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
@@ -593,24 +653,7 @@ Marek Cmero
 2020-05-18
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/Simulation_Benchmarking.html" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-<td>
-Build site.
+Removed MLM samples from final B-ALL results
 </td>
 </tr>
 <tr>
@@ -1058,13 +1101,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1131,13 +1240,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/TAP-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1232,13 +1407,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/Barnacle-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1321,13 +1562,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/SQUID-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1411,13 +1718,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/JAFFA-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1498,13 +1871,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/Arriba-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1574,13 +2013,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/StringTie-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1681,13 +2186,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/KisSplice-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1739,13 +2310,79 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">bf478ec</a>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">3702862</a>
 </td>
 <td>
 Marek Cmero
 </td>
 <td>
-2020-05-12
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/db62be7d93fbc4484d69cc6cc0dd82554b4d71a9/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">db62be7</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4a5d6aeedc2d6f903b0cebb8fddee018a73682e8/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">4a5d6ae</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/3c9c3896b464d954015a268e63f3379d65808e8a/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">3c9c389</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/784838be894f48d927d650ec538f03e85cf67825/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">784838b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-30
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/535d4188f6f2ca8d379d57a61f04d99bfb185347/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">535d418</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/6a174443bc39bfe2161e66ea6c9ac45d056b921a/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">6a17444</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-04-27
 </td>
 </tr>
 <tr>
@@ -1782,48 +2419,44 @@ Marek Cmero
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS  10.14.6
 
 Matrix products: default
-BLAS:   /config/RStudio/R/3.6.1/lib64/R/lib/libRblas.so
-LAPACK: /config/RStudio/R/3.6.1/lib64/R/lib/libRlapack.so
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
- [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
- [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
 
 attached base packages:
 [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
 [8] methods   base     
 
 other attached packages:
- [1] Rsamtools_2.0.1      Biostrings_2.52.0    XVector_0.24.0      
- [4] GenomicRanges_1.36.1 GenomeInfoDb_1.20.0  IRanges_2.18.3      
- [7] S4Vectors_0.22.1     BiocGenerics_0.30.0  ggplot2_3.2.1       
-[10] here_0.1             dplyr_0.8.3          data.table_1.12.6   
+ [1] Rsamtools_1.34.1     Biostrings_2.50.2    XVector_0.22.0      
+ [4] GenomicRanges_1.34.0 GenomeInfoDb_1.18.2  IRanges_2.16.0      
+ [7] S4Vectors_0.20.1     BiocGenerics_0.28.0  ggplot2_3.1.0       
+[10] here_0.1             dplyr_0.8.1          data.table_1.12.0   
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2             plyr_1.8.4             pillar_1.4.2          
- [4] compiler_3.6.1         git2r_0.26.1           workflowr_1.4.0       
- [7] zlibbioc_1.30.0        bitops_1.0-6           tools_3.6.1           
-[10] digest_0.6.21          evaluate_0.14          tibble_2.1.3          
-[13] gtable_0.3.0           pkgconfig_2.0.3        rlang_0.4.0           
-[16] yaml_2.2.0             xfun_0.10              GenomeInfoDbData_1.2.1
-[19] withr_2.1.2            stringr_1.4.0          knitr_1.25            
-[22] fs_1.3.1               rprojroot_1.3-2        grid_3.6.1            
-[25] tidyselect_0.2.5       glue_1.3.1             R6_2.4.0              
-[28] BiocParallel_1.18.1    rmarkdown_1.16         reshape2_1.4.3        
-[31] purrr_0.3.2            magrittr_1.5           whisker_0.4           
-[34] backports_1.1.4        scales_1.0.0           htmltools_0.3.6       
-[37] assertthat_0.2.1       colorspace_1.4-1       labeling_0.3          
-[40] stringi_1.4.3          RCurl_1.95-4.12        lazyeval_0.2.2        
-[43] munsell_0.5.0          crayon_1.3.4          </code></pre>
+ [1] tidyselect_0.2.5       xfun_0.5               purrr_0.3.2           
+ [4] reshape2_1.4.3         colorspace_1.4-1       htmltools_0.3.6       
+ [7] yaml_2.2.0             rlang_0.4.2            later_1.0.0           
+[10] pillar_1.3.1           glue_1.3.1             withr_2.1.2           
+[13] BiocParallel_1.14.2    GenomeInfoDbData_1.2.0 plyr_1.8.4            
+[16] stringr_1.4.0          zlibbioc_1.28.0        munsell_0.5.0         
+[19] gtable_0.3.0           workflowr_1.6.1        evaluate_0.13         
+[22] labeling_0.3           knitr_1.22             httpuv_1.5.2          
+[25] Rcpp_1.0.1             promises_1.1.0         scales_1.0.0          
+[28] backports_1.1.3        fs_1.2.7               digest_0.6.18         
+[31] stringi_1.4.3          grid_3.5.1             rprojroot_1.3-2       
+[34] tools_3.5.1            bitops_1.0-6           magrittr_1.5          
+[37] lazyeval_0.2.2         RCurl_1.95-4.12        tibble_2.1.1          
+[40] crayon_1.3.4           whisker_0.3-2          pkgconfig_2.0.2       
+[43] assertthat_0.2.1       rmarkdown_1.12         R6_2.4.0              
+[46] git2r_0.26.1           compiler_3.5.1        </code></pre>
 </div>
 </div>
 </div>
@@ -1858,54 +2491,6 @@ $(document).ready(function () {
 });
 
 
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
