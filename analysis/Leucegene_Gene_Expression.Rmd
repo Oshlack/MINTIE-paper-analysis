@@ -44,6 +44,10 @@ library(matrixStats)
 options(stringsAsFactors = FALSE)
 ```
 
+```{r source, cache = FALSE}
+source(here("code/leucegene_helper.R"))
+```
+
 Leucegene Gene Expression
 =========================
 
@@ -141,15 +145,7 @@ genes that are protein coding.
 
 ```{r expressed_genes}
 # load CHESS gene reference containing gene types
-chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
-
-# split gene names
-genes <- chess_genes$Gene_Name %>%
-            str_split(",")
-repeat_rows <- rep(1:nrow(chess_genes),
-                   sapply(genes, length))
-chess_genes <- chess_genes[repeat_rows,]
-chess_genes$gene <- unlist(genes)
+chess_genes <- get_chess_genes(gzfile(here("data/ref/chess2.2.genes.gz")))
 
 # construct a normal counts matrix of "expressed" counts
 # (>1 CPM in at least one sample)

@@ -71,15 +71,20 @@ Summary results for variants called by MINTIE on Leucegene normals.
 normals_results %>%
     group_by(sample) %>%
     summarise(variants = length(unique(variant_id))) %>%
+    summarise(min = min(variants),
+              median = median(variants),
+              max = max(variants)) %>%
     gt() %>%
     tab_header(
-        title = md("**Variants called summary by sample**")
+        title = md("**Variants called by sample summary**")
     ) %>%
     tab_options(
         table.font.size = 12
     ) %>%
     cols_label(
-        variants = md("**Variants**")
+        min = md("**Min**"),
+        median = md("**Median**"),
+        max = md("**Max**")
     )
 
 collate_vartypes(normals_results) %>%
@@ -108,6 +113,25 @@ the Leucegene normal samples.
 ```{r plot_variant_genes}
 results_summary <- get_results_summary(mutate(normals_results, group_var = cell_type),
                                        group_var_name = "cell_type")
+
+results_summary %>%
+    summarise(min = min(V1),
+              median = median(V1),
+              max = max(V1),
+              total = sum(V1)) %>%
+    gt() %>%
+    tab_header(
+        title = md("**Variant genes called by sample summary**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        min = md("**Min**"),
+        median = md("**Median**"),
+        max = md("**Max**"),
+        total = md("**Total**")
+    )
 
 ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
     geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
@@ -147,17 +171,21 @@ Proportion of protein coding genes observed in the MINTIE results.
 
 ```{r protein_coding_proportion}
 # load CHESS gene reference containing gene types
-chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
+chess_genes <- get_chess_genes(gzfile(here("data/ref/chess2.2.genes.gz")))
 
 # join gene info with results and summarise by gene type
 results_by_gene <- get_results_by_gene(normals_results)
-gene_count <- left_join(results_by_gene, chess_genes, by = c("gene" = "Gene_Name")) %>%
+gene_count <- left_join(results_by_gene, chess_genes, by = "gene") %>%
                 group_by(Gene_Type) %>%
                 summarise(n_genes = length(unique(gene))) %>%
                 data.table()
 
 n_protein_coding <- gene_count[gene_count$Gene_Type == "protein_coding", "n_genes"]
-print(paste("proportion of protein coding genes =", n_protein_coding / sum(gene_count$n_genes)))
+n_var_genes <- sum(gene_count$n_genes)
+paste("proportion of protein coding genes =",
+    (n_protein_coding / n_var_genes) %>% round(4),
+    paste0("(", n_protein_coding, "/", n_var_genes, ")")) %>%
+    print()
 ```
 
 ## Controls Comparison
@@ -180,6 +208,8 @@ results_summary <- get_results_summary(mutate(controls_comp,
                                        group_var_name = "controls")
 
 results_summary %>%
+    group_by(controls) %>%
+    summarise(tcount = sum(V1)) %>%
     gt() %>%
     tab_header(
         title = md("**Total variant genes called using different controls**")
@@ -188,9 +218,8 @@ results_summary %>%
         table.font.size = 12
     ) %>%
     cols_label(
-        sample = md("**Sample**"),
         controls = md("**Controls**"),
-        V1 = md("**Variant genes**")
+        tcount = md("**Variant genes**")
     )
 
 ggplot(results_summary, aes(sample, V1, fill=controls)) +
