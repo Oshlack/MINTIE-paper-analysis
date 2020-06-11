@@ -28,8 +28,9 @@ library(dplyr)
 library(here)
 library(stringr)
 
-# plotting
+# plotting/tables
 library(ggplot2)
+library(gt)
 ```
 
 
@@ -67,15 +68,36 @@ normals_results <- inner_join(normals_results, celltype,
 Summary results for variants called by MINTIE on Leucegene normals.
 
 ```{r}
-summary_by_sample <- normals_results %>%
-                        group_by(sample) %>%
-                        summarise(variants = length(unique(variant_id)))
-summary_by_class <- collate_vartypes(normals_results) %>%
-                        group_by(class) %>%
-                        summarise(variants = length(unique(variant_id))) %>%
-                        mutate(fraction = variants / sum(variants))
-print(summary_by_sample)
-print(summary_by_class)
+normals_results %>%
+    group_by(sample) %>%
+    summarise(variants = length(unique(variant_id))) %>%
+    gt() %>%
+    tab_header(
+        title = md("**Variants called summary by sample**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        variants = md("**Variants**")
+    )
+
+collate_vartypes(normals_results) %>%
+    group_by(class) %>%
+    summarise(variants = length(unique(variant_id))) %>%
+    mutate(fraction = variants / sum(variants)) %>%
+    gt() %>%
+    fmt_number(columns = vars(fraction), decimals = 3) %>%
+    tab_header(
+        title = md("**Variants called summary by class**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        variants = md("**Variants**"),
+        fraction = md("**Fraction**")
+    )
 ```
 
 ## Variant Genes
@@ -157,8 +179,19 @@ results_summary <- get_results_summary(mutate(controls_comp,
                                               group_var = controls),
                                        group_var_name = "controls")
 
-print("Total variant genes called using different controls:")
-print(results_summary)
+results_summary %>%
+    gt() %>%
+    tab_header(
+        title = md("**Total variant genes called using different controls**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        sample = md("**Sample**"),
+        controls = md("**Controls**"),
+        V1 = md("**Variant genes**")
+    )
 
 ggplot(results_summary, aes(sample, V1, fill=controls)) +
     geom_bar(position=position_dodge2(width=0.9, preserve="single"), stat="identity") +

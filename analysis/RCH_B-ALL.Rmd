@@ -28,8 +28,9 @@ library(dplyr)
 library(here)
 library(stringr)
 
-# plotting
+# plotting/tables
 library(ggplot2)
+library(gt)
 ```
 
 
@@ -77,8 +78,23 @@ results_summary <- results_by_gene[, length(unique(gene)), by = "sample"]
 results_summary <- results_summary %>% arrange(desc(V1))
 results_summary$sample <- factor(results_summary$sample,
                                  levels = results_summary$sample)
-print("Variant genes called summary:")
-summary(results_summary$V1)
+
+results_summary %>%
+    summarise(min=min(V1),
+              median=median(V1),
+              max=max(V1)) %>%
+    gt() %>%
+    tab_header(
+        title = md("**Summary of variant genes called in B-ALL cohort**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        min = md("**Min**"),
+        median = md("**Median**"),
+        max = md("**Max**")
+    )
 
 ggplot(results_summary, aes(sample, V1)) + 
     geom_bar(position=position_dodge(width=0.8), stat="identity") +

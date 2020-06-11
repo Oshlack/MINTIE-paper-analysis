@@ -28,9 +28,10 @@ library(dplyr)
 library(here)
 library(stringr)
 
-# plotting
+# plotting/tables
 library(ggplot2)
 library(RColorBrewer)
+library(gt)
 
 # bioinformatics/stats helpers
 library(tximport)
@@ -142,18 +143,42 @@ genes that are protein coding.
 # load CHESS gene reference containing gene types
 chess_genes <- read.delim(gzfile(here("data/ref/chess2.2.genes.gz")))
 
+# split gene names
+genes <- chess_genes$Gene_Name %>%
+            str_split(",")
+repeat_rows <- rep(1:nrow(chess_genes),
+                   sapply(genes, length))
+chess_genes <- chess_genes[repeat_rows,]
+chess_genes$gene <- unlist(genes)
+
 # construct a normal counts matrix of "expressed" counts
 # (>1 CPM in at least one sample)
 normal_counts <- counts[,colnames(counts) %in% celltype$SRX_ID]
 keep <- rowSums(cpm(normal_counts) > 1) >= 1
 normal_counts <- normal_counts[keep,]
 
-# get gene info
+# tally gene types
 expressed_genes <- rownames(normal_counts)
-gene_types <- table(chess_genes$Gene_Type[chess_genes$Gene_Name %in% expressed_genes])
+gene_types <- filter(chess_genes, gene %in% expressed_genes) %>%
+                group_by(Gene_Type) %>%
+                summarise(gene_count = length(unique(GFF_ID)))
+gene_types <- rbind(gene_types, c("Total", sum(gene_types$gene_count)))
 
-print(paste(length(expressed_genes), "expressed genes found in Leucegene normals."))
-print(gene_types)
+# results table
+data.frame(gene_types) %>%
+    gt() %>%
+    tab_header(
+        title = md("**Gene classifications**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        Gene_Type = md("**Gene type**"),
+        gene_count = md("**Count**")
+    )
+
+n_protein_coding <- filter(gene_types, Gene_Type == "protein_coding") %>% select(gene_count)
 print(paste("Proportion of expressed genes that are protein coding:",
-            gene_types["protein_coding"] / length(expressed_genes)))
+            (as.numeric(n_protein_coding) / length(expressed_genes)) %>% round(4)))
 ```

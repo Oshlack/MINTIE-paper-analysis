@@ -408,7 +408,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -417,7 +417,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -426,10 +426,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-18
+<strong>Last updated:</strong> 2020-06-11
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MINTIE-paper-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -445,12 +445,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -517,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/3aee9261d68e21bc2e5e29f14992a5e4cd953eed" target="_blank">3aee926</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d3e97f294d7dceed2ab1709da6462a08eb542ebe" target="_blank">d3e97f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,18 +529,224 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/cache/
-    Ignored:    data/RCH_B-ALL/
-    Ignored:    data/leucegene/salmon_out/
-    Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
-    Ignored:    output/Leucegene_gene_counts.tsv
-    Ignored:    packrat/lib-R/
-    Ignored:    packrat/lib-ext/
-    Ignored:    packrat/lib/
-    Ignored:    packrat/src/
 
 Untracked files:
     Untracked:  .here
+    Untracked:  analysis/
+    Untracked:  backup/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  docs/
+    Untracked:  output/
+    Untracked:  packrat/
+
+Unstaged changes:
+    Unmerged:   .Rprofile
+    Unmerged:   .gitattributes
+    Unmerged:   .gitignore
+    Unmerged:   MINTIE-paper-analysis.Rproj
+    Unmerged:   README.md
+    Unmerged:   _workflowr.yml
+
+Staged changes:
+    Deleted:    analysis/Leucegene_Gene_Expression.Rmd
+    Deleted:    analysis/Leucegene_Normals.Rmd
+    Deleted:    analysis/Leucegene_Validation.Rmd
+    Deleted:    analysis/RCH_B-ALL.Rmd
+    Deleted:    analysis/Simulation_Benchmarking.Rmd
+    Deleted:    analysis/_site.yml
+    Deleted:    analysis/index.Rmd
+    Deleted:    analysis/license.Rmd
+    Deleted:    code/leucegene_helper.R
+    Deleted:    code/plot.R
+    Deleted:    code/simu_helper.R
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372047_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372048_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372049_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372050_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372051_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372052_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372053_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372054_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372055_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372056_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372057_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372058_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372059_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372060_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372061_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372063_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372064_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372065_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372066_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372067_results.tsv.gz
+    Deleted:    data/leucegene/sample_info/KMT2A-PTD_samples.txt
+    Deleted:    data/leucegene/sample_info/NUP98-NSD1_samples.txt
+    Deleted:    data/leucegene/sample_info/celltypes_info.tsv
+    Deleted:    data/leucegene/sample_info/selected_13_CBF_AML_controls.txt
+    Deleted:    data/leucegene/sample_info/variant_validation_table.tsv
+    Deleted:    data/leucegene/validation_results/SRX332627_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX332635_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX332667_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX381851_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX381861_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729580_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729581_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729582_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729583_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729585_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729586_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729587_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729588_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729589_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729590_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729591_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729592_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729602_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729603_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729604_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729605_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729606_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729607_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729608_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729609_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729610_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729611_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729612_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729615_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729616_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729617_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729618_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729619_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729620_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729621_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729622_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729623_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729624_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729625_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729626_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729627_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729628_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729629_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729630_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729631_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729632_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729633_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958856_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958862_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958915_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958987_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX959058_results.tsv.gz
+    Deleted:    data/ref/ALL_associated_genes.txt
+    Deleted:    data/ref/all_gene_locs.tsv.gz
+    Deleted:    data/ref/chess2.2.genes.gz
+    Deleted:    data/ref/tx2gene.txt.gz
+    Deleted:    data/simu/results/Arriba/fusions.tsv
+    Deleted:    data/simu/results/Barnacle/allvars-case.barnacle.data
+    Deleted:    data/simu/results/JAFFA/jaffa_results.csv
+    Deleted:    data/simu/results/KisSplice/results.bam
+    Deleted:    data/simu/results/KisSplice/results.bam.bai
+    Deleted:    data/simu/results/MINTIE/allvars-case_results.tsv
+    Deleted:    data/simu/results/SQUID/results_sv.txt
+    Deleted:    data/simu/results/StringTie/fullsimu.gtf
+    Deleted:    data/simu/results/TAP/novel_splicing.bedpe
+    Deleted:    data/simu/results/TAP/sv.bedpe
+    Deleted:    data/simu/truth/allvars_fusions_simulated.tsv
+    Deleted:    data/simu/truth/allvars_tsvs_splice_simulated.tsv
+    Deleted:    data/simu/truth/bg_gene_ref.tsv
+    Deleted:    data/simu/truth/hg19_bg_gene_ref.tsv
+    Deleted:    docs/.nojekyll
+    Deleted:    output/README.md
+    Deleted:    packrat/init.R
+    Deleted:    packrat/packrat.lock
+    Deleted:    packrat/packrat.opts
 
 </code></pre>
 <p>
@@ -579,40 +785,6 @@ Message
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/3aee9261d68e21bc2e5e29f14992a5e4cd953eed/docs/Leucegene_Validation.html" target="_blank">3aee926</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/Leucegene_Validation.html" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
 <tr>
 <td>
 html
@@ -830,8 +1002,9 @@ library(dplyr)
 library(here)
 library(stringr)
 
-# plotting
-library(ggplot2)</code></pre>
+# plotting/tables
+library(ggplot2)
+library(gt)</code></pre>
 <pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code>source(here(&quot;code/leucegene_helper.R&quot;))</code></pre>
 <div id="leucegene-validation" class="section level1">
@@ -863,17 +1036,395 @@ validation &lt;- list.files(leucegene_results_dir, full.names = TRUE) %&gt;%
                                               group_var = controls),
                                        group_var_name = &quot;controls&quot;)
 
-print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
-<pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
-<pre class="r"><code>results_summary %&gt;%
+# build table
+results_summary %&gt;%
     group_by(controls) %&gt;%
     summarise(min = min(V1), median = median(V1), max = max(V1)) %&gt;%
     data.frame() %&gt;%
-    print()</code></pre>
-<pre><code>                 controls min median  max
-1            AML_controls 129  213.5 2093
-2         normal_controls 266  508.0 2365
-3 normal_controls_reduced 501  794.0 2562</code></pre>
+    gt() %&gt;%
+     tab_header(
+        title = md(&quot;**Total variant genes called using different controls**&quot;)
+    ) %&gt;%
+    cols_label(
+        controls = md(&quot;**Controls**&quot;),
+        min = md(&quot;**Min**&quot;),
+        median = md(&quot;**Median**&quot;),
+        max = md(&quot;**Max**&quot;)
+    ) </code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#xuwvmsdnyk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xuwvmsdnyk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xuwvmsdnyk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xuwvmsdnyk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xuwvmsdnyk .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xuwvmsdnyk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xuwvmsdnyk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xuwvmsdnyk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xuwvmsdnyk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xuwvmsdnyk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xuwvmsdnyk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#xuwvmsdnyk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xuwvmsdnyk .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xuwvmsdnyk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xuwvmsdnyk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xuwvmsdnyk .gt_left {
+  text-align: left;
+}
+
+#xuwvmsdnyk .gt_center {
+  text-align: center;
+}
+
+#xuwvmsdnyk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xuwvmsdnyk .gt_font_normal {
+  font-weight: normal;
+}
+
+#xuwvmsdnyk .gt_font_bold {
+  font-weight: bold;
+}
+
+#xuwvmsdnyk .gt_font_italic {
+  font-style: italic;
+}
+
+#xuwvmsdnyk .gt_super {
+  font-size: 65%;
+}
+
+#xuwvmsdnyk .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different controls</strong></th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Controls</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Median</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">AML_controls</td>
+      <td class="gt_row gt_center">131</td>
+      <td class="gt_row gt_right">215.0</td>
+      <td class="gt_row gt_center">2151</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">normal_controls</td>
+      <td class="gt_row gt_center">268</td>
+      <td class="gt_row gt_right">525.5</td>
+      <td class="gt_row gt_center">2437</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">normal_controls_reduced</td>
+      <td class="gt_row gt_center">506</td>
+      <td class="gt_row gt_right">811.5</td>
+      <td class="gt_row gt_center">2637</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 <pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill = controls)) +
     geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
     theme_bw() +
@@ -908,17 +1459,6 @@ Date
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Leucegene_Validation.Rmd/KMT2A-PTD_controls_comparison-1.png" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/87b4e62442a254ec41b1ffdd6b55824a14a9463e/docs/figure/Leucegene_Validation.Rmd/KMT2A-PTD_controls_comparison-1.png" target="_blank">87b4e62</a>
@@ -967,129 +1507,1741 @@ kmt2a_control_comp$`13_AMLs` &lt;- kmt2a_control_comp$sample %in% found_using_ca
 kmt2a_control_comp$`13_normals` &lt;- kmt2a_control_comp$sample %in% found_using_norcon
 kmt2a_control_comp$`3_normals` &lt;- kmt2a_control_comp$sample %in% found_using_redcon
 
-print(kmt2a_control_comp)</code></pre>
-<pre><code>      sample patient coverage 13_AMLs 13_normals 3_normals
-1  SRX958906  07H152      158    TRUE       TRUE      TRUE
-2  SRX332646  09H115      125    TRUE       TRUE      TRUE
-3  SRX957230  06H146       87    TRUE       TRUE      TRUE
-4  SRX957223  05H111       79    TRUE       TRUE      TRUE
-5  SRX332659  11H021       63    TRUE       TRUE      TRUE
-6  SRX332633  05H050       58    TRUE       TRUE      TRUE
-7  SRX959061  13H150       58    TRUE       TRUE      TRUE
-8  SRX959044  13H048       57    TRUE       TRUE      TRUE
-9  SRX958974  10H070       53    TRUE       TRUE      TRUE
-10 SRX958963  10H007       50    TRUE       TRUE      TRUE
-11 SRX958959  09H106       49    TRUE       TRUE      TRUE
-12 SRX959060  13H141       45    TRUE       TRUE      TRUE
-13 SRX958945  09H058       29    TRUE       TRUE      TRUE
-14 SRX958907  07H155       23    TRUE       TRUE      TRUE
-15 SRX381854  08H112       22    TRUE       TRUE      TRUE
-16 SRX332645  09H113       17    TRUE       TRUE      TRUE
-17 SRX959001  11H183       16   FALSE      FALSE     FALSE
-18 SRX381852  08H012       15   FALSE      FALSE     FALSE
-19 SRX958932  08H138       15   FALSE      FALSE     FALSE
-20 SRX381865  11H008       13   FALSE      FALSE     FALSE
-21 SRX958873  06H048       10   FALSE      FALSE     FALSE
-22 SRX958922  08H063        6   FALSE      FALSE     FALSE
-23 SRX958961  10H001        6   FALSE      FALSE     FALSE
-24 SRX958844  04H111        3   FALSE      FALSE     FALSE</code></pre>
+# build output table
+kmt2a_control_comp %&gt;%
+    gt() %&gt;% 
+    cols_label(
+        sample = md(&quot;**Sample**&quot;),
+        patient = md(&quot;**Patient**&quot;),
+        coverage = md(&quot;**Coverage**&quot;),
+        `13_AMLs` = md(&quot;**13 AMLs**&quot;),
+        `13_normals` = md(&quot;**13 Normals**&quot;),
+        `3_normals` = md(&quot;**3 Normals**&quot;)
+    ) %&gt;%
+    tab_header(
+        title = md(&quot;**KMT2A PTDs found in Leucegene cohort**&quot;)
+    ) %&gt;%
+    tab_options(
+        table.font.size = 12
+    ) %&gt;%
+    tab_style(
+        style = cell_fill(color = &quot;lightgreen&quot;),
+        locations = cells_body(
+            columns = vars(`13_AMLs`),
+            rows = `13_AMLs`)
+    ) %&gt;%
+    tab_style(
+        style = cell_fill(color = &quot;lightgreen&quot;),
+        locations = cells_body(
+            columns = vars(`13_normals`),
+            rows = `13_normals`)
+    ) %&gt;%
+    tab_style(
+        style = cell_fill(color = &quot;lightgreen&quot;),
+        locations = cells_body(
+            columns = vars(`3_normals`),
+            rows = `3_normals`)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#odquwipzlc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#odquwipzlc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#odquwipzlc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#odquwipzlc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#odquwipzlc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#odquwipzlc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#odquwipzlc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#odquwipzlc .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#odquwipzlc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#odquwipzlc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#odquwipzlc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#odquwipzlc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#odquwipzlc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#odquwipzlc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#odquwipzlc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#odquwipzlc .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#odquwipzlc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#odquwipzlc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#odquwipzlc .gt_left {
+  text-align: left;
+}
+
+#odquwipzlc .gt_center {
+  text-align: center;
+}
+
+#odquwipzlc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#odquwipzlc .gt_font_normal {
+  font-weight: normal;
+}
+
+#odquwipzlc .gt_font_bold {
+  font-weight: bold;
+}
+
+#odquwipzlc .gt_font_italic {
+  font-style: italic;
+}
+
+#odquwipzlc .gt_super {
+  font-size: 65%;
+}
+
+#odquwipzlc .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="6" class="gt_heading gt_title gt_font_normal" style><strong>KMT2A PTDs found in Leucegene cohort</strong></th>
+    </tr>
+    <tr>
+      <th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Sample</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Patient</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Coverage</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>13 AMLs</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>13 Normals</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>3 Normals</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">SRX958906</td>
+      <td class="gt_row gt_left">07H152</td>
+      <td class="gt_row gt_center">158</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX332646</td>
+      <td class="gt_row gt_left">09H115</td>
+      <td class="gt_row gt_center">125</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX957230</td>
+      <td class="gt_row gt_left">06H146</td>
+      <td class="gt_row gt_center">87</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX957223</td>
+      <td class="gt_row gt_left">05H111</td>
+      <td class="gt_row gt_center">79</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX332659</td>
+      <td class="gt_row gt_left">11H021</td>
+      <td class="gt_row gt_center">63</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX332633</td>
+      <td class="gt_row gt_left">05H050</td>
+      <td class="gt_row gt_center">58</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX959061</td>
+      <td class="gt_row gt_left">13H150</td>
+      <td class="gt_row gt_center">58</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX959044</td>
+      <td class="gt_row gt_left">13H048</td>
+      <td class="gt_row gt_center">57</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958974</td>
+      <td class="gt_row gt_left">10H070</td>
+      <td class="gt_row gt_center">53</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958963</td>
+      <td class="gt_row gt_left">10H007</td>
+      <td class="gt_row gt_center">50</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958959</td>
+      <td class="gt_row gt_left">09H106</td>
+      <td class="gt_row gt_center">49</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX959060</td>
+      <td class="gt_row gt_left">13H141</td>
+      <td class="gt_row gt_center">45</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958945</td>
+      <td class="gt_row gt_left">09H058</td>
+      <td class="gt_row gt_center">29</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958907</td>
+      <td class="gt_row gt_left">07H155</td>
+      <td class="gt_row gt_center">23</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX381854</td>
+      <td class="gt_row gt_left">08H112</td>
+      <td class="gt_row gt_center">22</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX332645</td>
+      <td class="gt_row gt_left">09H113</td>
+      <td class="gt_row gt_center">17</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX959001</td>
+      <td class="gt_row gt_left">11H183</td>
+      <td class="gt_row gt_center">16</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX381852</td>
+      <td class="gt_row gt_left">08H012</td>
+      <td class="gt_row gt_center">15</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958932</td>
+      <td class="gt_row gt_left">08H138</td>
+      <td class="gt_row gt_center">15</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX381865</td>
+      <td class="gt_row gt_left">11H008</td>
+      <td class="gt_row gt_center">13</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958873</td>
+      <td class="gt_row gt_left">06H048</td>
+      <td class="gt_row gt_center">10</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958922</td>
+      <td class="gt_row gt_left">08H063</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958961</td>
+      <td class="gt_row gt_left">10H001</td>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX958844</td>
+      <td class="gt_row gt_left">04H111</td>
+      <td class="gt_row gt_center">3</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 </div>
 <div id="leucegene-variants-found-by-mintie" class="section level2">
 <h2>Leucegene variants found by MINTIE</h2>
 <pre class="r"><code># add KMT2A results against AML controls as validation
+validation &lt;- validation %&gt;% select(-logCPM) # remove logCPM col for backwards compatibility with older runs
 validation &lt;- filter(kmt2a_results, controls == &quot;AML_controls&quot;) %&gt;%
                 select(-c(controls, patient)) %&gt;%
+                select(colnames(validation)) %&gt;%
                 rbind(., validation)
 
 rowwise(truth) %&gt;% 
     mutate(found = is_variant_in_sample(Experiment, gene1, gene2, variant, validation)) %&gt;%
     data.frame() %&gt;%
-    print()</code></pre>
-<pre><code>   patient_ID Experiment  gene1   gene2 variant     cohort found
-1      03H065  SRX729615 RUNX11 RUNX1T1  fusion        CBF  TRUE
-2      03H083  SRX729616 RUNX11 RUNX1T1  fusion        CBF  TRUE
-3      03H095  SRX729602   CBFB   MYH11  fusion        CBF  TRUE
-4      03H109  SRX729580   CBFB   MYH11  fusion        CBF  TRUE
-5      03H112  SRX729581   CBFB   MYH11  fusion        CBF  TRUE
-6      03H112  SRX729581   FLT3             ITD        CBF  TRUE
-7      04H030  SRX729603   CBFB   MYH11  fusion        CBF  TRUE
-8      04H061  SRX729582   CBFB   MYH11  fusion        CBF  TRUE
-9      04H091  SRX729583   CBFB   MYH11  fusion        CBF  TRUE
-10     05H042  SRX729617 RUNX11 RUNX1T1  fusion        CBF  TRUE
-11     05H099  SRX958862   CBFB   MYH11  fusion        CBF  TRUE
-12     05H113  SRX729604   CBFB   MYH11  fusion        CBF  TRUE
-13     05H118  SRX729618 RUNX11 RUNX1T1  fusion        CBF  TRUE
-14     05H136  SRX729605   CBFB   MYH11  fusion        CBF  TRUE
-15     05H184  SRX729619 RUNX11 RUNX1T1  fusion        CBF  TRUE
-16     06H020  SRX729606   CBFB   MYH11  fusion        CBF  TRUE
-17     06H035  SRX729620 RUNX11 RUNX1T1  fusion        CBF  TRUE
-18     06H115  SRX729607   CBFB   MYH11  fusion        CBF  TRUE
-19     07H099  SRX381851   CBFB   MYH11  fusion        CBF  TRUE
-20     07H137  SRX729621 RUNX11 RUNX1T1  fusion        CBF  TRUE
-21     07H144  SRX729585   CBFB   MYH11  fusion        CBF  TRUE
-22     08H034  SRX729622 RUNX11 RUNX1T1  fusion        CBF  TRUE
-23     08H042  SRX729623 RUNX11 RUNX1T1  fusion        CBF  TRUE
-24     08H072  SRX729624 RUNX11 RUNX1T1  fusion        CBF  TRUE
-25     08H072  SRX729624   FLT3             ITD        CBF  TRUE
-26     08H081  SRX729586   CBFB   MYH11  fusion        CBF  TRUE
-27     08H099  SRX729608   CBFB   MYH11  fusion        CBF  TRUE
-28     09H016  SRX729587   CBFB   MYH11  fusion        CBF FALSE
-29     09H040  SRX729625 RUNX11 RUNX1T1  fusion        CBF  TRUE
-30     09H066  SRX729588   CBFB   MYH11  fusion        CBF  TRUE
-31     10H008  SRX729609   CBFB   MYH11  fusion        CBF  TRUE
-32     10H030  SRX729626 RUNX11 RUNX1T1  fusion        CBF  TRUE
-33     10H119  SRX729627 RUNX11 RUNX1T1  fusion        CBF  TRUE
-34     11H022  SRX729610   CBFB   MYH11  fusion        CBF  TRUE
-35     11H022  SRX729610   FLT3             ITD        CBF FALSE
-36     11H104  SRX729589   CBFB   MYH11  fusion        CBF  TRUE
-37     11H107  SRX729628 RUNX11 RUNX1T1  fusion        CBF  TRUE
-38     11H179  SRX729611   CBFB   MYH11  fusion        CBF  TRUE
-39     12H042  SRX729590   CBFB   MYH11  fusion        CBF FALSE
-40     12H044  SRX729591   CBFB   MYH11  fusion        CBF  TRUE
-41     12H045  SRX729629 RUNX11 RUNX1T1  fusion        CBF  TRUE
-42     12H098  SRX729630 RUNX11 RUNX1T1  fusion        CBF  TRUE
-43     12H165  SRX729592   CBFB   MYH11  fusion        CBF  TRUE
-44     12H166  SRX729631 RUNX11 RUNX1T1  fusion        CBF  TRUE
-45     12H180  SRX729632 RUNX11 RUNX1T1  fusion        CBF  TRUE
-46     12H183  SRX729633 RUNX11 RUNX1T1  fusion        CBF  TRUE
-47     13H066  SRX729612   CBFB   MYH11  fusion        CBF  TRUE
-48     13H120  SRX959058   CBFB   MYH11  fusion        CBF  TRUE
-49     13H169  SRX959064 RUNX11 RUNX1T1  fusion        CBF FALSE
-50     04H111  SRX958844  KMT2A             PTD  KMT2A-PTD FALSE
-51     05H050  SRX332633  KMT2A             PTD  KMT2A-PTD  TRUE
-52     05H111  SRX957223  KMT2A             PTD  KMT2A-PTD  TRUE
-53     06H048  SRX958873  KMT2A             PTD  KMT2A-PTD FALSE
-54     06H146  SRX957230  KMT2A             PTD  KMT2A-PTD  TRUE
-55     07H152  SRX958906  KMT2A             PTD  KMT2A-PTD FALSE
-56     07H155  SRX958907  KMT2A             PTD  KMT2A-PTD FALSE
-57     08H012  SRX381852  KMT2A             PTD  KMT2A-PTD FALSE
-58     08H063  SRX958922  KMT2A             PTD  KMT2A-PTD FALSE
-59     08H112  SRX381854  KMT2A             PTD  KMT2A-PTD  TRUE
-60     08H138  SRX958932  KMT2A             PTD  KMT2A-PTD FALSE
-61     09H058  SRX958945  KMT2A             PTD  KMT2A-PTD  TRUE
-62     09H106  SRX958959  KMT2A             PTD  KMT2A-PTD  TRUE
-63     09H113  SRX332645  KMT2A             PTD  KMT2A-PTD  TRUE
-64     09H115  SRX332646  KMT2A             PTD  KMT2A-PTD FALSE
-65     10H001  SRX958961  KMT2A             PTD  KMT2A-PTD FALSE
-66     10H007  SRX958963  KMT2A             PTD  KMT2A-PTD  TRUE
-67     10H070  SRX958974  KMT2A             PTD  KMT2A-PTD  TRUE
-68     11H008  SRX381865  KMT2A             PTD  KMT2A-PTD FALSE
-69     11H021  SRX332659  KMT2A             PTD  KMT2A-PTD FALSE
-70     11H183  SRX959001  KMT2A             PTD  KMT2A-PTD FALSE
-71     13H048  SRX959044  KMT2A             PTD  KMT2A-PTD  TRUE
-72     13H141  SRX959060  KMT2A             PTD  KMT2A-PTD  TRUE
-73     13H150  SRX959061  KMT2A             PTD  KMT2A-PTD FALSE
-74     03H041  SRX332627  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-75     03H041  SRX332627   FLT3             ITD NUP98-NSD1  TRUE
-76     05H034  SRX958856  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-77     05H163  SRX332635  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-78     08H049  SRX958915  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-79     08H049  SRX958915   FLT3             ITD NUP98-NSD1  TRUE
-80     10H038  SRX381861  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-81     11H027  SRX958987  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-82     11H027  SRX958987   FLT3             ITD NUP98-NSD1  TRUE
-83     11H160  SRX332667  NUP98    NSD1  fusion NUP98-NSD1  TRUE
-84     11H160  SRX332667   FLT3             ITD NUP98-NSD1  TRUE</code></pre>
+    gt() %&gt;%
+     tab_header(
+        title = md(&quot;**Variants found in Leucegene cohort**&quot;)
+    ) %&gt;%
+    cols_label(
+        patient_ID = md(&quot;**Patient**&quot;),
+        Experiment = md(&quot;**Experiment**&quot;),
+        gene1 = md(&quot;**Gene 1**&quot;),
+        gene2 = md(&quot;**Gene 2**&quot;),
+        variant = md(&quot;**Variant**&quot;),
+        cohort = md(&quot;**Cohort**&quot;),
+        found = md(&quot;**Found**&quot;)
+    ) %&gt;%
+    tab_options(
+        table.font.size = 12
+    ) %&gt;%
+    tab_style(
+        style = cell_fill(color = &quot;lightgreen&quot;),
+        locations = cells_body(
+            columns = vars(found),
+            rows = found)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#epfiatiawy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#epfiatiawy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#epfiatiawy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#epfiatiawy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#epfiatiawy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#epfiatiawy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#epfiatiawy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#epfiatiawy .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#epfiatiawy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#epfiatiawy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#epfiatiawy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#epfiatiawy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#epfiatiawy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#epfiatiawy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#epfiatiawy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#epfiatiawy .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#epfiatiawy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#epfiatiawy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#epfiatiawy .gt_left {
+  text-align: left;
+}
+
+#epfiatiawy .gt_center {
+  text-align: center;
+}
+
+#epfiatiawy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#epfiatiawy .gt_font_normal {
+  font-weight: normal;
+}
+
+#epfiatiawy .gt_font_bold {
+  font-weight: bold;
+}
+
+#epfiatiawy .gt_font_italic {
+  font-style: italic;
+}
+
+#epfiatiawy .gt_super {
+  font-size: 65%;
+}
+
+#epfiatiawy .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>Variants found in Leucegene cohort</strong></th>
+    </tr>
+    <tr>
+      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Patient</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Experiment</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Gene 1</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Gene 2</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Variant</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Cohort</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Found</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">03H065</td>
+      <td class="gt_row gt_left">SRX729615</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H083</td>
+      <td class="gt_row gt_left">SRX729616</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H095</td>
+      <td class="gt_row gt_left">SRX729602</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H109</td>
+      <td class="gt_row gt_left">SRX729580</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H112</td>
+      <td class="gt_row gt_left">SRX729581</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H112</td>
+      <td class="gt_row gt_left">SRX729581</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">04H030</td>
+      <td class="gt_row gt_left">SRX729603</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">04H061</td>
+      <td class="gt_row gt_left">SRX729582</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">04H091</td>
+      <td class="gt_row gt_left">SRX729583</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H042</td>
+      <td class="gt_row gt_left">SRX729617</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H099</td>
+      <td class="gt_row gt_left">SRX958862</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H113</td>
+      <td class="gt_row gt_left">SRX729604</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H118</td>
+      <td class="gt_row gt_left">SRX729618</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H136</td>
+      <td class="gt_row gt_left">SRX729605</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H184</td>
+      <td class="gt_row gt_left">SRX729619</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">06H020</td>
+      <td class="gt_row gt_left">SRX729606</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">06H035</td>
+      <td class="gt_row gt_left">SRX729620</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">06H115</td>
+      <td class="gt_row gt_left">SRX729607</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">07H099</td>
+      <td class="gt_row gt_left">SRX381851</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">07H137</td>
+      <td class="gt_row gt_left">SRX729621</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">07H144</td>
+      <td class="gt_row gt_left">SRX729585</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H034</td>
+      <td class="gt_row gt_left">SRX729622</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H042</td>
+      <td class="gt_row gt_left">SRX729623</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H072</td>
+      <td class="gt_row gt_left">SRX729624</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H072</td>
+      <td class="gt_row gt_left">SRX729624</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H081</td>
+      <td class="gt_row gt_left">SRX729586</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H099</td>
+      <td class="gt_row gt_left">SRX729608</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H016</td>
+      <td class="gt_row gt_left">SRX729587</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H040</td>
+      <td class="gt_row gt_left">SRX729625</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H066</td>
+      <td class="gt_row gt_left">SRX729588</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H008</td>
+      <td class="gt_row gt_left">SRX729609</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H030</td>
+      <td class="gt_row gt_left">SRX729626</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H119</td>
+      <td class="gt_row gt_left">SRX729627</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H022</td>
+      <td class="gt_row gt_left">SRX729610</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H022</td>
+      <td class="gt_row gt_left">SRX729610</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H104</td>
+      <td class="gt_row gt_left">SRX729589</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H107</td>
+      <td class="gt_row gt_left">SRX729628</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H179</td>
+      <td class="gt_row gt_left">SRX729611</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H042</td>
+      <td class="gt_row gt_left">SRX729590</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H044</td>
+      <td class="gt_row gt_left">SRX729591</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H045</td>
+      <td class="gt_row gt_left">SRX729629</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H098</td>
+      <td class="gt_row gt_left">SRX729630</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H165</td>
+      <td class="gt_row gt_left">SRX729592</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H166</td>
+      <td class="gt_row gt_left">SRX729631</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H180</td>
+      <td class="gt_row gt_left">SRX729632</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">12H183</td>
+      <td class="gt_row gt_left">SRX729633</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H066</td>
+      <td class="gt_row gt_left">SRX729612</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H120</td>
+      <td class="gt_row gt_left">SRX959058</td>
+      <td class="gt_row gt_left">CBFB</td>
+      <td class="gt_row gt_left">MYH11</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H169</td>
+      <td class="gt_row gt_left">SRX959064</td>
+      <td class="gt_row gt_left">RUNX11</td>
+      <td class="gt_row gt_left">RUNX1T1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">CBF</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">04H111</td>
+      <td class="gt_row gt_left">SRX958844</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H050</td>
+      <td class="gt_row gt_left">SRX332633</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H111</td>
+      <td class="gt_row gt_left">SRX957223</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">06H048</td>
+      <td class="gt_row gt_left">SRX958873</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">06H146</td>
+      <td class="gt_row gt_left">SRX957230</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">07H152</td>
+      <td class="gt_row gt_left">SRX958906</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">07H155</td>
+      <td class="gt_row gt_left">SRX958907</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H012</td>
+      <td class="gt_row gt_left">SRX381852</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H063</td>
+      <td class="gt_row gt_left">SRX958922</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H112</td>
+      <td class="gt_row gt_left">SRX381854</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H138</td>
+      <td class="gt_row gt_left">SRX958932</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H058</td>
+      <td class="gt_row gt_left">SRX958945</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H106</td>
+      <td class="gt_row gt_left">SRX958959</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H113</td>
+      <td class="gt_row gt_left">SRX332645</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">09H115</td>
+      <td class="gt_row gt_left">SRX332646</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H001</td>
+      <td class="gt_row gt_left">SRX958961</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H007</td>
+      <td class="gt_row gt_left">SRX958963</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H070</td>
+      <td class="gt_row gt_left">SRX958974</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H008</td>
+      <td class="gt_row gt_left">SRX381865</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H021</td>
+      <td class="gt_row gt_left">SRX332659</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H183</td>
+      <td class="gt_row gt_left">SRX959001</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H048</td>
+      <td class="gt_row gt_left">SRX959044</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H141</td>
+      <td class="gt_row gt_left">SRX959060</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">13H150</td>
+      <td class="gt_row gt_left">SRX959061</td>
+      <td class="gt_row gt_left">KMT2A</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">PTD</td>
+      <td class="gt_row gt_left">KMT2A-PTD</td>
+      <td class="gt_row gt_center">FALSE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H041</td>
+      <td class="gt_row gt_left">SRX332627</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">03H041</td>
+      <td class="gt_row gt_left">SRX332627</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H034</td>
+      <td class="gt_row gt_left">SRX958856</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">05H163</td>
+      <td class="gt_row gt_left">SRX332635</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H049</td>
+      <td class="gt_row gt_left">SRX958915</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">08H049</td>
+      <td class="gt_row gt_left">SRX958915</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">10H038</td>
+      <td class="gt_row gt_left">SRX381861</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H027</td>
+      <td class="gt_row gt_left">SRX958987</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H027</td>
+      <td class="gt_row gt_left">SRX958987</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H160</td>
+      <td class="gt_row gt_left">SRX332667</td>
+      <td class="gt_row gt_left">NUP98</td>
+      <td class="gt_row gt_left">NSD1</td>
+      <td class="gt_row gt_left">fusion</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">11H160</td>
+      <td class="gt_row gt_left">SRX332667</td>
+      <td class="gt_row gt_left">FLT3</td>
+      <td class="gt_row gt_left"></td>
+      <td class="gt_row gt_left">ITD</td>
+      <td class="gt_row gt_left">NUP98-NSD1</td>
+      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1118,23 +3270,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] ggplot2_3.2.1     stringr_1.4.0     here_0.1          dplyr_0.8.3      
-[5] data.table_1.12.6
+[1] gt_0.2.1          ggplot2_3.3.1     stringr_1.4.0     here_0.1         
+[5] dplyr_1.0.0       data.table_1.12.6
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2         knitr_1.25         whisker_0.4       
- [4] magrittr_1.5       workflowr_1.4.0    munsell_0.5.0     
- [7] tidyselect_0.2.5   colorspace_1.4-1   R6_2.4.0          
-[10] rlang_0.4.0        tools_3.6.1        grid_3.6.1        
-[13] gtable_0.3.0       xfun_0.10          withr_2.1.2       
-[16] git2r_0.26.1       htmltools_0.3.6    lazyeval_0.2.2    
-[19] yaml_2.2.0         rprojroot_1.3-2    digest_0.6.21     
-[22] assertthat_0.2.1   tibble_2.1.3       crayon_1.3.4      
-[25] RColorBrewer_1.1-2 purrr_0.3.2        fs_1.3.1          
-[28] glue_1.3.1         evaluate_0.14      rmarkdown_1.16    
-[31] labeling_0.3       stringi_1.4.3      compiler_3.6.1    
-[34] pillar_1.4.2       scales_1.0.0       backports_1.1.4   
-[37] pkgconfig_2.0.3   </code></pre>
+ [1] Rcpp_1.0.2         RColorBrewer_1.1-2 pillar_1.4.4      
+ [4] compiler_3.6.1     git2r_0.26.1       workflowr_1.4.0   
+ [7] tools_3.6.1        digest_0.6.21      evaluate_0.14     
+[10] lifecycle_0.2.0    tibble_3.0.1       gtable_0.3.0      
+[13] checkmate_2.0.0    pkgconfig_2.0.3    rlang_0.4.6       
+[16] commonmark_1.7     yaml_2.2.0         xfun_0.10         
+[19] withr_2.1.2        knitr_1.25         generics_0.0.2    
+[22] fs_1.4.1           vctrs_0.3.1        sass_0.2.0        
+[25] rprojroot_1.3-2    grid_3.6.1         tidyselect_1.1.0  
+[28] glue_1.4.1         R6_2.4.0           rmarkdown_1.16    
+[31] farver_2.0.3       purrr_0.3.2        magrittr_1.5      
+[34] whisker_0.4        backports_1.1.4    scales_1.1.1      
+[37] ellipsis_0.3.0     htmltools_0.4.0    colorspace_1.4-1  
+[40] labeling_0.3       stringi_1.4.3      munsell_0.5.0     
+[43] crayon_1.3.4      </code></pre>
 </div>
 </div>
 </div>

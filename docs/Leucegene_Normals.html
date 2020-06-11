@@ -408,7 +408,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -417,7 +417,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -426,10 +426,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-18
+<strong>Last updated:</strong> 2020-06-11
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MINTIE-paper-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -445,12 +445,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -517,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/3aee9261d68e21bc2e5e29f14992a5e4cd953eed" target="_blank">3aee926</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d3e97f294d7dceed2ab1709da6462a08eb542ebe" target="_blank">d3e97f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree3aee9261d68e21bc2e5e29f14992a5e4cd953eedtargetblank3aee926a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,18 +529,224 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/cache/
-    Ignored:    data/RCH_B-ALL/
-    Ignored:    data/leucegene/salmon_out/
-    Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
-    Ignored:    output/Leucegene_gene_counts.tsv
-    Ignored:    packrat/lib-R/
-    Ignored:    packrat/lib-ext/
-    Ignored:    packrat/lib/
-    Ignored:    packrat/src/
 
 Untracked files:
     Untracked:  .here
+    Untracked:  analysis/
+    Untracked:  backup/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  docs/
+    Untracked:  output/
+    Untracked:  packrat/
+
+Unstaged changes:
+    Unmerged:   .Rprofile
+    Unmerged:   .gitattributes
+    Unmerged:   .gitignore
+    Unmerged:   MINTIE-paper-analysis.Rproj
+    Unmerged:   README.md
+    Unmerged:   _workflowr.yml
+
+Staged changes:
+    Deleted:    analysis/Leucegene_Gene_Expression.Rmd
+    Deleted:    analysis/Leucegene_Normals.Rmd
+    Deleted:    analysis/Leucegene_Validation.Rmd
+    Deleted:    analysis/RCH_B-ALL.Rmd
+    Deleted:    analysis/Simulation_Benchmarking.Rmd
+    Deleted:    analysis/_site.yml
+    Deleted:    analysis/index.Rmd
+    Deleted:    analysis/license.Rmd
+    Deleted:    code/leucegene_helper.R
+    Deleted:    code/plot.R
+    Deleted:    code/simu_helper.R
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332633_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332645_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332646_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332659_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381852_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381854_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381865_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957223_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957230_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958844_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958873_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958906_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958907_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958922_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958932_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958945_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958959_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958961_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958963_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958974_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959001_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959044_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959060_results.tsv.gz
+    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959061_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372044_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372045_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372046_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372047_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372048_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372049_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372050_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372051_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372052_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372053_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372054_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372055_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372056_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372057_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372058_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372059_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372060_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372061_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372063_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372064_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372065_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372066_results.tsv.gz
+    Deleted:    data/leucegene/normals_results/SRX372067_results.tsv.gz
+    Deleted:    data/leucegene/sample_info/KMT2A-PTD_samples.txt
+    Deleted:    data/leucegene/sample_info/NUP98-NSD1_samples.txt
+    Deleted:    data/leucegene/sample_info/celltypes_info.tsv
+    Deleted:    data/leucegene/sample_info/selected_13_CBF_AML_controls.txt
+    Deleted:    data/leucegene/sample_info/variant_validation_table.tsv
+    Deleted:    data/leucegene/validation_results/SRX332627_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX332635_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX332667_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX381851_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX381861_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729580_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729581_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729582_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729583_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729585_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729586_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729587_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729588_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729589_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729590_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729591_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729592_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729602_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729603_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729604_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729605_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729606_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729607_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729608_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729609_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729610_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729611_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729612_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729615_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729616_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729617_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729618_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729619_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729620_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729621_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729622_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729623_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729624_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729625_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729626_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729627_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729628_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729629_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729630_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729631_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729632_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX729633_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958856_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958862_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958915_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX958987_results.tsv.gz
+    Deleted:    data/leucegene/validation_results/SRX959058_results.tsv.gz
+    Deleted:    data/ref/ALL_associated_genes.txt
+    Deleted:    data/ref/all_gene_locs.tsv.gz
+    Deleted:    data/ref/chess2.2.genes.gz
+    Deleted:    data/ref/tx2gene.txt.gz
+    Deleted:    data/simu/results/Arriba/fusions.tsv
+    Deleted:    data/simu/results/Barnacle/allvars-case.barnacle.data
+    Deleted:    data/simu/results/JAFFA/jaffa_results.csv
+    Deleted:    data/simu/results/KisSplice/results.bam
+    Deleted:    data/simu/results/KisSplice/results.bam.bai
+    Deleted:    data/simu/results/MINTIE/allvars-case_results.tsv
+    Deleted:    data/simu/results/SQUID/results_sv.txt
+    Deleted:    data/simu/results/StringTie/fullsimu.gtf
+    Deleted:    data/simu/results/TAP/novel_splicing.bedpe
+    Deleted:    data/simu/results/TAP/sv.bedpe
+    Deleted:    data/simu/truth/allvars_fusions_simulated.tsv
+    Deleted:    data/simu/truth/allvars_tsvs_splice_simulated.tsv
+    Deleted:    data/simu/truth/bg_gene_ref.tsv
+    Deleted:    data/simu/truth/hg19_bg_gene_ref.tsv
+    Deleted:    docs/.nojekyll
+    Deleted:    output/README.md
+    Deleted:    packrat/init.R
+    Deleted:    packrat/packrat.lock
+    Deleted:    packrat/packrat.opts
 
 </code></pre>
 <p>
@@ -579,40 +785,6 @@ Message
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/3aee9261d68e21bc2e5e29f14992a5e4cd953eed/docs/Leucegene_Normals.html" target="_blank">3aee926</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/Leucegene_Normals.html" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
 <tr>
 <td>
 html
@@ -846,6 +1018,7 @@ library(data.table)
 library(dplyr)
 library(here)
 library(stringr)
+library(gt)
 
 # plotting
 library(ggplot2)</code></pre>
@@ -868,36 +1041,856 @@ normals_results &lt;- inner_join(normals_results, celltype,
 <div id="variant-summary" class="section level2">
 <h2>Variant Summary</h2>
 <p>Summary results for variants called by MINTIE on Leucegene normals.</p>
-<pre class="r"><code>summary_by_sample &lt;- normals_results %&gt;%
-                        group_by(sample) %&gt;%
-                        summarise(variants = length(unique(variant_id)))
-summary_by_class &lt;- collate_vartypes(normals_results) %&gt;%
-                        group_by(class) %&gt;%
-                        summarise(variants = length(unique(variant_id))) %&gt;%
-                        mutate(fraction = variants / sum(variants))
-print(summary_by_sample)</code></pre>
-<pre><code># A tibble: 23 x 2
-   sample    variants
-   &lt;chr&gt;        &lt;int&gt;
- 1 SRX372044      181
- 2 SRX372045      137
- 3 SRX372046      213
- 4 SRX372047      639
- 5 SRX372048     1119
- 6 SRX372049      143
- 7 SRX372050      497
- 8 SRX372051      449
- 9 SRX372052      235
-10 SRX372053       75
-# … with 13 more rows</code></pre>
-<pre class="r"><code>print(summary_by_class)</code></pre>
-<pre><code># A tibble: 4 x 3
-  class                          variants fraction
-  &lt;chr&gt;                             &lt;int&gt;    &lt;dbl&gt;
-1 Fusion                               69   0.0117
-2 Novel splice variant               1992   0.338 
-3 Transcribed structural variant     1234   0.210 
-4 Unknown                            2593   0.440 </code></pre>
+<pre class="r"><code>normals_results %&gt;%
+    group_by(sample) %&gt;%
+    summarise(variants = length(unique(variant_id))) %&gt;%
+    gt() %&gt;%
+    tab_header(
+        title = md(&quot;**Variants called summary by sample**&quot;)
+    ) %&gt;%
+    tab_options(
+        table.font.size = 12
+    ) %&gt;%
+    cols_label(
+        variants = md(&quot;**Variants**&quot;)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#xuwvmsdnyk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xuwvmsdnyk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xuwvmsdnyk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xuwvmsdnyk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xuwvmsdnyk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xuwvmsdnyk .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xuwvmsdnyk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xuwvmsdnyk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xuwvmsdnyk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xuwvmsdnyk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xuwvmsdnyk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xuwvmsdnyk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#xuwvmsdnyk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xuwvmsdnyk .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xuwvmsdnyk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xuwvmsdnyk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#xuwvmsdnyk .gt_left {
+  text-align: left;
+}
+
+#xuwvmsdnyk .gt_center {
+  text-align: center;
+}
+
+#xuwvmsdnyk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xuwvmsdnyk .gt_font_normal {
+  font-weight: normal;
+}
+
+#xuwvmsdnyk .gt_font_bold {
+  font-weight: bold;
+}
+
+#xuwvmsdnyk .gt_font_italic {
+  font-style: italic;
+}
+
+#xuwvmsdnyk .gt_super {
+  font-size: 65%;
+}
+
+#xuwvmsdnyk .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="2" class="gt_heading gt_title gt_font_normal" style><strong>Variants called summary by sample</strong></th>
+    </tr>
+    <tr>
+      <th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">sample</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Variants</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">SRX372044</td>
+      <td class="gt_row gt_center">182</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372045</td>
+      <td class="gt_row gt_center">139</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372046</td>
+      <td class="gt_row gt_center">220</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372047</td>
+      <td class="gt_row gt_center">653</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372048</td>
+      <td class="gt_row gt_center">1116</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372049</td>
+      <td class="gt_row gt_center">144</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372050</td>
+      <td class="gt_row gt_center">501</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372051</td>
+      <td class="gt_row gt_center">450</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372052</td>
+      <td class="gt_row gt_center">236</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372053</td>
+      <td class="gt_row gt_center">77</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372054</td>
+      <td class="gt_row gt_center">81</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372055</td>
+      <td class="gt_row gt_center">165</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372056</td>
+      <td class="gt_row gt_center">93</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372057</td>
+      <td class="gt_row gt_center">116</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372058</td>
+      <td class="gt_row gt_center">95</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372059</td>
+      <td class="gt_row gt_center">149</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372060</td>
+      <td class="gt_row gt_center">204</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372061</td>
+      <td class="gt_row gt_center">139</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372063</td>
+      <td class="gt_row gt_center">562</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372064</td>
+      <td class="gt_row gt_center">130</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372065</td>
+      <td class="gt_row gt_center">143</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372066</td>
+      <td class="gt_row gt_center">211</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">SRX372067</td>
+      <td class="gt_row gt_center">150</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<pre class="r"><code>collate_vartypes(normals_results) %&gt;%
+    group_by(class) %&gt;%
+    summarise(variants = length(unique(variant_id))) %&gt;%
+    mutate(fraction = variants / sum(variants)) %&gt;%
+    gt() %&gt;%
+    fmt_number(columns = vars(fraction), decimals = 3) %&gt;%
+    tab_header(
+        title = md(&quot;**Variants called summary by class**&quot;)
+    ) %&gt;%
+    tab_options(
+        table.font.size = 12
+    ) %&gt;%
+    cols_label(
+        variants = md(&quot;**Variants**&quot;),
+        fraction = md(&quot;**Fraction**&quot;)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#odquwipzlc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#odquwipzlc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#odquwipzlc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#odquwipzlc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#odquwipzlc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#odquwipzlc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#odquwipzlc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#odquwipzlc .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#odquwipzlc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#odquwipzlc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#odquwipzlc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#odquwipzlc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#odquwipzlc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#odquwipzlc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#odquwipzlc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#odquwipzlc .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#odquwipzlc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#odquwipzlc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#odquwipzlc .gt_left {
+  text-align: left;
+}
+
+#odquwipzlc .gt_center {
+  text-align: center;
+}
+
+#odquwipzlc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#odquwipzlc .gt_font_normal {
+  font-weight: normal;
+}
+
+#odquwipzlc .gt_font_bold {
+  font-weight: bold;
+}
+
+#odquwipzlc .gt_font_italic {
+  font-style: italic;
+}
+
+#odquwipzlc .gt_super {
+  font-size: 65%;
+}
+
+#odquwipzlc .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal" style><strong>Variants called summary by class</strong></th>
+    </tr>
+    <tr>
+      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Variants</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Fraction</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">Fusion</td>
+      <td class="gt_row gt_center">69</td>
+      <td class="gt_row gt_right">0.012</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Novel splice variant</td>
+      <td class="gt_row gt_center">2051</td>
+      <td class="gt_row gt_right">0.345</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Transcribed structural variant</td>
+      <td class="gt_row gt_center">1234</td>
+      <td class="gt_row gt_right">0.207</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Unknown</td>
+      <td class="gt_row gt_center">2596</td>
+      <td class="gt_row gt_right">0.436</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 </div>
 <div id="variant-genes" class="section level2">
 <h2>Variant Genes</h2>
@@ -933,17 +1926,6 @@ Date
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1c40e33ed980b6e6f7dfdf3290618aae2781e5e0/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">1c40e33</a>
@@ -985,7 +1967,7 @@ results_summary &lt;- left_join(results_summary, libsizes, by =&quot;sample&quot
 
 lib_var_cor &lt;- cor(results_summary$libsize, results_summary$V1, method = &quot;spearman&quot;)
 print(paste(&quot;Spearman correlation between library size and variant genes called:&quot;, lib_var_cor))</code></pre>
-<pre><code>[1] &quot;Spearman correlation between library size and variant genes called: 0.140845074722306&quot;</code></pre>
+<pre><code>[1] &quot;Spearman correlation between library size and variant genes called: 0.181863114027398&quot;</code></pre>
 <pre class="r"><code>ggplot(results_summary, aes(libsize, V1, colour = cell_type)) +
     geom_point() +
     theme_bw() +
@@ -1013,17 +1995,6 @@ Date
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1c40e33ed980b6e6f7dfdf3290618aae2781e5e0/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">1c40e33</a>
@@ -1066,7 +2037,7 @@ gene_count &lt;- left_join(results_by_gene, chess_genes, by = c(&quot;gene&quot;
 
 n_protein_coding &lt;- gene_count[gene_count$Gene_Type == &quot;protein_coding&quot;, &quot;n_genes&quot;]
 print(paste(&quot;proportion of protein coding genes =&quot;, n_protein_coding / sum(gene_count$n_genes)))</code></pre>
-<pre><code>[1] &quot;proportion of protein coding genes = 0.81547619047619&quot;</code></pre>
+<pre><code>[1] &quot;proportion of protein coding genes = 0.813534387642516&quot;</code></pre>
 </div>
 <div id="controls-comparison" class="section level2">
 <h2>Controls Comparison</h2>
@@ -1084,25 +2055,446 @@ results_summary &lt;- get_results_summary(mutate(controls_comp,
                                               group_var = controls),
                                        group_var_name = &quot;controls&quot;)
 
-print(&quot;Total variant genes called using different controls:&quot;)</code></pre>
-<pre><code>[1] &quot;Total variant genes called using different controls:&quot;</code></pre>
-<pre class="r"><code>print(results_summary)</code></pre>
-<pre><code>      sample controls  V1
-1  SRX372045       bc 345
-2  SRX372044       bc 365
-3  SRX372046       bc 443
-4  SRX372045     gran 130
-5  SRX372046     gran 247
-6  SRX372044     gran 279
-7  SRX372045     mono 138
-8  SRX372044     mono 187
-9  SRX372046     mono 192
-10 SRX372044       tc 329
-11 SRX372045       tc 378
-12 SRX372046       tc 419
-13 SRX372045     twbc 156
-14 SRX372044     twbc 193
-15 SRX372046     twbc 233</code></pre>
+results_summary %&gt;%
+    gt() %&gt;%
+    tab_header(
+        title = md(&quot;**Total variant genes called using different controls**&quot;)
+    ) %&gt;%
+    cols_label(
+        sample = md(&quot;**Sample**&quot;),
+        controls = md(&quot;**Controls**&quot;),
+        V1 = md(&quot;**Variant genes**&quot;)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#epfiatiawy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#epfiatiawy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#epfiatiawy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#epfiatiawy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#epfiatiawy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#epfiatiawy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#epfiatiawy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#epfiatiawy .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#epfiatiawy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#epfiatiawy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#epfiatiawy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#epfiatiawy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#epfiatiawy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#epfiatiawy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#epfiatiawy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#epfiatiawy .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#epfiatiawy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#epfiatiawy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#epfiatiawy .gt_left {
+  text-align: left;
+}
+
+#epfiatiawy .gt_center {
+  text-align: center;
+}
+
+#epfiatiawy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#epfiatiawy .gt_font_normal {
+  font-weight: normal;
+}
+
+#epfiatiawy .gt_font_bold {
+  font-weight: bold;
+}
+
+#epfiatiawy .gt_font_italic {
+  font-style: italic;
+}
+
+#epfiatiawy .gt_super {
+  font-size: 65%;
+}
+
+#epfiatiawy .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different controls</strong></th>
+    </tr>
+    <tr>
+      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Sample</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Controls</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Variant genes</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">SRX372045</td>
+      <td class="gt_row gt_center">bc</td>
+      <td class="gt_row gt_center">356</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372044</td>
+      <td class="gt_row gt_center">bc</td>
+      <td class="gt_row gt_center">375</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372046</td>
+      <td class="gt_row gt_center">bc</td>
+      <td class="gt_row gt_center">451</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372045</td>
+      <td class="gt_row gt_center">gran</td>
+      <td class="gt_row gt_center">132</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372046</td>
+      <td class="gt_row gt_center">gran</td>
+      <td class="gt_row gt_center">253</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372044</td>
+      <td class="gt_row gt_center">gran</td>
+      <td class="gt_row gt_center">283</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372045</td>
+      <td class="gt_row gt_center">mono</td>
+      <td class="gt_row gt_center">143</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372044</td>
+      <td class="gt_row gt_center">mono</td>
+      <td class="gt_row gt_center">192</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372046</td>
+      <td class="gt_row gt_center">mono</td>
+      <td class="gt_row gt_center">198</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372044</td>
+      <td class="gt_row gt_center">tc</td>
+      <td class="gt_row gt_center">336</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372045</td>
+      <td class="gt_row gt_center">tc</td>
+      <td class="gt_row gt_center">391</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372046</td>
+      <td class="gt_row gt_center">tc</td>
+      <td class="gt_row gt_center">425</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372045</td>
+      <td class="gt_row gt_center">twbc</td>
+      <td class="gt_row gt_center">156</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372044</td>
+      <td class="gt_row gt_center">twbc</td>
+      <td class="gt_row gt_center">195</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372046</td>
+      <td class="gt_row gt_center">twbc</td>
+      <td class="gt_row gt_center">240</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
 <pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill=controls)) +
     geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
     theme_bw() +
@@ -1137,17 +2529,6 @@ Date
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>
-<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/bf478ec4b0d5f0688962e7483a952246e8ff3ff6/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">bf478ec</a>
-</td>
-<td>
-Marek Cmero
-</td>
-<td>
-2020-05-12
-</td>
-</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/87b4e62442a254ec41b1ffdd6b55824a14a9463e/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">87b4e62</a>
@@ -1202,24 +2583,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] ggplot2_3.2.1     stringr_1.4.0     here_0.1          dplyr_0.8.3      
-[5] data.table_1.12.6
+[1] ggplot2_3.3.1     gt_0.2.1          stringr_1.4.0     here_0.1         
+[5] dplyr_1.0.0       data.table_1.12.6
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2         RColorBrewer_1.1-2 pillar_1.4.2      
+ [1] Rcpp_1.0.2         RColorBrewer_1.1-2 pillar_1.4.4      
  [4] compiler_3.6.1     git2r_0.26.1       workflowr_1.4.0   
- [7] tools_3.6.1        zeallot_0.1.0      digest_0.6.21     
-[10] evaluate_0.14      tibble_2.1.3       gtable_0.3.0      
-[13] pkgconfig_2.0.3    rlang_0.4.0        cli_1.1.0         
-[16] yaml_2.2.0         xfun_0.10          withr_2.1.2       
-[19] knitr_1.25         fs_1.3.1           vctrs_0.2.0       
-[22] rprojroot_1.3-2    grid_3.6.1         tidyselect_0.2.5  
-[25] glue_1.3.1         R6_2.4.0           fansi_0.4.0       
-[28] rmarkdown_1.16     purrr_0.3.2        magrittr_1.5      
-[31] whisker_0.4        backports_1.1.4    scales_1.0.0      
-[34] htmltools_0.3.6    assertthat_0.2.1   colorspace_1.4-1  
-[37] labeling_0.3       utf8_1.1.4         stringi_1.4.3     
-[40] lazyeval_0.2.2     munsell_0.5.0      crayon_1.3.4      </code></pre>
+ [7] tools_3.6.1        digest_0.6.21      evaluate_0.14     
+[10] lifecycle_0.2.0    tibble_3.0.1       gtable_0.3.0      
+[13] checkmate_2.0.0    pkgconfig_2.0.3    rlang_0.4.6       
+[16] commonmark_1.7     yaml_2.2.0         xfun_0.10         
+[19] withr_2.1.2        knitr_1.25         generics_0.0.2    
+[22] fs_1.4.1           vctrs_0.3.1        sass_0.2.0        
+[25] rprojroot_1.3-2    grid_3.6.1         tidyselect_1.1.0  
+[28] glue_1.4.1         R6_2.4.0           rmarkdown_1.16    
+[31] farver_2.0.3       purrr_0.3.2        magrittr_1.5      
+[34] whisker_0.4        backports_1.1.4    scales_1.1.1      
+[37] ellipsis_0.3.0     htmltools_0.4.0    colorspace_1.4-1  
+[40] labeling_0.3       stringi_1.4.3      munsell_0.5.0     
+[43] crayon_1.3.4      </code></pre>
 </div>
 </div>
 </div>

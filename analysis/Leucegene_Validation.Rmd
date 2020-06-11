@@ -28,8 +28,9 @@ library(dplyr)
 library(here)
 library(stringr)
 
-# plotting
+# plotting/tables
 library(ggplot2)
+library(gt)
 ```
 
 
@@ -81,12 +82,24 @@ results_summary <- get_results_summary(mutate(kmt2a_results,
                                               group_var = controls),
                                        group_var_name = "controls")
 
-print("Total variant genes called using different controls:")
+# build table
 results_summary %>%
     group_by(controls) %>%
     summarise(min = min(V1), median = median(V1), max = max(V1)) %>%
     data.frame() %>%
-    print()
+    gt() %>%
+     tab_header(
+        title = md("**Total variant genes called using different controls**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        controls = md("**Controls**"),
+        min = md("**Min**"),
+        median = md("**Median**"),
+        max = md("**Max**")
+    ) 
 
 ggplot(results_summary, aes(sample, V1, fill = controls)) +
     geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
@@ -127,20 +140,77 @@ kmt2a_control_comp$`13_AMLs` <- kmt2a_control_comp$sample %in% found_using_canco
 kmt2a_control_comp$`13_normals` <- kmt2a_control_comp$sample %in% found_using_norcon
 kmt2a_control_comp$`3_normals` <- kmt2a_control_comp$sample %in% found_using_redcon
 
-print(kmt2a_control_comp)
+# build output table
+kmt2a_control_comp %>%
+    gt() %>% 
+    cols_label(
+        sample = md("**Sample**"),
+        patient = md("**Patient**"),
+        coverage = md("**Coverage**"),
+        `13_AMLs` = md("**13 AMLs**"),
+        `13_normals` = md("**13 Normals**"),
+        `3_normals` = md("**3 Normals**")
+    ) %>%
+    tab_header(
+        title = md("**KMT2A PTDs found in Leucegene cohort**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    tab_style(
+        style = cell_fill(color = "lightgreen"),
+        locations = cells_body(
+            columns = vars(`13_AMLs`),
+            rows = `13_AMLs`)
+    ) %>%
+    tab_style(
+        style = cell_fill(color = "lightgreen"),
+        locations = cells_body(
+            columns = vars(`13_normals`),
+            rows = `13_normals`)
+    ) %>%
+    tab_style(
+        style = cell_fill(color = "lightgreen"),
+        locations = cells_body(
+            columns = vars(`3_normals`),
+            rows = `3_normals`)
+    )
 ```
 
 ## Leucegene variants found by MINTIE
 
 ```{r leucegene_variants_validation}
 # add KMT2A results against AML controls as validation
+validation <- validation %>% select(-logCPM) # remove logCPM col for backwards compatibility with older runs
 validation <- filter(kmt2a_results, controls == "AML_controls") %>%
                 select(-c(controls, patient)) %>%
+                select(colnames(validation)) %>%
                 rbind(., validation)
 
 rowwise(truth) %>% 
     mutate(found = is_variant_in_sample(Experiment, gene1, gene2, variant, validation)) %>%
     data.frame() %>%
-    print()
+    gt() %>%
+     tab_header(
+        title = md("**Variants found in Leucegene cohort**")
+    ) %>%
+    cols_label(
+        patient_ID = md("**Patient**"),
+        Experiment = md("**Experiment**"),
+        gene1 = md("**Gene 1**"),
+        gene2 = md("**Gene 2**"),
+        variant = md("**Variant**"),
+        cohort = md("**Cohort**"),
+        found = md("**Found**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    tab_style(
+        style = cell_fill(color = "lightgreen"),
+        locations = cells_body(
+            columns = vars(found),
+            rows = found)
+    )
 ```
 
