@@ -517,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreefa6bf0c84e0cb82ee0828f89ee4a26a012caac55targetblankfa6bf0ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55" target="_blank">fa6bf0c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreec2c1c58bedf903c95411ccb442ea78665bc2fcaftargetblankc2c1c58a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/c2c1c58bedf903c95411ccb442ea78665bc2fcaf" target="_blank">c2c1c58</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreefa6bf0c84e0cb82ee0828f89ee4a26a012caac55targetblankfa6bf0ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreec2c1c58bedf903c95411ccb442ea78665bc2fcaftargetblankc2c1c58a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -541,6 +541,9 @@ Ignored files:
 
 Untracked files:
     Untracked:  backup/
+
+Unstaged changes:
+    Modified:   code/leucegene_helper.R
 
 </code></pre>
 <p>
@@ -579,6 +582,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c2c1c58bedf903c95411ccb442ea78665bc2fcaf/analysis/Leucegene_Gene_Expression.Rmd" target="_blank">c2c1c58</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+<td>
+Fixed several tables to reflect paper more closely
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/0b21347a69d1cdd7a431c6ba37dbccb8ddf7cebb/docs/Leucegene_Gene_Expression.html" target="_blank">0b21347</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -807,6 +844,7 @@ library(limma)
 library(edgeR)
 library(matrixStats)</code></pre>
 <pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code>source(here(&quot;code/leucegene_helper.R&quot;))</code></pre>
 <div id="leucegene-gene-expression" class="section level1">
 <h1>Leucegene Gene Expression</h1>
 <p>Here we generate a PCA plot for all the Leucegene samples used in the MINTIE paper KMT2A-PTD and normal sample analyses, and perform a few small expression analyses presented in the paper.</p>
@@ -927,15 +965,7 @@ Marek Cmero
 <h2>Expressed genes</h2>
 <p>Number of expressed genes found in Leucegene normals and percentage of those genes that are protein coding.</p>
 <pre class="r"><code># load CHESS gene reference containing gene types
-chess_genes &lt;- read.delim(gzfile(here(&quot;data/ref/chess2.2.genes.gz&quot;)))
-
-# split gene names
-genes &lt;- chess_genes$Gene_Name %&gt;%
-            str_split(&quot;,&quot;)
-repeat_rows &lt;- rep(1:nrow(chess_genes),
-                   sapply(genes, length))
-chess_genes &lt;- chess_genes[repeat_rows,]
-chess_genes$gene &lt;- unlist(genes)
+chess_genes &lt;- get_chess_genes(gzfile(here(&quot;data/ref/chess2.2.genes.gz&quot;)))
 
 # construct a normal counts matrix of &quot;expressed&quot; counts
 # (&gt;1 CPM in at least one sample)
