@@ -408,7 +408,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -417,7 +417,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -429,7 +429,7 @@ div.section {
 <strong>Last updated:</strong> 2020-06-11
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MINTIE-paper-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -445,12 +445,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -517,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/d3e97f294d7dceed2ab1709da6462a08eb542ebe" target="_blank">d3e97f2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreefa6bf0c84e0cb82ee0828f89ee4a26a012caac55targetblankfa6bf0ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55" target="_blank">fa6bf0c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreed3e97f294d7dceed2ab1709da6462a08eb542ebetargetblankd3e97f2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreefa6bf0c84e0cb82ee0828f89ee4a26a012caac55targetblankfa6bf0ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,224 +529,18 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/cache/
+    Ignored:    data/RCH_B-ALL/
+    Ignored:    data/leucegene/salmon_out/
+    Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
+    Ignored:    output/Leucegene_gene_counts.tsv
+    Ignored:    packrat/lib-R/
+    Ignored:    packrat/lib-ext/
+    Ignored:    packrat/lib/
+    Ignored:    packrat/src/
 
 Untracked files:
-    Untracked:  .here
-    Untracked:  analysis/
     Untracked:  backup/
-    Untracked:  code/
-    Untracked:  data/
-    Untracked:  docs/
-    Untracked:  output/
-    Untracked:  packrat/
-
-Unstaged changes:
-    Unmerged:   .Rprofile
-    Unmerged:   .gitattributes
-    Unmerged:   .gitignore
-    Unmerged:   MINTIE-paper-analysis.Rproj
-    Unmerged:   README.md
-    Unmerged:   _workflowr.yml
-
-Staged changes:
-    Deleted:    analysis/Leucegene_Gene_Expression.Rmd
-    Deleted:    analysis/Leucegene_Normals.Rmd
-    Deleted:    analysis/Leucegene_Validation.Rmd
-    Deleted:    analysis/RCH_B-ALL.Rmd
-    Deleted:    analysis/Simulation_Benchmarking.Rmd
-    Deleted:    analysis/_site.yml
-    Deleted:    analysis/index.Rmd
-    Deleted:    analysis/license.Rmd
-    Deleted:    code/leucegene_helper.R
-    Deleted:    code/plot.R
-    Deleted:    code/simu_helper.R
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332633_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332645_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332646_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX332659_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381852_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381854_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX381865_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957223_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX957230_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958844_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958873_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958906_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958907_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958922_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958932_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958945_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958959_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958961_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958963_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX958974_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959001_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959044_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959060_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/AML_controls/SRX959061_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332633_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332645_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332646_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX332659_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381852_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381854_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX381865_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957223_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX957230_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958844_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958873_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958906_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958907_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958922_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958932_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958945_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958959_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958961_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958963_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX958974_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959001_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959044_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959060_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls/SRX959061_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332633_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332645_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332646_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX332659_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381852_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381854_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX381865_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957223_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX957230_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958844_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958873_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958906_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958907_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958922_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958932_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958945_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958959_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958961_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958963_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX958974_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959001_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959044_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959060_results.tsv.gz
-    Deleted:    data/leucegene/KMT2A-PTD_results/normal_controls_reduced/SRX959061_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372044_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372045_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/bc/SRX372046_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372044_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372045_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/gran/SRX372046_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372044_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372045_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/mono/SRX372046_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372044_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372045_results.tsv.gz
-    Deleted:    data/leucegene/normals_controls_test_results/tc/SRX372046_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372044_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372045_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372046_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372047_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372048_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372049_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372050_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372051_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372052_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372053_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372054_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372055_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372056_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372057_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372058_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372059_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372060_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372061_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372063_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372064_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372065_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372066_results.tsv.gz
-    Deleted:    data/leucegene/normals_results/SRX372067_results.tsv.gz
-    Deleted:    data/leucegene/sample_info/KMT2A-PTD_samples.txt
-    Deleted:    data/leucegene/sample_info/NUP98-NSD1_samples.txt
-    Deleted:    data/leucegene/sample_info/celltypes_info.tsv
-    Deleted:    data/leucegene/sample_info/selected_13_CBF_AML_controls.txt
-    Deleted:    data/leucegene/sample_info/variant_validation_table.tsv
-    Deleted:    data/leucegene/validation_results/SRX332627_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX332635_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX332667_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX381851_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX381861_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729580_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729581_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729582_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729583_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729585_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729586_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729587_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729588_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729589_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729590_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729591_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729592_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729602_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729603_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729604_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729605_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729606_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729607_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729608_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729609_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729610_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729611_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729612_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729615_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729616_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729617_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729618_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729619_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729620_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729621_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729622_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729623_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729624_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729625_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729626_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729627_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729628_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729629_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729630_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729631_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729632_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX729633_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX958856_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX958862_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX958915_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX958987_results.tsv.gz
-    Deleted:    data/leucegene/validation_results/SRX959058_results.tsv.gz
-    Deleted:    data/ref/ALL_associated_genes.txt
-    Deleted:    data/ref/all_gene_locs.tsv.gz
-    Deleted:    data/ref/chess2.2.genes.gz
-    Deleted:    data/ref/tx2gene.txt.gz
-    Deleted:    data/simu/results/Arriba/fusions.tsv
-    Deleted:    data/simu/results/Barnacle/allvars-case.barnacle.data
-    Deleted:    data/simu/results/JAFFA/jaffa_results.csv
-    Deleted:    data/simu/results/KisSplice/results.bam
-    Deleted:    data/simu/results/KisSplice/results.bam.bai
-    Deleted:    data/simu/results/MINTIE/allvars-case_results.tsv
-    Deleted:    data/simu/results/SQUID/results_sv.txt
-    Deleted:    data/simu/results/StringTie/fullsimu.gtf
-    Deleted:    data/simu/results/TAP/novel_splicing.bedpe
-    Deleted:    data/simu/results/TAP/sv.bedpe
-    Deleted:    data/simu/truth/allvars_fusions_simulated.tsv
-    Deleted:    data/simu/truth/allvars_tsvs_splice_simulated.tsv
-    Deleted:    data/simu/truth/bg_gene_ref.tsv
-    Deleted:    data/simu/truth/hg19_bg_gene_ref.tsv
-    Deleted:    docs/.nojekyll
-    Deleted:    output/README.md
-    Deleted:    packrat/init.R
-    Deleted:    packrat/packrat.lock
-    Deleted:    packrat/packrat.opts
 
 </code></pre>
 <p>
@@ -785,6 +579,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55/analysis/RCH_B-ALL.Rmd" target="_blank">fa6bf0c</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+<td>
+Updated with new results; improved tables
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55/docs/RCH_B-ALL.html" target="_blank">fa6bf0c</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+<td>
+Updated with new results; improved tables
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -899,10 +727,10 @@ library(data.table)
 library(dplyr)
 library(here)
 library(stringr)
-library(gt)
 
-# plotting
-library(ggplot2)</code></pre>
+# plotting/tables
+library(ggplot2)
+library(gt)</code></pre>
 <pre class="r"><code>options(stringsAsFactors = FALSE)</code></pre>
 <pre class="r"><code>source(here(&quot;code/leucegene_helper.R&quot;))</code></pre>
 <div id="rch-b-all-results" class="section level1">
@@ -1339,6 +1167,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55/docs/figure/RCH_B-ALL.Rmd/results_overview-1.png" target="_blank">fa6bf0c</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/RCH_B-ALL.Rmd/results_overview-1.png" target="_blank">3702862</a>
 </td>
 <td>
@@ -1432,6 +1271,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/fa6bf0c84e0cb82ee0828f89ee4a26a012caac55/docs/figure/RCH_B-ALL.Rmd/ALL_associated_genes-1.png" target="_blank">fa6bf0c</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/RCH_B-ALL.Rmd/ALL_associated_genes-1.png" target="_blank">3702862</a>
 </td>
 <td>
@@ -1510,7 +1360,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] ggplot2_3.3.1     gt_0.2.1          stringr_1.4.0     here_0.1         
+[1] gt_0.2.1          ggplot2_3.3.1     stringr_1.4.0     here_0.1         
 [5] dplyr_1.0.0       data.table_1.12.6
 
 loaded via a namespace (and not attached):
