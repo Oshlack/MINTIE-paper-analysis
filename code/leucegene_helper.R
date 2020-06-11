@@ -147,3 +147,18 @@ get_gene_stats <- function(bygene, results) {
           bygene) %>%
         return()
 }
+
+get_chess_genes <- function(file) {
+    # takes CHESS reference gene file path,
+    # loads it and splits gene names
+    chess_genes <- read.delim(file)
+
+    genes <- chess_genes$Gene_Name %>%
+        str_split(",")
+    repeat_rows <- rep(1:nrow(chess_genes),
+                       sapply(genes, length))
+    chess_genes <- chess_genes[repeat_rows,]
+    chess_genes$gene <- unlist(genes)
+
+    return(chess_genes)
+}
