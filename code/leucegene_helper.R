@@ -77,10 +77,10 @@ get_results_summary <- function(results, group_var_name = "controls") {
     return(results_summary)
 }
 
-get_samples_with_kmt2a_sv <- function(results, controls) {
+get_samples_with_kmt2a_sv <- function(results, control_group) {
     # return unique samples with KMT2A hard/soft
     # clipped variant transcripts
-    con_results <- filter(results, controls == controls)
+    con_results <- filter(results, controls == control_group)
     get_samples_with_variant(con_results, "KMT2A", "PTD") %>%
         return()
 }
