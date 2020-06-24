@@ -50,7 +50,7 @@ Here we analyse the results of MINTIE run on a number of Leucegene samples,
 including the effect of controls on a cohort with KMT2A-PTD variants. We also
 check whether MINTIE has called known variants within the cohort.
 
-```{r load_data, cache = TRUE}
+```{r load_data, cache = FALSE}
 # load SRX to patient ID lookup table
 kmt2a_patient_lookup <- read.delim(here("data/leucegene/sample_info/KMT2A-PTD_samples.txt"),
                                    header = FALSE,
@@ -181,16 +181,36 @@ kmt2a_control_comp %>%
 
 ```{r leucegene_variants_validation}
 # add KMT2A results against AML controls as validation
-validation <- validation %>% select(-logCPM) # remove logCPM col for backwards compatibility with older runs
-validation <- filter(kmt2a_results, controls == "AML_controls") %>%
+validation <- filter(kmt2a_results, controls == "normal_controls") %>%
                 select(-c(controls, patient)) %>%
                 select(colnames(validation)) %>%
                 rbind(., validation)
 
-rowwise(truth) %>% 
+truth_table <- rowwise(truth) %>% 
     mutate(found = is_variant_in_sample(Experiment, gene1, gene2, variant, validation)) %>%
-    data.frame() %>%
+    data.frame()
+
+truth_table %>% 
+    group_by(gene1, gene2, variant) %>%
+    summarise(detected = sum(found),
+              total = length(found)) %>%
+    data.table() %>%
     gt() %>%
+    tab_header(
+        title = md("**Summary of variants found in Leucegene cohort**")
+    ) %>%
+    cols_label(
+        gene1 = md("**Gene 1**"),
+        gene2 = md("**Gene 2**"),
+        variant = md("**Variant**"),
+        detected = md("**Detected**"),
+        total = md("**Total**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    )
+
+gt(truth_table) %>%
      tab_header(
         title = md("**Variants found in Leucegene cohort**")
     ) %>%

@@ -54,7 +54,7 @@ run on a set of non-cancer samples obtained from Leucegene.
 normals_results_dir <- here("data/leucegene/normals_results")
 normals_results <- list.files(normals_results_dir, full.names = TRUE) %>% 
                         lapply(., read.delim) %>%
-                        rbindlist() %>%
+                        rbindlist(fill = TRUE) %>%
                         filter(logFC > 5)
 
 # load cell type info and add to results
@@ -202,7 +202,7 @@ controls_comp$cell_type <- NULL
 # load comparisons against all other controls
 controls_test_dir <- here("data/leucegene/normals_controls_test_results")
 controls_comp <- load_controls_comparison(controls_test_dir) %>%
-                    rbind(controls_comp, .)
+                    rbind(controls_comp, ., fill = TRUE)
 results_summary <- get_results_summary(mutate(controls_comp,
                                               group_var = controls),
                                        group_var_name = "controls")
