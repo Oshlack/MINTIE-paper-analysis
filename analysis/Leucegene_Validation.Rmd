@@ -67,7 +67,7 @@ truth <- read.delim(here("data/leucegene/sample_info/variant_validation_table.ts
 leucegene_results_dir <- here("data/leucegene/validation_results")
 validation <- list.files(leucegene_results_dir, full.names = TRUE) %>%
                 lapply(., read.delim) %>%
-                rbindlist() %>%
+                rbindlist(fill = TRUE) %>%
                 filter(logFC > 5)
 ```
 
