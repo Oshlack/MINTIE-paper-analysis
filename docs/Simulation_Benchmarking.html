@@ -408,7 +408,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -417,7 +417,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -426,10 +426,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-25
+<strong>Last updated:</strong> 2020-07-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MINTIE-paper-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -445,12 +445,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -517,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree0ad72e7404d141b6b5b8a9f787eba0f8d8942829targetblank0ad72e7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/0ad72e7404d141b6b5b8a9f787eba0f8d8942829" target="_blank">0ad72e7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree379b944942aa7c7a27315723c99c80888c876708targetblank379b944a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/379b944942aa7c7a27315723c99c80888c876708" target="_blank">379b944</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree0ad72e7404d141b6b5b8a9f787eba0f8d8942829targetblank0ad72e7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree379b944942aa7c7a27315723c99c80888c876708targetblank379b944a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -540,10 +540,13 @@ Ignored files:
     Ignored:    packrat/src/
 
 Untracked files:
+    Untracked:  data/simu/results/CICERO/
     Untracked:  update_results.sh
 
 Unstaged changes:
-    Modified:   data/simu/results/MINTIE/allvars-case_results.tsv
+    Modified:   analysis/Leucegene_Validation.Rmd
+    Modified:   analysis/Simulation_Benchmarking.Rmd
+    Modified:   code/plot.R
 
 </code></pre>
 <p>
@@ -582,6 +585,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/9141a03efd03d2e35f4080e55c20abf119f45007/docs/Simulation_Benchmarking.html" target="_blank">9141a03</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1076,6 +1096,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/9141a03efd03d2e35f4080e55c20abf119f45007/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">9141a03</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1096df5339c0644cbd1580e0fb29284b265986a8/docs/figure/Simulation_Benchmarking.Rmd/MINTIE-1.png" target="_blank">1096df5</a>
@@ -1660,12 +1691,77 @@ Marek Cmero
 </div>
 </div>
 </div>
+<div id="cicero" class="section level3">
+<h3>CICERO</h3>
+<pre class="r"><code># load CICERO results and make Genomic Ranges objects
+cicero_results &lt;- read.delim(here(&quot;data/simu/results/CICERO/allvars-case.final_fusions.txt&quot;))
+
+# make GRanges objects
+loc1_grx &lt;- GRanges(seqnames = cicero_results$chrA,
+                    ranges = IRanges(start = cicero_results$posA, end = cicero_results$posA))
+loc2_grx &lt;- GRanges(seqnames = cicero_results$chrB,
+                    ranges = IRanges(start = cicero_results$posB, end = cicero_results$posB))
+
+# extract hits
+hits &lt;- get_hits(loc1_grx, loc2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
+                 hg19_tsv_nsv_grx, hg19_bgenes_grx)
+found_fus &lt;- table(hg19_fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(hg19_tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+fps &lt;- !1:length(loc1_grx) %in% unique(hits$caller_hits)
+n_fp &lt;- sum(fps)
+
+results &lt;- append_results(results, &quot;CICERO&quot;, found_fus, found_tsv, n_fp)
+print(paste(&quot;Background genes in FPs:&quot;, sum(hits$bg_hits %in% which(fps))))</code></pre>
+<pre><code>[1] &quot;Background genes in FPs: 1&quot;</code></pre>
+<pre class="r"><code>plot_simu_benchmarking(results, &quot;CICERO&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/CICERO-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>Unfiltered CICERO results</p>
+<pre class="r"><code># load CICERO unfiltered results and make Genomic Ranges objects
+cicero_int &lt;- read.delim(here(&quot;data/simu/results/CICERO/unfiltered.internal.txt&quot;), header = FALSE)
+cicero_fus &lt;- read.delim(here(&quot;data/simu/results/CICERO/unfiltered.fusion.txt&quot;), header = FALSE)
+
+# make GRanges objects
+loc_grx &lt;- GRanges(seqnames = c(cicero_int$V9, cicero_int$V20),
+                    ranges = IRanges(start = c(cicero_int$V10, cicero_int$V21),
+                                     end = c(cicero_int$V11, cicero_int$V22)))
+loc1_grx &lt;- GRanges(seqnames = cicero_fus$V9,
+                    ranges = IRanges(start = cicero_fus$V10, end = cicero_fus$V11))
+loc2_grx &lt;- GRanges(seqnames = cicero_fus$V20,
+                    ranges = IRanges(start = cicero_fus$V21, end = cicero_fus$V22))
+
+# get hits for both internal and fus variants
+hits_int &lt;- get_hits_oneloc(loc_grx, fus_grx[[1]], fus_grx[[2]],
+                            hg19_tsv_nsv_grx, bgenes_grx)
+hits_fus &lt;- get_hits(loc1_grx, loc2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
+                 hg19_tsv_nsv_grx, bgenes_grx)
+
+fps_int &lt;- !1:length(loc_grx) %in% hits_int$caller_hits
+fps_fus &lt;- !1:length(loc1_grx) %in% hits_fus$caller_hits
+n_fp &lt;- sum(fps_int) + sum(fps_fus)
+
+# count hits
+fus_truth_hits &lt;- union(hits_int$fus_truth_hits, hits_fus$fus_truth_hits)
+tsv_truth_hits &lt;- union(hits_int$tsv_nsv_truth_hits, hits_fus$tsv_nsv_truth_hits)
+found_fus &lt;- table(hg19_fus_truth[fus_truth_hits,]$fusion_type)
+found_tsv &lt;- table(hg19_tsv_nsv_truth[tsv_truth_hits,]$vartype)
+
+cicero_results &lt;- append_results(results[, 1:2], &quot;CICERO&quot;, found_fus, found_tsv, n_fp)
+plot_simu_benchmarking(cicero_results[!rownames(results) %in% &quot;FP&quot;,], &quot;CICERO&quot;) +
+    ylim(0, 100) + ggtitle(&quot;CICERO unfiltered&quot;)</code></pre>
+<p><img src="figure/Simulation_Benchmarking.Rmd/CICERO_unfiltered-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(paste(&quot;False positives:&quot;, n_fp))</code></pre>
+<pre><code>[1] &quot;False positives: 596&quot;</code></pre>
+</div>
 <div id="all-results" class="section level2">
 <h2>All results</h2>
 <p>MINTIE paper Figure 3 containing results from all benchmarked methods.</p>
 <pre class="r"><code>mr &lt;- melt(results, id.vars = c(&quot;vartype&quot;, &quot;class&quot;), variable.name = &quot;method&quot;)
 mr$method &lt;- factor(mr$method,
-                    levels=c(&quot;MINTIE&quot;, &quot;TAP&quot;, &quot;Barnacle&quot;, &quot;SQUID&quot;, &quot;JAFFA&quot;, &quot;Arriba&quot;, &quot;KisSplice&quot;, &quot;StringTie&quot;))
+                    levels=c(&quot;MINTIE&quot;, &quot;TAP&quot;, &quot;Barnacle&quot;,
+                             &quot;SQUID&quot;, &quot;JAFFA&quot;, &quot;Arriba&quot;,
+                             &quot;CICERO&quot;, &quot;KisSplice&quot;, &quot;StringTie&quot;))
 
 plot_all_simu_benchmarks(mr)</code></pre>
 <p><img src="figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" width="864" style="display: block; margin: auto;" /></p>
@@ -1691,6 +1787,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/9141a03efd03d2e35f4080e55c20abf119f45007/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">9141a03</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-06-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/0b21347a69d1cdd7a431c6ba37dbccb8ddf7cebb/docs/figure/Simulation_Benchmarking.Rmd/plot_all_results-1.png" target="_blank">0b21347</a>

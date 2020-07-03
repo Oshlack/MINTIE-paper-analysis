@@ -375,14 +375,86 @@ print(paste("Background genes in FPs:", length(bg_hits)))
 plot_simu_benchmarking(results, "KisSplice")
 ```
 
+### CICERO
+
+
+```{r CICERO}
+# load CICERO results and make Genomic Ranges objects
+cicero_results <- read.delim(here("data/simu/results/CICERO/allvars-case.final_fusions.txt"))
+
+# make GRanges objects
+loc1_grx <- GRanges(seqnames = cicero_results$chrA,
+                    ranges = IRanges(start = cicero_results$posA, end = cicero_results$posA))
+loc2_grx <- GRanges(seqnames = cicero_results$chrB,
+                    ranges = IRanges(start = cicero_results$posB, end = cicero_results$posB))
+
+# extract hits
+hits <- get_hits(loc1_grx, loc2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
+                 hg19_tsv_nsv_grx, hg19_bgenes_grx)
+found_fus <- table(hg19_fus_truth[hits$fus_truth_hits,]$fusion_type)
+found_tsv <- table(hg19_tsv_nsv_truth[hits$tsv_nsv_truth_hits,]$vartype)
+fps <- !1:length(loc1_grx) %in% unique(hits$caller_hits)
+n_fp <- sum(fps)
+
+results <- append_results(results, "CICERO", found_fus, found_tsv, n_fp)
+print(paste("Background genes in FPs:", sum(hits$bg_hits %in% which(fps))))
+plot_simu_benchmarking(results, "CICERO")
+```
+
+Unfiltered CICERO results
+
+
+```{r CICERO_unfiltered}
+# load CICERO unfiltered results and make Genomic Ranges objects
+cicero_int <- read.delim(here("data/simu/results/CICERO/unfiltered.internal.txt"), header = FALSE)
+cicero_fus <- read.delim(here("data/simu/results/CICERO/unfiltered.fusion.txt"), header = FALSE)
+
+# make GRanges objects
+loc_grx <- GRanges(seqnames = c(cicero_int$V9, cicero_int$V20),
+                    ranges = IRanges(start = c(cicero_int$V10, cicero_int$V21),
+                                     end = c(cicero_int$V11, cicero_int$V22)))
+loc1_grx <- GRanges(seqnames = cicero_fus$V9,
+                    ranges = IRanges(start = cicero_fus$V10, end = cicero_fus$V11))
+loc2_grx <- GRanges(seqnames = cicero_fus$V20,
+                    ranges = IRanges(start = cicero_fus$V21, end = cicero_fus$V22))
+
+# get hits for both internal and fus variants
+hits_int <- get_hits_oneloc(loc_grx, fus_grx[[1]], fus_grx[[2]],
+                            hg19_tsv_nsv_grx, bgenes_grx)
+hits_fus <- get_hits(loc1_grx, loc2_grx,
+                 hg19_fus_grx[[1]], hg19_fus_grx[[2]],
+                 hg19_tsv_nsv_grx, bgenes_grx)
+
+fps_int <- !1:length(loc_grx) %in% hits_int$caller_hits
+fps_fus <- !1:length(loc1_grx) %in% hits_fus$caller_hits
+n_fp <- sum(fps_int) + sum(fps_fus)
+
+# count hits
+fus_truth_hits <- union(hits_int$fus_truth_hits, hits_fus$fus_truth_hits)
+tsv_truth_hits <- union(hits_int$tsv_nsv_truth_hits, hits_fus$tsv_nsv_truth_hits)
+found_fus <- table(hg19_fus_truth[fus_truth_hits,]$fusion_type)
+found_tsv <- table(hg19_tsv_nsv_truth[tsv_truth_hits,]$vartype)
+
+cicero_results <- append_results(results[, 1:2], "CICERO", found_fus, found_tsv, n_fp)
+plot_simu_benchmarking(cicero_results[!rownames(results) %in% "FP",], "CICERO") +
+    ylim(0, 100) + ggtitle("CICERO unfiltered")
+
+print(paste("False positives:", n_fp))
+```
+
+
+
 ## All results
 
 MINTIE paper Figure 3 containing results from all benchmarked methods.
 
-```{r plot_all_results}
+```{r plot_all_results, fig.width = 9, fig.height = 8}
 mr <- melt(results, id.vars = c("vartype", "class"), variable.name = "method")
 mr$method <- factor(mr$method,
-                    levels=c("MINTIE", "TAP", "Barnacle", "SQUID", "JAFFA", "Arriba", "KisSplice", "StringTie"))
+                    levels=c("MINTIE", "TAP", "Barnacle",
+                             "SQUID", "JAFFA", "Arriba",
+                             "CICERO", "KisSplice", "StringTie"))
 
 plot_all_simu_benchmarks(mr)
 ```

@@ -186,6 +186,26 @@ validation <- filter(kmt2a_results, controls == "normal_controls") %>%
                 select(colnames(validation)) %>%
                 rbind(., validation)
 
+get_results_by_gene(validation) %>%
+    group_by(sample) %>%
+    summarise(vargenes = length(unique(gene))) %>%
+    summarise(min = min(vargenes),
+              median = median(vargenes),
+              max = max(vargenes)) %>%
+    data.frame() %>%
+    gt() %>%
+    tab_header(
+        title = md("**Total variant genes called by sample**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        min = md("**Min**"),
+        median = md("**Median**"),
+        max = md("**Max**")
+    )
+
 truth_table <- rowwise(truth) %>% 
     mutate(found = is_variant_in_sample(Experiment, gene1, gene2, variant, validation)) %>%
     data.frame()
