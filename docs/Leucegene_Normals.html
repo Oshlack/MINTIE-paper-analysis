@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -14,6 +13,7 @@
 
 <title>Leucegene Normals</title>
 
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,6 +29,25 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -74,6 +93,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 
 
@@ -238,6 +258,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -269,6 +290,12 @@ $(document).ready(function () {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -372,7 +399,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Oshlack/MINTIE-paper-analysis">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
     Source code
   </a>
@@ -381,13 +408,6 @@ div.tocify {
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
 
 <div class="fluid-row" id="header">
 
@@ -426,7 +446,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-07-07
+<strong>Last updated:</strong> 2021-04-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -436,7 +456,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -474,7 +494,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20200415code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20200415)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20200415)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -517,30 +537,50 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreef16b530f9fac5eb5adc6b95d96b52cb386e56a95targetblankf16b530a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/f16b530f9fac5eb5adc6b95d96b52cb386e56a95" target="_blank">f16b530</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreedde9f5b4f44a9a652e1dca7b71eec9ad6dcc4fcctargetblankdde9f5ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/dde9f5b4f44a9a652e1dca7b71eec9ad6dcc4fcc" target="_blank">dde9f5b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreef16b530f9fac5eb5adc6b95d96b52cb386e56a95targetblankf16b530a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreedde9f5b4f44a9a652e1dca7b71eec9ad6dcc4fcctargetblankdde9f5ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/dde9f5b4f44a9a652e1dca7b71eec9ad6dcc4fcc" target="_blank">dde9f5b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/cache/
+    Ignored:    data/.DS_Store
     Ignored:    data/RCH_B-ALL/
+    Ignored:    data/leucegene/.DS_Store
+    Ignored:    data/leucegene/KMT2A-PTD_results/.DS_Store
+    Ignored:    data/leucegene/normals_ncontrols_test_results/.DS_Store
+    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon0/.DS_Store
+    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon1/.DS_Store
     Ignored:    data/leucegene/salmon_out/
     Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
+    Ignored:    data/leucegene/validation_results/.DS_Store
+    Ignored:    data/simu/.DS_Store
+    Ignored:    data/simu/results/.DS_Store
+    Ignored:    data/simu/results/MINTIE/.DS_Store
+    Ignored:    data/simu/results/MINTIE/varying_dispersion/.DS_Store
     Ignored:    output/Leucegene_gene_counts.tsv
     Ignored:    packrat/lib-R/
     Ignored:    packrat/lib-ext/
     Ignored:    packrat/lib/
-    Ignored:    packrat/src/
 
 Untracked files:
-    Untracked:  update_results.sh
+    Untracked:  data/leucegene/validation_results/TAP/
+
+Unstaged changes:
+    Modified:   .Rprofile
 
 </code></pre>
 <p>
@@ -555,7 +595,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/Leucegene_Normals.Rmd</code>) and HTML (<code>docs/Leucegene_Normals.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -579,6 +619,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/dde9f5b4f44a9a652e1dca7b71eec9ad6dcc4fcc/analysis/Leucegene_Normals.Rmd" target="_blank">dde9f5b</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-04-30
+</td>
+<td>
+wflow_publish(files = list.files(pattern = "*Rmd"))
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/9595530f08fdb1675834f00aee564805b6b990b1/analysis/Leucegene_Normals.Rmd" target="_blank">9595530</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-04-30
+</td>
+<td>
+Updated analyses
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/41431ccc02185fd7b7e47b8fb2246038af616611/docs/Leucegene_Normals.html" target="_blank">41431cc</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-07-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -713,6 +804,23 @@ Marek Cmero
 </td>
 <td>
 Updated with new results; improved tables
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/37028624941296e758779a0eafecc35fd9882a27/docs/Leucegene_Normals.html" target="_blank">3702862</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-18
+</td>
+<td>
+Removed MLM samples from final B-ALL results
 </td>
 </tr>
 <tr>
@@ -1000,6 +1108,8 @@ normals_results &lt;- inner_join(normals_results, celltype,
   margin-right: auto;
   color: #333333;
   font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -1158,10 +1268,6 @@ normals_results &lt;- inner_join(normals_results, celltype,
   vertical-align: middle;
 }
 
-#xuwvmsdnyk .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #xuwvmsdnyk .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -1239,6 +1345,10 @@ normals_results &lt;- inner_join(normals_results, celltype,
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#xuwvmsdnyk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #xuwvmsdnyk .gt_table_body {
@@ -1341,9 +1451,9 @@ normals_results &lt;- inner_join(normals_results, celltype,
   </thead>
   <tbody class="gt_table_body">
     <tr>
-      <td class="gt_row gt_center">49</td>
-      <td class="gt_row gt_center">102</td>
-      <td class="gt_row gt_center">1152</td>
+      <td class="gt_row gt_center">61</td>
+      <td class="gt_row gt_center">122</td>
+      <td class="gt_row gt_center">1397</td>
     </tr>
   </tbody>
   
@@ -1376,6 +1486,8 @@ normals_results &lt;- inner_join(normals_results, celltype,
   margin-right: auto;
   color: #333333;
   font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -1534,10 +1646,6 @@ normals_results &lt;- inner_join(normals_results, celltype,
   vertical-align: middle;
 }
 
-#odquwipzlc .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #odquwipzlc .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -1615,6 +1723,10 @@ normals_results &lt;- inner_join(normals_results, celltype,
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#odquwipzlc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #odquwipzlc .gt_table_body {
@@ -1719,22 +1831,22 @@ normals_results &lt;- inner_join(normals_results, celltype,
     <tr>
       <td class="gt_row gt_left">Fusion</td>
       <td class="gt_row gt_center">93</td>
-      <td class="gt_row gt_right">0.019</td>
+      <td class="gt_row gt_right">0.016</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Novel splice variant</td>
-      <td class="gt_row gt_center">2251</td>
-      <td class="gt_row gt_right">0.466</td>
+      <td class="gt_row gt_center">3180</td>
+      <td class="gt_row gt_right">0.562</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Transcribed structural variant</td>
-      <td class="gt_row gt_center">1243</td>
-      <td class="gt_row gt_right">0.257</td>
+      <td class="gt_row gt_center">1069</td>
+      <td class="gt_row gt_right">0.189</td>
     </tr>
     <tr>
       <td class="gt_row gt_left">Unknown</td>
-      <td class="gt_row gt_center">1245</td>
-      <td class="gt_row gt_right">0.258</td>
+      <td class="gt_row gt_center">1318</td>
+      <td class="gt_row gt_right">0.233</td>
     </tr>
   </tbody>
   
@@ -1776,6 +1888,8 @@ results_summary %&gt;%
   margin-right: auto;
   color: #333333;
   font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -1934,10 +2048,6 @@ results_summary %&gt;%
   vertical-align: middle;
 }
 
-#epfiatiawy .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #epfiatiawy .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -2015,6 +2125,10 @@ results_summary %&gt;%
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#epfiatiawy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #epfiatiawy .gt_table_body {
@@ -2118,10 +2232,10 @@ results_summary %&gt;%
   </thead>
   <tbody class="gt_table_body">
     <tr>
-      <td class="gt_row gt_center">49</td>
-      <td class="gt_row gt_center">102</td>
-      <td class="gt_row gt_center">464</td>
-      <td class="gt_row gt_center">3045</td>
+      <td class="gt_row gt_center">64</td>
+      <td class="gt_row gt_center">117</td>
+      <td class="gt_row gt_center">465</td>
+      <td class="gt_row gt_center">3482</td>
     </tr>
   </tbody>
   
@@ -2179,6 +2293,17 @@ Marek Cmero
 </tr>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">3702862</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1c40e33ed980b6e6f7dfdf3290618aae2781e5e0/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">1c40e33</a>
 </td>
 <td>
@@ -2218,7 +2343,7 @@ results_summary &lt;- left_join(results_summary, libsizes, by =&quot;sample&quot
 
 lib_var_cor &lt;- cor(results_summary$libsize, results_summary$V1, method = &quot;spearman&quot;)
 print(paste(&quot;Spearman correlation between library size and variant genes called:&quot;, lib_var_cor))</code></pre>
-<pre><code>[1] &quot;Spearman correlation between library size and variant genes called: 0.165101354822576&quot;</code></pre>
+<pre><code>[1] &quot;Spearman correlation between library size and variant genes called: 0.210474308300395&quot;</code></pre>
 <pre class="r"><code>ggplot(results_summary, aes(libsize, V1, colour = cell_type)) +
     geom_point() +
     theme_bw() +
@@ -2270,6 +2395,17 @@ Marek Cmero
 </tr>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">3702862</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/1c40e33ed980b6e6f7dfdf3290618aae2781e5e0/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">1c40e33</a>
 </td>
 <td>
@@ -2314,7 +2450,7 @@ paste(&quot;proportion of protein coding genes =&quot;,
     (n_protein_coding / n_var_genes) %&gt;% round(4),
     paste0(&quot;(&quot;, n_protein_coding, &quot;/&quot;, n_var_genes, &quot;)&quot;)) %&gt;%
     print()</code></pre>
-<pre><code>[1] &quot;proportion of protein coding genes = 0.8347 (1747/2093)&quot;</code></pre>
+<pre><code>[1] &quot;proportion of protein coding genes = 0.8333 (1969/2363)&quot;</code></pre>
 </div>
 <div id="controls-comparison" class="section level2">
 <h2>Controls Comparison</h2>
@@ -2357,6 +2493,8 @@ results_summary %&gt;%
   margin-right: auto;
   color: #333333;
   font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2515,10 +2653,6 @@ results_summary %&gt;%
   vertical-align: middle;
 }
 
-#coctjhonfv .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #coctjhonfv .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -2596,6 +2730,10 @@ results_summary %&gt;%
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#coctjhonfv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #coctjhonfv .gt_table_body {
@@ -2698,23 +2836,23 @@ results_summary %&gt;%
   <tbody class="gt_table_body">
     <tr>
       <td class="gt_row gt_center">twbc</td>
-      <td class="gt_row gt_center">340</td>
+      <td class="gt_row gt_center">412</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">mono</td>
-      <td class="gt_row gt_center">466</td>
+      <td class="gt_row gt_center">715</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">gran</td>
-      <td class="gt_row gt_center">506</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">bc</td>
-      <td class="gt_row gt_center">1052</td>
+      <td class="gt_row gt_center">763</td>
     </tr>
     <tr>
       <td class="gt_row gt_center">tc</td>
-      <td class="gt_row gt_center">1073</td>
+      <td class="gt_row gt_center">1564</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">bc</td>
+      <td class="gt_row gt_center">1630</td>
     </tr>
   </tbody>
   
@@ -2778,6 +2916,17 @@ Marek Cmero
 </tr>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/37028624941296e758779a0eafecc35fd9882a27/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">3702862</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2020-05-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/87b4e62442a254ec41b1ffdd6b55824a14a9463e/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">87b4e62</a>
 </td>
 <td>
@@ -2802,6 +2951,598 @@ Marek Cmero
 </table>
 </div>
 </div>
+<div id="n-controls-experiments" class="section level3">
+<h3>1..N controls experiments</h3>
+<p>MINTIE Supplementary Figure 9 showing range of variant genes called in granulocytes with different combinations of 1..N controls. The table output also includes numbers for the runs where 0 controls were used.</p>
+<pre class="r"><code># load in data
+ncon_dirs &lt;- here(&quot;data/leucegene/normals_ncontrols_test_results/&quot;)
+ncon_results &lt;- data.frame()
+for (ncon_dir in list.dirs(ncon_dirs, recursive = FALSE)) {
+    run &lt;- str_split(ncon_dir, &quot;ncon&quot;)[[1]] %&gt;%
+                tail(1)
+    ncon &lt;- str_split(run, &quot;r&quot;) %&gt;% unlist() %&gt;% first() %&gt;% as.numeric()
+    results &lt;- list.files(ncon_dir, pattern = &quot;*results.tsv.gz&quot;, full.names = TRUE) %&gt;%
+                        lapply(., read.delim) %&gt;%
+                        rbindlist() %&gt;%
+                        get_results_by_gene() %&gt;%
+                        mutate(n_controls = ncon, run = run)
+    ncon_results &lt;- rbindlist(list(ncon_results, results), fill = TRUE)
+}
+ncon_results &lt;- ncon_results[logFC &gt; 5 | is.na(logFC),]
+
+# prepare results summary
+results_summary &lt;- get_results_summary(mutate(ncon_results,
+                                              group_var = run),
+                                       group_var_name = &quot;run&quot;)
+results_summary$n_controls &lt;- results_summary$run %&gt;%
+                                as.character() %&gt;%
+                                str_split(., pattern = &quot;r&quot;) %&gt;%
+                                lapply(., first) %&gt;% unlist() %&gt;% as.numeric()
+rs &lt;- results_summary %&gt;%
+        group_by(sample, n_controls) %&gt;%
+        summarise(mean=round(mean(V1, na.rm=TRUE)),
+                  min=min(V1, na.rm=TRUE),
+                  max=max(V1, na.rm=TRUE)) %&gt;%
+        data.frame()
+
+rs %&gt;%
+    gt() %&gt;%
+    tab_header(
+        title = md(&quot;**Total variant genes called using different numbers of controls**&quot;)
+    ) %&gt;%
+    tab_options(
+        table.font.size = 12
+    ) %&gt;%
+    cols_label(
+        n_controls = md(&quot;**Controls**&quot;),
+        mean = md(&quot;**Mean**&quot;),
+        min = md(&quot;**Min**&quot;),
+        max = md(&quot;**Max**&quot;)
+    )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jgwlujsyia .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jgwlujsyia .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jgwlujsyia .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jgwlujsyia .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jgwlujsyia .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jgwlujsyia .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jgwlujsyia .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jgwlujsyia .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jgwlujsyia .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jgwlujsyia .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jgwlujsyia .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jgwlujsyia .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jgwlujsyia .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#jgwlujsyia .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgwlujsyia .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgwlujsyia .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jgwlujsyia .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jgwlujsyia .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jgwlujsyia .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jgwlujsyia .gt_left {
+  text-align: left;
+}
+
+#jgwlujsyia .gt_center {
+  text-align: center;
+}
+
+#jgwlujsyia .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jgwlujsyia .gt_font_normal {
+  font-weight: normal;
+}
+
+#jgwlujsyia .gt_font_bold {
+  font-weight: bold;
+}
+
+#jgwlujsyia .gt_font_italic {
+  font-style: italic;
+}
+
+#jgwlujsyia .gt_super {
+  font-size: 65%;
+}
+
+#jgwlujsyia .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="jgwlujsyia" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different numbers of controls</strong></th>
+    </tr>
+    <tr>
+      <th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">sample</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Controls</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Mean</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">SRX372056</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">4129</td>
+      <td class="gt_row gt_center">4129</td>
+      <td class="gt_row gt_center">4129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372056</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">186</td>
+      <td class="gt_row gt_center">155</td>
+      <td class="gt_row gt_center">220</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372056</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">140</td>
+      <td class="gt_row gt_center">132</td>
+      <td class="gt_row gt_center">155</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372056</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">100</td>
+      <td class="gt_row gt_center">99</td>
+      <td class="gt_row gt_center">102</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372056</td>
+      <td class="gt_row gt_right">4</td>
+      <td class="gt_row gt_right">80</td>
+      <td class="gt_row gt_center">80</td>
+      <td class="gt_row gt_center">80</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372054</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">5079</td>
+      <td class="gt_row gt_center">5079</td>
+      <td class="gt_row gt_center">5079</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372054</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">214</td>
+      <td class="gt_row gt_center">200</td>
+      <td class="gt_row gt_center">229</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372054</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">123</td>
+      <td class="gt_row gt_center">113</td>
+      <td class="gt_row gt_center">139</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372054</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">100</td>
+      <td class="gt_row gt_center">96</td>
+      <td class="gt_row gt_center">103</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372054</td>
+      <td class="gt_row gt_right">4</td>
+      <td class="gt_row gt_right">75</td>
+      <td class="gt_row gt_center">75</td>
+      <td class="gt_row gt_center">75</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372053</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">4570</td>
+      <td class="gt_row gt_center">4570</td>
+      <td class="gt_row gt_center">4570</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372053</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">292</td>
+      <td class="gt_row gt_center">168</td>
+      <td class="gt_row gt_center">346</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372053</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">227</td>
+      <td class="gt_row gt_center">102</td>
+      <td class="gt_row gt_center">295</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372053</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">190</td>
+      <td class="gt_row gt_center">88</td>
+      <td class="gt_row gt_center">291</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372053</td>
+      <td class="gt_row gt_right">4</td>
+      <td class="gt_row gt_right">72</td>
+      <td class="gt_row gt_center">72</td>
+      <td class="gt_row gt_center">72</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372055</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">6063</td>
+      <td class="gt_row gt_center">6063</td>
+      <td class="gt_row gt_center">6063</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372055</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">431</td>
+      <td class="gt_row gt_center">368</td>
+      <td class="gt_row gt_center">469</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372055</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">249</td>
+      <td class="gt_row gt_center">226</td>
+      <td class="gt_row gt_center">266</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372055</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">218</td>
+      <td class="gt_row gt_center">212</td>
+      <td class="gt_row gt_center">225</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372055</td>
+      <td class="gt_row gt_right">4</td>
+      <td class="gt_row gt_right">175</td>
+      <td class="gt_row gt_center">175</td>
+      <td class="gt_row gt_center">175</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372052</td>
+      <td class="gt_row gt_right">0</td>
+      <td class="gt_row gt_right">4543</td>
+      <td class="gt_row gt_center">4543</td>
+      <td class="gt_row gt_center">4543</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372052</td>
+      <td class="gt_row gt_right">1</td>
+      <td class="gt_row gt_right">789</td>
+      <td class="gt_row gt_center">148</td>
+      <td class="gt_row gt_center">1051</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372052</td>
+      <td class="gt_row gt_right">2</td>
+      <td class="gt_row gt_right">750</td>
+      <td class="gt_row gt_center">170</td>
+      <td class="gt_row gt_center">1040</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372052</td>
+      <td class="gt_row gt_right">3</td>
+      <td class="gt_row gt_right">598</td>
+      <td class="gt_row gt_center">185</td>
+      <td class="gt_row gt_center">1011</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">SRX372052</td>
+      <td class="gt_row gt_right">4</td>
+      <td class="gt_row gt_right">209</td>
+      <td class="gt_row gt_center">209</td>
+      <td class="gt_row gt_center">209</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<pre class="r"><code>rs$n_controls &lt;- as.factor(rs$n_controls)
+ggplot(rs[rs$n_controls!=0,], aes(sample, mean, fill=n_controls)) +
+    geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
+    geom_errorbar(aes(ymin=min, ymax=max, group=n_controls), width=.2,
+                 position=position_dodge(.9)) +
+    theme_bw() +
+    xlab(&quot;&quot;) +
+    ylab(&quot;Mean genes with variants&quot;) +
+    scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/Leucegene_Normals.Rmd/n_controls_comparison-1.png" width="864" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2810,45 +3551,39 @@ Marek Cmero
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: CentOS Linux 7 (Core)
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
 
 Matrix products: default
-BLAS:   /config/RStudio/R/3.6.1/lib64/R/lib/libRblas.so
-LAPACK: /config/RStudio/R/3.6.1/lib64/R/lib/libRlapack.so
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
- [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
- [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] gt_0.2.1          ggplot2_3.3.1     stringr_1.4.0     here_0.1         
-[5] dplyr_1.0.0       data.table_1.12.6
+[1] gt_0.2.2          ggplot2_3.3.3     stringr_1.4.0     here_1.0.1       
+[5] dplyr_1.0.4       data.table_1.13.6
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2         RColorBrewer_1.1-2 pillar_1.4.4      
- [4] compiler_3.6.1     git2r_0.26.1       workflowr_1.4.0   
- [7] tools_3.6.1        digest_0.6.21      evaluate_0.14     
-[10] lifecycle_0.2.0    tibble_3.0.1       gtable_0.3.0      
-[13] checkmate_2.0.0    pkgconfig_2.0.3    rlang_0.4.6       
-[16] commonmark_1.7     yaml_2.2.0         xfun_0.10         
-[19] withr_2.1.2        knitr_1.25         generics_0.0.2    
-[22] fs_1.4.1           vctrs_0.3.1        sass_0.2.0        
-[25] rprojroot_1.3-2    grid_3.6.1         tidyselect_1.1.0  
-[28] glue_1.4.1         R6_2.4.0           rmarkdown_1.16    
-[31] farver_2.0.3       purrr_0.3.2        magrittr_1.5      
-[34] whisker_0.4        backports_1.1.4    scales_1.1.1      
-[37] ellipsis_0.3.0     htmltools_0.4.0    colorspace_1.4-1  
-[40] labeling_0.3       stringi_1.4.3      munsell_0.5.0     
-[43] crayon_1.3.4      </code></pre>
+ [1] Rcpp_1.0.6         RColorBrewer_1.1-2 highr_0.8          pillar_1.4.7      
+ [5] compiler_4.0.3     later_1.1.0.1      git2r_0.28.0       workflowr_1.6.2   
+ [9] tools_4.0.3        digest_0.6.27      checkmate_2.0.0    evaluate_0.14     
+[13] lifecycle_1.0.0    tibble_3.0.6       gtable_0.3.0       pkgconfig_2.0.3   
+[17] rlang_0.4.10       DBI_1.1.1          commonmark_1.7     yaml_2.2.1        
+[21] xfun_0.21          withr_2.4.1        knitr_1.31         sass_0.3.1        
+[25] generics_0.1.0     fs_1.5.0           vctrs_0.3.6        rprojroot_2.0.2   
+[29] grid_4.0.3         tidyselect_1.1.0   glue_1.4.2         R6_2.5.0          
+[33] rmarkdown_2.6      farver_2.0.3       purrr_0.3.4        magrittr_2.0.1    
+[37] whisker_0.4        backports_1.2.1    scales_1.1.1       promises_1.2.0.1  
+[41] ellipsis_0.3.1     htmltools_0.5.1.1  assertthat_0.2.1   colorspace_2.0-0  
+[45] httpuv_1.5.5       labeling_0.4.2     stringi_1.5.3      munsell_0.5.0     
+[49] crayon_1.4.1      </code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2867,6 +3602,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+
+
 </div>
 </div>
 
@@ -2876,7 +3613,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -2920,7 +3657,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
