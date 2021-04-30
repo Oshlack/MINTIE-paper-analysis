@@ -31,6 +31,9 @@ library(stringr)
 # plotting/tables
 library(ggplot2)
 library(gt)
+
+# bioinformatics
+library(GenomicRanges)
 ```
 
 
@@ -41,6 +44,7 @@ options(stringsAsFactors = FALSE)
 
 ```{r source, cache = FALSE}
 source(here("code/leucegene_helper.R"))
+source(here("code/simu_helper.R"))
 ```
 
 Leucegene Validation

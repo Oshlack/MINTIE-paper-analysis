@@ -56,7 +56,6 @@ normals_results <- list.files(normals_results_dir, full.names = TRUE) %>%
                         lapply(., read.delim) %>%
                         rbindlist(fill = TRUE) %>%
                         filter(logFC > 5)
-# normals_results <- normals_results[!(normals_results$variant_type=='RI' & !as.logical(normals_results$is_contig_spliced)),]
 
 # load cell type info and add to results
 celltype <- read.delim(here("data/leucegene/sample_info/celltypes_info.tsv"))
@@ -204,7 +203,6 @@ controls_comp$cell_type <- NULL
 controls_test_dir <- here("data/leucegene/normals_controls_test_results")
 controls_comp <- load_controls_comparison(controls_test_dir) %>%
                     rbind(controls_comp, ., fill = TRUE)
-# controls_comp <- controls_comp[!(controls_comp$variant_type=='RI' & !as.logical(controls_comp$is_contig_spliced)),]
 results_summary <- get_results_summary(mutate(controls_comp,
                                               group_var = controls),
                                        group_var_name = "controls")
