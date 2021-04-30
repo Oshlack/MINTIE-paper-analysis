@@ -25,10 +25,14 @@ knitr::opts_chunk$set(autodep        = TRUE,
 # util
 library(data.table)
 library(dplyr)
+library(stringr)
 library(here)
+library(reshape2)
 
 # plotting
 library(ggplot2)
+library(RColorBrewer)
+library(gridExtra)
 
 # bioinformatics helpers
 library(GenomicRanges)
@@ -38,6 +42,7 @@ library(Rsamtools)
 
 ```{r source, cache = FALSE}
 source(here("code/simu_helper.R"))
+source(here("code/leucegene_helper.R"))
 source(here("code/plot.R"))
 ```
 
@@ -114,12 +119,13 @@ names(cols) <- c("Fusion", "Transcribed structural variant", "Novel splice varia
 
 ```{r MINTIE}
 # load data
-mintie_results <- read.delim(here("data/simu/results/MINTIE/allvars-case_results.tsv"))
+mintie_results <- read.delim(here("data/simu/results/MINTIE/allvars-case_results.tsv.gz"))
 mintie_results <- mintie_results[mintie_results$logFC > 5,]
 
 # extract genes
 mintie_vargenes <- sapply(mintie_results$overlapping_genes, function(x){strsplit(x, "\\||:")[[1]]})
 mvg <- unlist(mintie_vargenes)
+mvg <- mvg[mvg != ""]
 
 # count found fusions, TSVs and NSVs
 found_fus <- table(fus_truth$fusion_type[fus_truth$gene1 %in% mvg | fus_truth$gene2 %in% mvg])
@@ -131,7 +137,7 @@ fp_genes <- unlist(sapply(mintie_results$overlapping_genes[fp], function(x){strs
 fp_genes <- fp_genes[fp_genes != ""]
 n_fp <- length(unique(fp_genes))
 
-results <- append_results(results, "MINTIE", found_fus, found_tsv, n_fp)
+results <- base_results <- append_results(results, "MINTIE", found_fus, found_tsv, n_fp)
 print(paste("Background genes in FPs:", sum(unique(fp_genes) %in% bg_genes)))
 plot_simu_benchmarking(results, "MINTIE")
 ```
@@ -146,6 +152,7 @@ tap_nsv <- read.delim(here("data/simu/results/TAP/novel_splicing.bedpe"), sep = 
 
 # extract variant genes
 tap_vargenes <- Reduce(union, list(tap_svs$gene1, tap_svs$gene2, tap_nsv$gene))
+tap_vargenes <- tap_vargenes[tap_vargenes != ""]
 
 # count found fusions, TSVs and NSVs
 found_fus <- table(fus_truth$fusion_type[fus_truth$gene1 %in% tap_vargenes | fus_truth$gene2 %in% tap_vargenes])
@@ -279,6 +286,7 @@ arriba_results <- read.delim(here("data/simu/results/Arriba/fusions.tsv"))
 arriba_vargenes1 <- sapply(arriba_results$X.gene1, get_arriba_genes)
 arriba_vargenes2 <- sapply(arriba_results$gene2, get_arriba_genes)
 avg <- unlist(list(arriba_vargenes1, arriba_vargenes2))
+avg <- avg[avg != ""]
 
 # tally results
 found_tsv <- table(tsv_nsv_truth[tsv_nsv_truth$gene %in% avg,]$vartype)
@@ -443,14 +451,12 @@ plot_simu_benchmarking(cicero_results[!rownames(results) %in% "FP",], "CICERO") 
 print(paste("False positives:", n_fp))
 ```
 
-
-
 ## All results
 
 MINTIE paper Figure 3 containing results from all benchmarked methods.
 
 ```{r plot_all_results, fig.width = 9, fig.height = 8}
-mr <- melt(results, id.vars = c("vartype", "class"), variable.name = "method")
+mr <- reshape2::melt(results, id.vars = c("vartype", "class"), variable.name = "method")
 mr$method <- factor(mr$method,
                     levels=c("MINTIE", "TAP", "Barnacle",
                              "SQUID", "JAFFA", "Arriba",
@@ -459,3 +465,100 @@ mr$method <- factor(mr$method,
 plot_all_simu_benchmarks(mr)
 ```
 
+# Coverage & Dispersion experiments
+
+MINTIE Supplementary Figure 7 showing effect of coverage and dispersion on results.
+
+```{r coverage_experiments}
+cresults <- base_results
+colnames(cresults)[3] <- "50x" # original results are 50x variant coverage
+
+coverage_dir <- here("data/simu/results/MINTIE/varying_coverage/")
+cresults <- get_experiment_results(cresults, coverage_dir)
+
+# melt data and plot
+experiments <- c("5x", "10x", "20x", "50x")
+ccols <- brewer.pal(5, "PuBu")[2:5]
+names(ccols) <- experiments
+tcov <- reshape2::melt(data.table(cresults),
+                       id.vars = c("vartype", "class"),
+                       variable.name = "variant coverage")
+tcov$`variant coverage` <- factor(tcov$`variant coverage`, levels=experiments)
+
+pcov <- ggplot(tcov, aes(vartype, value, group = `variant coverage`, fill = `variant coverage`)) +
+          geom_bar(stat="identity", position="dodge") +
+          theme_bw() +
+          theme(axis.text.x = element_text()) +
+          ylab("variants found") +
+          xlab("") +
+          coord_flip() +
+          theme(legend.position = "right", legend.title = element_blank()) + 
+          scale_fill_manual(values = ccols) +
+          ggtitle("Varying coverage")
+```
+
+```{r dispersion_experiments}
+dresults <- base_results
+colnames(dresults)[3] <- "disp0.1" # original results are 50x variant coverage
+
+coverage_dir <- here("data/simu/results/MINTIE/varying_dispersion/")
+dresults <- get_experiment_results(dresults, coverage_dir)
+
+# melt data and plot
+experiments <- c("disp0.7", "disp0.6", "disp0.5", "disp0.3", "disp0.1", "nocontrols")
+dcols <- rev(brewer.pal(10, "RdBu")[c(3, 6:10)])
+names(dcols) <- experiments
+ddis <- reshape2::melt(data.table(dresults),
+                       id.vars = c("vartype", "class"),
+                       variable.name = "dispersion")
+ddis$dispersion <- factor(ddis$dispersion, levels=experiments)
+
+pdis <- ggplot(ddis, aes(vartype, value, group = dispersion, fill = dispersion)) +
+          geom_bar(stat="identity", position="dodge") +
+          theme_bw() +
+          theme(axis.text.x = element_text()) +
+          ylab("variants found") +
+          xlab("") +
+          coord_flip() +
+          theme(legend.position = "right", legend.title = element_blank()) + 
+          scale_fill_manual(values = dcols) +
+          ggtitle("Varying dispersion")
+```
+
+```{r coverage_disp_experiments, fig.width = 8, fig.height = 10}
+grid.arrange(pcov, pdis, ncol=1)
+```
+
+# Detection limit experiment results
+
+MINTIE Supplementary Figure 8 showing detection rates at variant sizes 1-9 for small variants (insertions, deletions and ITDs).
+
+```{r detection_limit_experiments, fig.width = 6, fig.height = 3}
+# load experimental data
+dlim_dir <- here("data/simu/results/MINTIE/detection_limits/")
+dlim_truth <- read.delim(here("data/simu/truth/limvars1_tsvs_splice_simulated.tsv.gz"))
+# (note, we use the same truth set for all simulations, this is because they vary by varsize only)
+
+plausible_vartype <- c("IGR", "INS", "DEL", "NEJ", "UN")
+dlim_results <- list.files(dlim_dir, pattern = "*results.tsv.gz", full.names = TRUE) %>%
+                  lapply(., read.delim) %>%
+                  rbindlist() %>%
+                  get_results_by_gene() %>%
+                  filter(variant_type %in% plausible_vartype)
+
+# check whether variant was detected in each run
+for(i in seq(1, 9)) {
+  sample_name <- paste0("limvars", i, "-case")
+  lvg <- dlim_results$gene[dlim_results$sample %in% sample_name] %>% unique()
+  dlim_truth$detected <- dlim_truth$gene %in% lvg
+  colnames(dlim_truth)[ncol(dlim_truth)] <- i
+}
+
+# melt data and plot
+lm <- dlim_truth[, !colnames(dlim_truth) %like% "tx|gene|size|exon"] %>%
+        melt(id.vars = c("loc", "vartype"), variable.name = "size", value.name = "detected")
+
+ggplot(lm, aes(size, fill = detected)) +
+    geom_bar(stat = "count") +
+    theme_bw() + facet_grid(~vartype)
+```

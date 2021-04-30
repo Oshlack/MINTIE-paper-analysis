@@ -56,6 +56,7 @@ normals_results <- list.files(normals_results_dir, full.names = TRUE) %>%
                         lapply(., read.delim) %>%
                         rbindlist(fill = TRUE) %>%
                         filter(logFC > 5)
+# normals_results <- normals_results[!(normals_results$variant_type=='RI' & !as.logical(normals_results$is_contig_spliced)),]
 
 # load cell type info and add to results
 celltype <- read.delim(here("data/leucegene/sample_info/celltypes_info.tsv"))
@@ -203,6 +204,7 @@ controls_comp$cell_type <- NULL
 controls_test_dir <- here("data/leucegene/normals_controls_test_results")
 controls_comp <- load_controls_comparison(controls_test_dir) %>%
                     rbind(controls_comp, ., fill = TRUE)
+# controls_comp <- controls_comp[!(controls_comp$variant_type=='RI' & !as.logical(controls_comp$is_contig_spliced)),]
 results_summary <- get_results_summary(mutate(controls_comp,
                                               group_var = controls),
                                        group_var_name = "controls")
@@ -234,4 +236,70 @@ ggplot(results_summary, aes(sample, V1, fill=controls)) +
                                   "tc" = "T-Cells",
                                   "bc" = "B-Cells"))
 ```
+
+### 1..N controls experiments
+
+MINTIE Supplementary Figure 9 showing range of variant genes called
+in granulocytes with different combinations of 1..N controls. The
+table output also includes numbers for the runs where 0 controls
+were used.
+
+```{r n_controls_comparison}
+# load in data
+ncon_dirs <- here("data/leucegene/normals_ncontrols_test_results/")
+ncon_results <- data.frame()
+for (ncon_dir in list.dirs(ncon_dirs, recursive = FALSE)) {
+    run <- str_split(ncon_dir, "ncon")[[1]] %>%
+                tail(1)
+    ncon <- str_split(run, "r") %>% unlist() %>% first() %>% as.numeric()
+    results <- list.files(ncon_dir, pattern = "*results.tsv.gz", full.names = TRUE) %>%
+                        lapply(., read.delim) %>%
+                        rbindlist() %>%
+                        get_results_by_gene() %>%
+                        mutate(n_controls = ncon, run = run)
+    ncon_results <- rbindlist(list(ncon_results, results), fill = TRUE)
+}
+ncon_results <- ncon_results[logFC > 5 | is.na(logFC),]
+
+# prepare results summary
+results_summary <- get_results_summary(mutate(ncon_results,
+                                              group_var = run),
+                                       group_var_name = "run")
+results_summary$n_controls <- results_summary$run %>%
+                                as.character() %>%
+                                str_split(., pattern = "r") %>%
+                                lapply(., first) %>% unlist() %>% as.numeric()
+rs <- results_summary %>%
+        group_by(sample, n_controls) %>%
+        summarise(mean=round(mean(V1, na.rm=TRUE)),
+                  min=min(V1, na.rm=TRUE),
+                  max=max(V1, na.rm=TRUE)) %>%
+        data.frame()
+
+rs %>%
+    gt() %>%
+    tab_header(
+        title = md("**Total variant genes called using different numbers of controls**")
+    ) %>%
+    tab_options(
+        table.font.size = 12
+    ) %>%
+    cols_label(
+        n_controls = md("**Controls**"),
+        mean = md("**Mean**"),
+        min = md("**Min**"),
+        max = md("**Max**")
+    )
+
+rs$n_controls <- as.factor(rs$n_controls)
+ggplot(rs[rs$n_controls!=0,], aes(sample, mean, fill=n_controls)) +
+    geom_bar(position=position_dodge2(width=0.9, preserve="single"), stat="identity") +
+    geom_errorbar(aes(ymin=min, ymax=max, group=n_controls), width=.2,
+                 position=position_dodge(.9)) +
+    theme_bw() +
+    xlab("") +
+    ylab("Mean genes with variants") +
+    scale_fill_brewer(palette = "Dark2")
+```
+
 

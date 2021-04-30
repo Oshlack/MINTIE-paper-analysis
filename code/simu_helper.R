@@ -175,3 +175,35 @@ append_results <- function(results, method, found_fus, found_tsv, n_fp) {
     results["FP", method] <- n_fp
     return(results)
 }
+
+get_experiment_results <- function(results, exp_dir) {
+    # get results from coverage and dispersion experiments
+    files <- list.files(exp_dir, full.names = TRUE)
+
+    for (results_file in files) {
+        # load results file
+        mintie_results <- read.delim(results_file, sep="\t")
+
+        # extract genes
+        mintie_vargenes <- sapply(mintie_results$overlapping_genes, function(x){strsplit(x, "\\||:")[[1]]})
+        mvg <- unlist(mintie_vargenes)
+        mvg <- mvg[mvg != ""]
+
+        # count found fusions, TSVs and NSVs
+        found_fus <- table(fus_truth$fusion_type[fus_truth$gene1 %in% mvg | fus_truth$gene2 %in% mvg])
+        found_tsv <- table(tsv_nsv_truth$vartype[tsv_nsv_truth$gene %in% mvg])
+
+        # count false positives genes
+        fp <- sapply(mintie_vargenes, function(x){!any(x %in% var_genes_truth)})
+        fp_genes <- unlist(sapply(mintie_results$overlapping_genes[fp], function(x){strsplit(x, "\\||:")}))
+        fp_genes <- fp_genes[fp_genes != ""]
+        n_fp <- length(unique(fp_genes))
+
+        cname <- str_split(results_file, "/")[[1]] %>%
+                    tail(1) %>%
+                    gsub("allvars-case-", "", .) %>%
+                    gsub("_results.tsv.gz", "", .)
+        results <- append_results(results, cname, found_fus, found_tsv, n_fp)
+    }
+    return(results)
+}
