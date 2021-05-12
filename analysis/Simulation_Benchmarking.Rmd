@@ -562,3 +562,53 @@ ggplot(lm, aes(size, fill = detected)) +
     geom_bar(stat = "count") +
     theme_bw() + facet_grid(~vartype)
 ```
+# Classification accuracy
+
+Supplementary Table 10, shows whether MINTIE"s classifications match the simulated
+categories.
+
+```{r classification_accuracy, fig.width = 8, fig.height = 8}
+longform_categories <-  c("AS" = "alternative splice",
+                          "DEL" = "deletion",
+                          "EE" = "extended exon",
+                          "FUS" = "fusion",
+                          "IGR" = "intra-gene rearrangement",
+                          "INS" = "insertion",
+                          "NE" = "novel exon",
+                          "NEJ" = "novel exon junction",
+                          "PNJ" = "partial novel junction",
+                          "RI" = "retained intron",
+                          "UN" = "unknown")
+
+mclass <- get_results_by_gene(mintie_results)
+mclass$truth_vartype <- sapply(mclass$gene, get_vartype_from_gene, fus_truth, tsv_nsv_truth)
+mclass$truth_vartype_full <- results[mclass$truth_vartype,]$vartype
+
+mclass <- distinct(mclass[,c("chr1", "pos1", "strand1",
+                             "chr2", "pos2", "strand2",
+                             "variant_type", "truth_vartype",
+                             "truth_vartype_full")])
+
+mclass$correct_classification <- apply(mclass, 1, is_classification_correct)
+mclass$MINTIE_classification <- mclass$variant_type
+
+g1 <- ggplot(mclass, aes(truth_vartype_full, fill = MINTIE_classification)) +
+        geom_bar() +
+        coord_flip() +
+        theme_bw() +
+        ylab("Variant count") +
+        xlab("Simulation truth") +
+        scale_fill_brewer(palette = "Paired",
+                          labels = as.character(longform_categories))
+
+g2 <- ggplot(mclass[mclass$truth_vartype != "FP",],
+             aes(truth_vartype_full, fill = correct_classification)) +
+    geom_bar() +
+    coord_flip() +
+    ylab("Variant count") +
+    xlab("Simulation truth") +
+    theme_bw()
+
+grid.arrange(g1, g2, nrow = 2)
+```
+

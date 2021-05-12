@@ -28,6 +28,56 @@ convert_chrom <- function(chrom, add_chr = TRUE) {
     return(new_chrom)
 }
 
+get_vartype_from_gene <- function(gene, fus_truth, tsv_nsv_truth) {
+    # takes a gene and the truth data from the simulations,
+    # and returns  the variant type of the simulated gene
+    tsv_hit <- tsv_nsv_truth[tsv_nsv_truth$gene %in% gene,]
+    fus_hit <- fus_truth[fus_truth$gene1 %in% gene | fus_truth$gene2 %in% gene ,]
+
+    if (nrow(tsv_hit) > 0) {
+        return(tsv_hit$vartype[1])
+    } else if (nrow(fus_hit) > 0) {
+        return(fus_hit$fusion_type[1])
+    } else {
+        return("FP")
+    }
+}
+
+is_classification_correct <- function(row) {
+    # returns TRUE if MINTIE's classification
+    # is plausible given a truth dataframe
+    # containing the variant type and the
+    # matching truth vartype of the simulated gene
+    vtruth <- row['truth_vartype']
+    vtype <- row['variant_type']
+
+    if (vtype == 'UN') {
+        return(NA)
+    } else if (vtruth == vtype) {
+        return(TRUE)
+    } else if (vtruth == 'canonical_fusion' & vtype == c('FUS')) {
+        return(TRUE)
+    } else if (vtruth == 'unpartnered_fusion' & vtype %in% c('FUS', 'NE')) {
+        return(TRUE)
+    } else if (vtruth == 'INS_fusion' & vtype %in% c('FUS', 'INS')) {
+        return(TRUE)
+    } else if (vtruth == 'EE_fusion' & vtype %in% c('FUS', 'EE')) {
+        return(TRUE)
+    } else if (vtruth == 'NE_fusion' & vtype %in% c('FUS', 'NE')) {
+        return(TRUE)
+    } else if (vtruth == 'DEL' & vtype == 'NEJ') {
+        return(TRUE)
+    } else if (vtruth == 'ITD' & vtype == 'INS') {
+        return(TRUE)
+    } else if (vtruth %in% c('INV', 'PTD') & vtype == 'IGR') {
+        return(TRUE)
+    } else if (vtruth == 'US' & vtype == 'AS') {
+        return(TRUE)
+    } else {
+        return(FALSE)
+    }
+}
+
 get_barnacle_loc <- function(row, side_A = TRUE) {
     # return separated chrom, start and end
     # from barnacle data for the given side
