@@ -564,7 +564,7 @@ ggplot(lm, aes(size, fill = detected)) +
 ```
 # Classification accuracy
 
-Supplementary Table 10, shows whether MINTIE"s classifications match the simulated
+Supplementary Table 10, shows whether MINTIE's classifications match the simulated
 categories.
 
 ```{r classification_accuracy, fig.width = 8, fig.height = 8}
