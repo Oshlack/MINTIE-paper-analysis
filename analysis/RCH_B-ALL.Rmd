@@ -121,14 +121,17 @@ paste("We found",
     print()
 
 # make list of recurrently mutated genes
+var_fields <- c("chr1", "pos1", "strand1", "chr2", "pos2", "strand2",
+                 "gene", "variant_type", "class", "sample")
+all_gene_results <- all_gene_results %>% select(var_fields) %>% distinct()
 recurrent_genes <- group_by(all_gene_results, gene) %>%
-                        summarise(var_count = length(unique(variant_id))) %>%
+                        summarise(var_count = length(sample)) %>%
                         filter(var_count > 4) %>%
                         arrange(desc(var_count))
 
 # make summary data frame
 all_gene_summary <- group_by(all_gene_results, gene, class, sample) %>%
-                        summarise(var_count = length(unique(variant_id))) %>%
+                        summarise(var_count = length(sample)) %>%
                         filter(gene %in% recurrent_genes$gene)
 all_gene_summary$gene <- factor(all_gene_summary$gene,
                                 levels = recurrent_genes$gene)
