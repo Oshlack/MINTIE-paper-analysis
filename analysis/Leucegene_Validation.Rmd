@@ -223,6 +223,8 @@ get_results_by_gene(validation) %>%
 
 ### Summary of variants found by MINTIE, Arriba, Squid and TAP
 
+Supplementary Figure 11.
+
 Note that the TAP results must be obtained from Supplementary Table 4 from Chiu et al. 2018.
 
 ```{r leucegene_variants_validation}
@@ -289,15 +291,17 @@ gt(truth_table) %>%
             rows = tap_found)
     )
 
-truth_table %>%
+# tally up detected variants into summary table
+truth_summary <- truth_table %>%
     group_by(gene1, gene2, variant) %>%
     summarise(mintie_detected = sum(mintie_found),
               arriba_detected = sum(arriba_found),
               squid_detected = sum(squid_found),
               tap_detected = sum(tap_found),
               total = length(mintie_found)) %>%
-    data.table() %>%
-    gt() %>%
+    data.frame()
+
+gt(truth_summary) %>%
     tab_header(
         title = md("**Summary of variants found in Leucegene cohort**")
     ) %>%
@@ -314,6 +318,27 @@ truth_table %>%
     tab_options(
         table.font.size = 12
     )
+
+ts <- truth_summary %>%
+        reshape2::melt() %>%
+        group_by(variant, variable) %>%
+        summarise(detected = sum(value)) %>%
+        data.frame()
+ts$method <- gsub("_detected", "", ts$variable)
+
+# reorder factors
+ts$method <- factor(ts$method, levels = c("mintie", "arriba", "squid", "tap", "total"))
+ts$variant <- factor(paste0(ts$variant, "s"), levels=c("fusions", "PTDs", "ITDs"))
+
+ggplot(ts[ts$method != "total",], aes(method, detected)) +
+    geom_bar(stat = "identity") +
+    theme_bw() +
+    xlab("Detected") +
+    ylab("Method") +
+    scale_x_discrete(labels=c("MINTIE", "Arriba", "SQUID", "TAP")) +
+    scale_y_discrete(limits=seq(0, 53, 5)) +
+    geom_hline(data=ts[ts$method == "total",], aes(yintercept=detected), colour="salmon") +
+    facet_grid(~variant)
 ```
 
 
