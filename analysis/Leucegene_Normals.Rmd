@@ -16,6 +16,7 @@ knitr::opts_chunk$set(autodep        = TRUE,
                       fig.align      = "center",
                       fig.width      = 9,
                       fig.height     = 5,
+                      dev            = c("png", "pdf"),
                       message        = FALSE,
                       warning        = FALSE)
 ```
@@ -107,10 +108,10 @@ collate_vartypes(normals_results) %>%
 
 ## Variant Genes
 
-MINTIE paper Figure 4 showing the number of variant genes called across
+MINTIE paper Figure 4B showing the number of variant genes called across
 the Leucegene normal samples.
 
-```{r plot_variant_genes}
+```{r plot_variant_genes, fig.width=9, fig.height=4}
 results_summary <- get_results_summary(mutate(normals_results, group_var = cell_type),
                                        group_var_name = "cell_type")
 
@@ -190,7 +191,7 @@ paste("proportion of protein coding genes =",
 
 ## Controls Comparison
 
-MINTIE Supplementary Figure 3 showing variant genes called in Leucegene
+MINTIE Supplementary Figure 4 showing variant genes called in Leucegene
 Total White Blood Cell samples with different cell types as control groups.
 
 ```{r controls_comparison}
@@ -237,19 +238,19 @@ ggplot(results_summary, aes(sample, V1, fill=controls)) +
 
 ### 1..N controls experiments
 
-MINTIE Supplementary Figure 9 showing range of variant genes called
+MINTIE Figure 4C showing range of variant genes called
 in granulocytes with different combinations of 1..N controls. The
 table output also includes numbers for the runs where 0 controls
 were used.
 
-```{r n_controls_comparison}
+```{r n_controls_comparison, fig.width=9, fig.height=4.5}
 # load in data
 ncon_dirs <- here("data/leucegene/normals_ncontrols_test_results/")
 ncon_results <- data.frame()
 for (ncon_dir in list.dirs(ncon_dirs, recursive = FALSE)) {
     run <- str_split(ncon_dir, "ncon")[[1]] %>%
                 tail(1)
-    ncon <- str_split(run, "r") %>% unlist() %>% first() %>% as.numeric()
+    ncon <- str_split(run, "r") %>% unlist() %>% head(1) %>% as.numeric()
     results <- list.files(ncon_dir, pattern = "*results.tsv.gz", full.names = TRUE) %>%
                         lapply(., read.delim) %>%
                         rbindlist() %>%
@@ -266,7 +267,7 @@ results_summary <- get_results_summary(mutate(ncon_results,
 results_summary$n_controls <- results_summary$run %>%
                                 as.character() %>%
                                 str_split(., pattern = "r") %>%
-                                lapply(., first) %>% unlist() %>% as.numeric()
+                                lapply(., head, n=1) %>% unlist() %>% as.numeric()
 rs <- results_summary %>%
         group_by(sample, n_controls) %>%
         summarise(mean=round(mean(V1, na.rm=TRUE)),
@@ -297,7 +298,8 @@ ggplot(rs[rs$n_controls!=0,], aes(sample, mean, fill=n_controls)) +
     theme_bw() +
     xlab("") +
     ylab("Mean genes with variants") +
-    scale_fill_brewer(palette = "Dark2")
+    scale_fill_brewer(palette = "Dark2") +
+    theme(legend.position = "bottom")
 ```
 
 

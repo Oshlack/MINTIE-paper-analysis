@@ -16,6 +16,7 @@ knitr::opts_chunk$set(autodep        = TRUE,
                       fig.align      = "center",
                       fig.width      = 9,
                       fig.height     = 5,
+                      dev            = c("png", "pdf"),
                       message        = FALSE,
                       warning        = FALSE)
 ```
@@ -69,7 +70,7 @@ all_genes <- read.delim(here("data/ref/ALL_associated_genes.txt"), header=FALSE)
 
 ## Variant genes called
 
-Supplementary Figure 4 in the MINTIE paper. Shows the overall number of variant
+Supplementary Figure 7 in the MINTIE paper. Shows the overall number of variant
 genes called by MINTIE in the RCH B-ALL cohort.
 
 ```{r results_overview}
@@ -106,7 +107,7 @@ ggplot(results_summary, aes(sample, V1)) +
 
 ## ALL-associated genes called
 
-Supplementary Figure 5 in the MINTIE paper. Shows recurrently called variants in
+Supplementary Figure 8 in the MINTIE paper. Shows recurrently called variants in
 ALL-associated genes in RCH B-ALL cohort. 
 
 ```{r ALL_associated_genes}

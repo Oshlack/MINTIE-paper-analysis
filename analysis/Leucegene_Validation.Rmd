@@ -16,6 +16,7 @@ knitr::opts_chunk$set(autodep        = TRUE,
                       fig.align      = "center",
                       fig.width      = 9,
                       fig.height     = 5,
+                      dev            = c("png", "pdf"),
                       message        = FALSE,
                       warning        = FALSE)
 ```
@@ -77,7 +78,7 @@ validation <- list.files(leucegene_results_dir, full.names = TRUE) %>%
 
 ## KMT2A-PTD controls comparison
 
-MINTIE paper Supplementary Figure 2. Shows the number of variant genes found in the Leucegene
+MINTIE paper Supplementary Figure 6. Shows the number of variant genes found in the Leucegene
 cohort containing KMT2A PTDs. 
 
 ```{r KMT2A-PTD_controls_comparison, fig.height = 10, fig.width = 8}
@@ -223,11 +224,11 @@ get_results_by_gene(validation) %>%
 
 ### Summary of variants found by MINTIE, Arriba, Squid and TAP
 
-Supplementary Figure 11.
+Figure 4A.
 
 Note that the TAP results must be obtained from Supplementary Table 4 from Chiu et al. 2018.
 
-```{r leucegene_variants_validation}
+```{r leucegene_variants_validation, fig.width=9, fig.height=4}
 # load other callers
 arriba_results <- get_results(here("data/leucegene/validation_results/Arriba"))
 squid_results <- get_results(here("data/leucegene/validation_results/Squid"))
@@ -340,6 +341,3 @@ ggplot(ts[ts$method != "total",], aes(method, detected)) +
     geom_hline(data=ts[ts$method == "total",], aes(yintercept=detected), colour="salmon") +
     facet_grid(~variant)
 ```
-
-
-

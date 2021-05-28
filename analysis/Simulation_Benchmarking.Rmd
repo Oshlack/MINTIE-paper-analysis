@@ -16,6 +16,7 @@ knitr::opts_chunk$set(autodep        = TRUE,
                       fig.align      = "center",
                       fig.width      = 9,
                       fig.height     = 5,
+                      dev            = c("png", "pdf"),
                       message        = FALSE,
                       warning        = FALSE)
 ```
@@ -410,7 +411,7 @@ print(paste("Background genes in FPs:", sum(hits$bg_hits %in% which(fps))))
 plot_simu_benchmarking(results, "CICERO")
 ```
 
-Unfiltered CICERO results
+Unfiltered CICERO results (Supplementary Figure 3).
 
 
 ```{r CICERO_unfiltered}
@@ -453,7 +454,7 @@ print(paste("False positives:", n_fp))
 
 ## All results
 
-MINTIE paper Figure 3 containing results from all benchmarked methods.
+MINTIE paper Figure 3A containing results from all benchmarked methods.
 
 ```{r plot_all_results, fig.width = 9, fig.height = 8}
 mr <- reshape2::melt(results, id.vars = c("vartype", "class"), variable.name = "method")
@@ -467,7 +468,7 @@ plot_all_simu_benchmarks(mr)
 
 # Coverage & Dispersion experiments
 
-MINTIE Supplementary Figure 7 showing effect of coverage and dispersion on results.
+MINTIE Supplementary Figure 1 showing effect of coverage and dispersion on results.
 
 ```{r coverage_experiments}
 cresults <- base_results
@@ -531,7 +532,7 @@ grid.arrange(pcov, pdis, ncol=1)
 
 # Detection limit experiment results
 
-MINTIE Supplementary Figure 8 showing detection rates at variant sizes 1-9 for small variants (insertions, deletions and ITDs).
+MINTIE Supplementary Figure 2 showing detection rates at variant sizes 1-9 for small variants (insertions, deletions and ITDs).
 
 ```{r detection_limit_experiments, fig.width = 6, fig.height = 3}
 # load experimental data
@@ -564,7 +565,7 @@ ggplot(lm, aes(size, fill = detected)) +
 ```
 # Classification accuracy
 
-Supplementary Table 10, shows whether MINTIE's classifications match the simulated
+Figure 3B, shows whether MINTIE's classifications match the simulated
 categories.
 
 ```{r classification_accuracy, fig.width = 8, fig.height = 8}
@@ -591,6 +592,7 @@ mclass <- distinct(mclass[,c("chr1", "pos1", "strand1",
 
 mclass$correct_classification <- apply(mclass, 1, is_classification_correct)
 mclass$MINTIE_classification <- mclass$variant_type
+mclass$truth_vartype_full <- as.factor(mclass$truth_vartype_full)
 
 g1 <- ggplot(mclass, aes(truth_vartype_full, fill = MINTIE_classification)) +
         geom_bar() +
@@ -607,7 +609,8 @@ g2 <- ggplot(mclass[mclass$truth_vartype != "FP",],
     coord_flip() +
     ylab("Variant count") +
     xlab("Simulation truth") +
-    theme_bw()
+    theme_bw() +
+    scale_x_discrete(drop=FALSE)
 
 grid.arrange(g1, g2, nrow = 2)
 ```

@@ -16,6 +16,7 @@ knitr::opts_chunk$set(autodep        = TRUE,
                       fig.align      = "center",
                       fig.width      = 9,
                       fig.height     = 5,
+                      dev            = c("png", "pdf"),
                       message        = FALSE,
                       warning        = FALSE)
 ```
@@ -90,7 +91,7 @@ reduced_normal_controls <- c(s1, s2, s3)
 
 ## PCA plot
 
-MINTIE paper Supplememtary Figure 1. PCA of gene expression derived
+MINTIE paper Supplememtary Figure 5. PCA of gene expression derived
 from Salmon quantification for Leucegene KMT2A-PTD and normals. Normal
 samples used as controls in the reduced set of controls are circled.
 
