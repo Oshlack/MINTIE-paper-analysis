@@ -446,7 +446,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-13
+<strong>Last updated:</strong> 2021-05-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -537,16 +537,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreec12cf2937e76785b720e7a866cda3578e87ba2e4targetblankc12cf29a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/c12cf2937e76785b720e7a866cda3578e87ba2e4" target="_blank">c12cf29</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeed3d2b6e220332d833ca9fdbbe458ee8d6163c5btargetblanked3d2b6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/ed3d2b6e220332d833ca9fdbbe458ee8d6163c5b" target="_blank">ed3d2b6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreec12cf2937e76785b720e7a866cda3578e87ba2e4targetblankc12cf29a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeed3d2b6e220332d833ca9fdbbe458ee8d6163c5btargetblanked3d2b6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/c12cf2937e76785b720e7a866cda3578e87ba2e4" target="_blank">c12cf29</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/ed3d2b6e220332d833ca9fdbbe458ee8d6163c5b" target="_blank">ed3d2b6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -619,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/ed3d2b6e220332d833ca9fdbbe458ee8d6163c5b/analysis/RCH_B-ALL.Rmd" target="_blank">ed3d2b6</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+<td>
+Figures tweaks and reordering.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/c8fba7572c1fdf8b8a59df9f2e6c9c42daa1c5e2/docs/RCH_B-ALL.html" target="_blank">c8fba75</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -895,7 +929,7 @@ rch_ball_results$sample &lt;- rch_ball_results$sample %&gt;%
 all_genes &lt;- read.delim(here(&quot;data/ref/ALL_associated_genes.txt&quot;), header=FALSE)$V1</code></pre>
 <div id="variant-genes-called" class="section level2">
 <h2>Variant genes called</h2>
-<p>Supplementary Figure 4 in the MINTIE paper. Shows the overall number of variant genes called by MINTIE in the RCH B-ALL cohort.</p>
+<p>Supplementary Figure 7 in the MINTIE paper. Shows the overall number of variant genes called by MINTIE in the RCH B-ALL cohort.</p>
 <pre class="r"><code>results_by_gene &lt;- get_results_by_gene(rch_ball_results)
 results_summary &lt;- results_by_gene[, length(unique(gene)), by = &quot;sample&quot;]
 results_summary &lt;- results_summary %&gt;% arrange(desc(V1))
@@ -1371,7 +1405,7 @@ Marek Cmero
 </div>
 <div id="all-associated-genes-called" class="section level2">
 <h2>ALL-associated genes called</h2>
-<p>Supplementary Figure 5 in the MINTIE paper. Shows recurrently called variants in ALL-associated genes in RCH B-ALL cohort.</p>
+<p>Supplementary Figure 8 in the MINTIE paper. Shows recurrently called variants in ALL-associated genes in RCH B-ALL cohort.</p>
 <pre class="r"><code>all_gene_results &lt;- filter(results_by_gene, gene %in% all_genes) %&gt;%
                         collate_vartypes()
 
@@ -1438,6 +1472,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c8fba7572c1fdf8b8a59df9f2e6c9c42daa1c5e2/docs/figure/RCH_B-ALL.Rmd/ALL_associated_genes-1.png" target="_blank">c8fba75</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4206f12a3c701670c42f5d35957cbdfa92b203a9/docs/figure/RCH_B-ALL.Rmd/ALL_associated_genes-1.png" target="_blank">4206f12</a>
