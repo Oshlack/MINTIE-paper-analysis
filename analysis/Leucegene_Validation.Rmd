@@ -334,8 +334,8 @@ ts$variant <- factor(paste0(ts$variant, "s"), levels=c("fusions", "PTDs", "ITDs"
 ggplot(ts[ts$method != "total",], aes(method, detected)) +
     geom_bar(stat = "identity") +
     theme_bw() +
-    xlab("Detected") +
-    ylab("Method") +
+    ylab("Detected") +
+    xlab("Method") +
     scale_x_discrete(labels=c("MINTIE", "Arriba", "SQUID", "TAP")) +
     scale_y_discrete(limits=seq(0, 53, 5)) +
     geom_hline(data=ts[ts$method == "total",], aes(yintercept=detected), colour="salmon") +
