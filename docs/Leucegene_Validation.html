@@ -13,13 +13,22 @@
 
 <title>Leucegene Validation</title>
 
-<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -50,11 +59,6 @@ div.section {
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -67,32 +71,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 
@@ -103,10 +81,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -123,40 +97,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -184,7 +131,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -196,7 +143,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -207,10 +154,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -222,7 +182,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -351,7 +310,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -399,7 +358,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Oshlack/MINTIE-paper-analysis">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
     Source code
   </a>
@@ -409,11 +368,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -446,7 +405,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-31
+<strong>Last updated:</strong> 2021-10-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -537,16 +496,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree8dc1f70bf87b2c6d72f12d7e34bd481fdd0f82e8targetblank8dc1f70a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/8dc1f70bf87b2c6d72f12d7e34bd481fdd0f82e8" target="_blank">8dc1f70</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree4606aca4b16bcb8304cea8befbeccc1bbd960a0atargetblank4606acaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/4606aca4b16bcb8304cea8befbeccc1bbd960a0a" target="_blank">4606aca</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree8dc1f70bf87b2c6d72f12d7e34bd481fdd0f82e8targetblank8dc1f70a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree4606aca4b16bcb8304cea8befbeccc1bbd960a0atargetblank4606acaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/8dc1f70bf87b2c6d72f12d7e34bd481fdd0f82e8" target="_blank">8dc1f70</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/4606aca4b16bcb8304cea8befbeccc1bbd960a0a" target="_blank">4606aca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -556,21 +515,14 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
     Ignored:    analysis/cache/
     Ignored:    data/.DS_Store
     Ignored:    data/RCH_B-ALL/
     Ignored:    data/leucegene/.DS_Store
-    Ignored:    data/leucegene/KMT2A-PTD_results/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon0/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon1/.DS_Store
     Ignored:    data/leucegene/salmon_out/
+    Ignored:    data/leucegene/sample_info/.DS_Store
     Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
-    Ignored:    data/leucegene/validation_results/.DS_Store
-    Ignored:    data/simu/.DS_Store
-    Ignored:    data/simu/results/.DS_Store
-    Ignored:    data/simu/results/MINTIE/.DS_Store
-    Ignored:    data/simu/results/MINTIE/varying_dispersion/.DS_Store
     Ignored:    output/Leucegene_gene_counts.tsv
     Ignored:    packrat/lib-R/
     Ignored:    packrat/lib-ext/
@@ -578,9 +530,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  data/leucegene/validation_results/TAP/
-
-Unstaged changes:
-    Modified:   .Rprofile
 
 </code></pre>
 <p>
@@ -619,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4606aca4b16bcb8304cea8befbeccc1bbd960a0a/analysis/Leucegene_Validation.Rmd" target="_blank">4606aca</a>
+</td>
+<td>
+mcmero
+</td>
+<td>
+2021-10-07
+</td>
+<td>
+Increase fig 4 text size
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/0355bafe2474cef6dfa74b4545eea531c5d8c211/docs/Leucegene_Validation.html" target="_blank">0355baf</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1215,6 +1198,7 @@ results_summary %&gt;%
         median = md(&quot;**Median**&quot;),
         max = md(&quot;**Max**&quot;)
     ) </code></pre>
+<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1271,7 +1255,7 @@ results_summary %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -1343,7 +1327,7 @@ results_summary %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -1548,55 +1532,47 @@ results_summary %&gt;%
 
 #xuwvmsdnyk .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="4" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different controls</strong></th>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Total variant genes called using different controls</strong></th>
     </tr>
-    <tr>
-      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Controls</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Min</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Median</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Max</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">AML_controls</td>
-      <td class="gt_row gt_center">130</td>
-      <td class="gt_row gt_right">211.5</td>
-      <td class="gt_row gt_center">1852</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">normal_controls</td>
-      <td class="gt_row gt_center">264</td>
-      <td class="gt_row gt_right">645.5</td>
-      <td class="gt_row gt_center">2265</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">normal_controls_reduced</td>
-      <td class="gt_row gt_center">490</td>
-      <td class="gt_row gt_right">913.0</td>
-      <td class="gt_row gt_center">2552</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">no_controls</td>
-      <td class="gt_row gt_center">4750</td>
-      <td class="gt_row gt_right">9255.5</td>
-      <td class="gt_row gt_center">11796</td>
-    </tr>
+    <tr><td class="gt_row gt_center">AML_controls</td>
+<td class="gt_row gt_right">130</td>
+<td class="gt_row gt_right">211.5</td>
+<td class="gt_row gt_right">1852</td></tr>
+    <tr><td class="gt_row gt_center">normal_controls</td>
+<td class="gt_row gt_right">264</td>
+<td class="gt_row gt_right">645.5</td>
+<td class="gt_row gt_right">2265</td></tr>
+    <tr><td class="gt_row gt_center">normal_controls_reduced</td>
+<td class="gt_row gt_right">490</td>
+<td class="gt_row gt_right">913.0</td>
+<td class="gt_row gt_right">2552</td></tr>
+    <tr><td class="gt_row gt_center">no_controls</td>
+<td class="gt_row gt_right">4750</td>
+<td class="gt_row gt_right">9255.5</td>
+<td class="gt_row gt_right">11796</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill = controls)) +
     geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
     theme_bw() +
@@ -1779,6 +1755,7 @@ kmt2a_control_comp %&gt;%
             columns = vars(`no_controls`),
             rows = `no_controls`)
     )</code></pre>
+<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1835,7 +1812,7 @@ kmt2a_control_comp %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -1907,7 +1884,7 @@ kmt2a_control_comp %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -2112,23 +2089,22 @@ kmt2a_control_comp %&gt;%
 
 #odquwipzlc .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="7" class="gt_heading gt_title gt_font_normal" style><strong>KMT2A PTDs found in Leucegene cohort</strong></th>
+      <th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>KMT2A PTDs found in Leucegene cohort</strong></th>
     </tr>
-    <tr>
-      <th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Sample</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Patient</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Coverage</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Coverage</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>13 AMLs</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>13 Normals</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>3 Normals</strong></th>
@@ -2136,226 +2112,179 @@ kmt2a_control_comp %&gt;%
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">SRX958906</td>
-      <td class="gt_row gt_left">07H152</td>
-      <td class="gt_row gt_center">158</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX332646</td>
-      <td class="gt_row gt_left">09H115</td>
-      <td class="gt_row gt_center">125</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX957230</td>
-      <td class="gt_row gt_left">06H146</td>
-      <td class="gt_row gt_center">87</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX957223</td>
-      <td class="gt_row gt_left">05H111</td>
-      <td class="gt_row gt_center">79</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX332659</td>
-      <td class="gt_row gt_left">11H021</td>
-      <td class="gt_row gt_center">63</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX332633</td>
-      <td class="gt_row gt_left">05H050</td>
-      <td class="gt_row gt_center">58</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX959061</td>
-      <td class="gt_row gt_left">13H150</td>
-      <td class="gt_row gt_center">58</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX959044</td>
-      <td class="gt_row gt_left">13H048</td>
-      <td class="gt_row gt_center">57</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958974</td>
-      <td class="gt_row gt_left">10H070</td>
-      <td class="gt_row gt_center">53</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958963</td>
-      <td class="gt_row gt_left">10H007</td>
-      <td class="gt_row gt_center">50</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958959</td>
-      <td class="gt_row gt_left">09H106</td>
-      <td class="gt_row gt_center">49</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX959060</td>
-      <td class="gt_row gt_left">13H141</td>
-      <td class="gt_row gt_center">45</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958945</td>
-      <td class="gt_row gt_left">09H058</td>
-      <td class="gt_row gt_center">29</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958907</td>
-      <td class="gt_row gt_left">07H155</td>
-      <td class="gt_row gt_center">23</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX381854</td>
-      <td class="gt_row gt_left">08H112</td>
-      <td class="gt_row gt_center">22</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX332645</td>
-      <td class="gt_row gt_left">09H113</td>
-      <td class="gt_row gt_center">17</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX959001</td>
-      <td class="gt_row gt_left">11H183</td>
-      <td class="gt_row gt_center">16</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX381852</td>
-      <td class="gt_row gt_left">08H012</td>
-      <td class="gt_row gt_center">15</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958932</td>
-      <td class="gt_row gt_left">08H138</td>
-      <td class="gt_row gt_center">15</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX381865</td>
-      <td class="gt_row gt_left">11H008</td>
-      <td class="gt_row gt_center">13</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958873</td>
-      <td class="gt_row gt_left">06H048</td>
-      <td class="gt_row gt_center">10</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958922</td>
-      <td class="gt_row gt_left">08H063</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958961</td>
-      <td class="gt_row gt_left">10H001</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">SRX958844</td>
-      <td class="gt_row gt_left">04H111</td>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
+    <tr><td class="gt_row gt_left">SRX958906</td>
+<td class="gt_row gt_left">07H152</td>
+<td class="gt_row gt_right">158</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX332646</td>
+<td class="gt_row gt_left">09H115</td>
+<td class="gt_row gt_right">125</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX957230</td>
+<td class="gt_row gt_left">06H146</td>
+<td class="gt_row gt_right">87</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX957223</td>
+<td class="gt_row gt_left">05H111</td>
+<td class="gt_row gt_right">79</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX332659</td>
+<td class="gt_row gt_left">11H021</td>
+<td class="gt_row gt_right">63</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX332633</td>
+<td class="gt_row gt_left">05H050</td>
+<td class="gt_row gt_right">58</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX959061</td>
+<td class="gt_row gt_left">13H150</td>
+<td class="gt_row gt_right">58</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX959044</td>
+<td class="gt_row gt_left">13H048</td>
+<td class="gt_row gt_right">57</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958974</td>
+<td class="gt_row gt_left">10H070</td>
+<td class="gt_row gt_right">53</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958963</td>
+<td class="gt_row gt_left">10H007</td>
+<td class="gt_row gt_right">50</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958959</td>
+<td class="gt_row gt_left">09H106</td>
+<td class="gt_row gt_right">49</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX959060</td>
+<td class="gt_row gt_left">13H141</td>
+<td class="gt_row gt_right">45</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958945</td>
+<td class="gt_row gt_left">09H058</td>
+<td class="gt_row gt_right">29</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958907</td>
+<td class="gt_row gt_left">07H155</td>
+<td class="gt_row gt_right">23</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX381854</td>
+<td class="gt_row gt_left">08H112</td>
+<td class="gt_row gt_right">22</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX332645</td>
+<td class="gt_row gt_left">09H113</td>
+<td class="gt_row gt_right">17</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX959001</td>
+<td class="gt_row gt_left">11H183</td>
+<td class="gt_row gt_right">16</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">SRX381852</td>
+<td class="gt_row gt_left">08H012</td>
+<td class="gt_row gt_right">15</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958932</td>
+<td class="gt_row gt_left">08H138</td>
+<td class="gt_row gt_right">15</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX381865</td>
+<td class="gt_row gt_left">11H008</td>
+<td class="gt_row gt_right">13</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958873</td>
+<td class="gt_row gt_left">06H048</td>
+<td class="gt_row gt_right">10</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958922</td>
+<td class="gt_row gt_left">08H063</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958961</td>
+<td class="gt_row gt_left">10H001</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">SRX958844</td>
+<td class="gt_row gt_left">04H111</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 </div>
 <div id="leucegene-variants-found-by-mintie" class="section level2">
 <h2>Leucegene variants found by MINTIE</h2>
@@ -2384,6 +2313,7 @@ get_results_by_gene(validation) %&gt;%
         median = md(&quot;**Median**&quot;),
         max = md(&quot;**Max**&quot;)
     )</code></pre>
+<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2440,7 +2370,7 @@ get_results_by_gene(validation) %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -2512,7 +2442,7 @@ get_results_by_gene(validation) %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -2717,35 +2647,33 @@ get_results_by_gene(validation) %&gt;%
 
 #epfiatiawy .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="3" class="gt_heading gt_title gt_font_normal" style><strong>Total MINTIE variant genes called by sample</strong></th>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Total MINTIE variant genes called by sample</strong></th>
     </tr>
-    <tr>
-      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Median</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Median</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Max</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">261</td>
-      <td class="gt_row gt_center">592</td>
-      <td class="gt_row gt_center">2265</td>
-    </tr>
+    <tr><td class="gt_row gt_right">261</td>
+<td class="gt_row gt_right">592</td>
+<td class="gt_row gt_right">2265</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <div id="summary-of-variants-found-by-mintie-arriba-squid-and-tap" class="section level3">
 <h3>Summary of variants found by MINTIE, Arriba, Squid and TAP</h3>
 <p>Figure 4A.</p>
@@ -2812,6 +2740,7 @@ gt(truth_table) %&gt;%
             columns = vars(tap_found),
             rows = tap_found)
     )</code></pre>
+<div id="coctjhonfv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2868,7 +2797,7 @@ gt(truth_table) %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -2940,7 +2869,7 @@ gt(truth_table) %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -3145,17 +3074,16 @@ gt(truth_table) %&gt;%
 
 #coctjhonfv .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="coctjhonfv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="10" class="gt_heading gt_title gt_font_normal" style><strong>Variants found in Leucegene cohort</strong></th>
+      <th colspan="10" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Variants found in Leucegene cohort</strong></th>
     </tr>
-    <tr>
-      <th colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
@@ -3172,1018 +3100,851 @@ gt(truth_table) %&gt;%
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">03H065</td>
-      <td class="gt_row gt_left">SRX729615</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H083</td>
-      <td class="gt_row gt_left">SRX729616</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H095</td>
-      <td class="gt_row gt_left">SRX729602</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H109</td>
-      <td class="gt_row gt_left">SRX729580</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H112</td>
-      <td class="gt_row gt_left">SRX729581</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H112</td>
-      <td class="gt_row gt_left">SRX729581</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">04H030</td>
-      <td class="gt_row gt_left">SRX729603</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">04H061</td>
-      <td class="gt_row gt_left">SRX729582</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">04H091</td>
-      <td class="gt_row gt_left">SRX729583</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H042</td>
-      <td class="gt_row gt_left">SRX729617</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H099</td>
-      <td class="gt_row gt_left">SRX958862</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H113</td>
-      <td class="gt_row gt_left">SRX729604</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H118</td>
-      <td class="gt_row gt_left">SRX729618</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H136</td>
-      <td class="gt_row gt_left">SRX729605</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H184</td>
-      <td class="gt_row gt_left">SRX729619</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">06H020</td>
-      <td class="gt_row gt_left">SRX729606</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">06H035</td>
-      <td class="gt_row gt_left">SRX729620</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">06H115</td>
-      <td class="gt_row gt_left">SRX729607</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">07H099</td>
-      <td class="gt_row gt_left">SRX381851</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">07H137</td>
-      <td class="gt_row gt_left">SRX729621</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">07H144</td>
-      <td class="gt_row gt_left">SRX729585</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H034</td>
-      <td class="gt_row gt_left">SRX729622</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H042</td>
-      <td class="gt_row gt_left">SRX729623</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H072</td>
-      <td class="gt_row gt_left">SRX729624</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H072</td>
-      <td class="gt_row gt_left">SRX729624</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H081</td>
-      <td class="gt_row gt_left">SRX729586</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H099</td>
-      <td class="gt_row gt_left">SRX729608</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H016</td>
-      <td class="gt_row gt_left">SRX729587</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H040</td>
-      <td class="gt_row gt_left">SRX729625</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H066</td>
-      <td class="gt_row gt_left">SRX729588</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H008</td>
-      <td class="gt_row gt_left">SRX729609</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H030</td>
-      <td class="gt_row gt_left">SRX729626</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H119</td>
-      <td class="gt_row gt_left">SRX729627</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H022</td>
-      <td class="gt_row gt_left">SRX729610</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H022</td>
-      <td class="gt_row gt_left">SRX729610</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H104</td>
-      <td class="gt_row gt_left">SRX729589</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H107</td>
-      <td class="gt_row gt_left">SRX729628</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H179</td>
-      <td class="gt_row gt_left">SRX729611</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H042</td>
-      <td class="gt_row gt_left">SRX729590</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H044</td>
-      <td class="gt_row gt_left">SRX729591</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H045</td>
-      <td class="gt_row gt_left">SRX729629</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H098</td>
-      <td class="gt_row gt_left">SRX729630</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H165</td>
-      <td class="gt_row gt_left">SRX729592</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H166</td>
-      <td class="gt_row gt_left">SRX729631</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H180</td>
-      <td class="gt_row gt_left">SRX729632</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">12H183</td>
-      <td class="gt_row gt_left">SRX729633</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H066</td>
-      <td class="gt_row gt_left">SRX729612</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H120</td>
-      <td class="gt_row gt_left">SRX959058</td>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H169</td>
-      <td class="gt_row gt_left">SRX959064</td>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">CBF</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">04H111</td>
-      <td class="gt_row gt_left">SRX958844</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H050</td>
-      <td class="gt_row gt_left">SRX332633</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H111</td>
-      <td class="gt_row gt_left">SRX957223</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">06H048</td>
-      <td class="gt_row gt_left">SRX958873</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">06H146</td>
-      <td class="gt_row gt_left">SRX957230</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">07H152</td>
-      <td class="gt_row gt_left">SRX958906</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">07H155</td>
-      <td class="gt_row gt_left">SRX958907</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H012</td>
-      <td class="gt_row gt_left">SRX381852</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H063</td>
-      <td class="gt_row gt_left">SRX958922</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H112</td>
-      <td class="gt_row gt_left">SRX381854</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H138</td>
-      <td class="gt_row gt_left">SRX958932</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H058</td>
-      <td class="gt_row gt_left">SRX958945</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H106</td>
-      <td class="gt_row gt_left">SRX958959</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H113</td>
-      <td class="gt_row gt_left">SRX332645</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">09H115</td>
-      <td class="gt_row gt_left">SRX332646</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H001</td>
-      <td class="gt_row gt_left">SRX958961</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H007</td>
-      <td class="gt_row gt_left">SRX958963</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H070</td>
-      <td class="gt_row gt_left">SRX958974</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H008</td>
-      <td class="gt_row gt_left">SRX381865</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H021</td>
-      <td class="gt_row gt_left">SRX332659</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H183</td>
-      <td class="gt_row gt_left">SRX959001</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H048</td>
-      <td class="gt_row gt_left">SRX959044</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H141</td>
-      <td class="gt_row gt_left">SRX959060</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">13H150</td>
-      <td class="gt_row gt_left">SRX959061</td>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_left">KMT2A-PTD</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H041</td>
-      <td class="gt_row gt_left">SRX332627</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">03H041</td>
-      <td class="gt_row gt_left">SRX332627</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H034</td>
-      <td class="gt_row gt_left">SRX958856</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">05H163</td>
-      <td class="gt_row gt_left">SRX332635</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H049</td>
-      <td class="gt_row gt_left">SRX958915</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">08H049</td>
-      <td class="gt_row gt_left">SRX958915</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">10H038</td>
-      <td class="gt_row gt_left">SRX381861</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H027</td>
-      <td class="gt_row gt_left">SRX958987</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H027</td>
-      <td class="gt_row gt_left">SRX958987</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H160</td>
-      <td class="gt_row gt_left">SRX332667</td>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">11H160</td>
-      <td class="gt_row gt_left">SRX332667</td>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_left">NUP98-NSD1</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-      <td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
-      <td class="gt_row gt_center">FALSE</td>
-    </tr>
+    <tr><td class="gt_row gt_left">03H065</td>
+<td class="gt_row gt_left">SRX729615</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H083</td>
+<td class="gt_row gt_left">SRX729616</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H095</td>
+<td class="gt_row gt_left">SRX729602</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H109</td>
+<td class="gt_row gt_left">SRX729580</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H112</td>
+<td class="gt_row gt_left">SRX729581</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H112</td>
+<td class="gt_row gt_left">SRX729581</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">04H030</td>
+<td class="gt_row gt_left">SRX729603</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">04H061</td>
+<td class="gt_row gt_left">SRX729582</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">04H091</td>
+<td class="gt_row gt_left">SRX729583</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H042</td>
+<td class="gt_row gt_left">SRX729617</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">05H099</td>
+<td class="gt_row gt_left">SRX958862</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H113</td>
+<td class="gt_row gt_left">SRX729604</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H118</td>
+<td class="gt_row gt_left">SRX729618</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H136</td>
+<td class="gt_row gt_left">SRX729605</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">05H184</td>
+<td class="gt_row gt_left">SRX729619</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">06H020</td>
+<td class="gt_row gt_left">SRX729606</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">06H035</td>
+<td class="gt_row gt_left">SRX729620</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">06H115</td>
+<td class="gt_row gt_left">SRX729607</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">07H099</td>
+<td class="gt_row gt_left">SRX381851</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">07H137</td>
+<td class="gt_row gt_left">SRX729621</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">07H144</td>
+<td class="gt_row gt_left">SRX729585</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H034</td>
+<td class="gt_row gt_left">SRX729622</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H042</td>
+<td class="gt_row gt_left">SRX729623</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H072</td>
+<td class="gt_row gt_left">SRX729624</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">08H072</td>
+<td class="gt_row gt_left">SRX729624</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">08H081</td>
+<td class="gt_row gt_left">SRX729586</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H099</td>
+<td class="gt_row gt_left">SRX729608</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H016</td>
+<td class="gt_row gt_left">SRX729587</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H040</td>
+<td class="gt_row gt_left">SRX729625</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H066</td>
+<td class="gt_row gt_left">SRX729588</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">10H008</td>
+<td class="gt_row gt_left">SRX729609</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">10H030</td>
+<td class="gt_row gt_left">SRX729626</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">10H119</td>
+<td class="gt_row gt_left">SRX729627</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H022</td>
+<td class="gt_row gt_left">SRX729610</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H022</td>
+<td class="gt_row gt_left">SRX729610</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">11H104</td>
+<td class="gt_row gt_left">SRX729589</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H107</td>
+<td class="gt_row gt_left">SRX729628</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H179</td>
+<td class="gt_row gt_left">SRX729611</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H042</td>
+<td class="gt_row gt_left">SRX729590</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H044</td>
+<td class="gt_row gt_left">SRX729591</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H045</td>
+<td class="gt_row gt_left">SRX729629</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">12H098</td>
+<td class="gt_row gt_left">SRX729630</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H165</td>
+<td class="gt_row gt_left">SRX729592</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H166</td>
+<td class="gt_row gt_left">SRX729631</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H180</td>
+<td class="gt_row gt_left">SRX729632</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">12H183</td>
+<td class="gt_row gt_left">SRX729633</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">13H066</td>
+<td class="gt_row gt_left">SRX729612</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">13H120</td>
+<td class="gt_row gt_left">SRX959058</td>
+<td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">13H169</td>
+<td class="gt_row gt_left">SRX959064</td>
+<td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">CBF</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">04H111</td>
+<td class="gt_row gt_left">SRX958844</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H050</td>
+<td class="gt_row gt_left">SRX332633</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H111</td>
+<td class="gt_row gt_left">SRX957223</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">06H048</td>
+<td class="gt_row gt_left">SRX958873</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">06H146</td>
+<td class="gt_row gt_left">SRX957230</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">07H152</td>
+<td class="gt_row gt_left">SRX958906</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">07H155</td>
+<td class="gt_row gt_left">SRX958907</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H012</td>
+<td class="gt_row gt_left">SRX381852</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H063</td>
+<td class="gt_row gt_left">SRX958922</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">08H112</td>
+<td class="gt_row gt_left">SRX381854</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">08H138</td>
+<td class="gt_row gt_left">SRX958932</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H058</td>
+<td class="gt_row gt_left">SRX958945</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H106</td>
+<td class="gt_row gt_left">SRX958959</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H113</td>
+<td class="gt_row gt_left">SRX332645</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">09H115</td>
+<td class="gt_row gt_left">SRX332646</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">10H001</td>
+<td class="gt_row gt_left">SRX958961</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">10H007</td>
+<td class="gt_row gt_left">SRX958963</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">10H070</td>
+<td class="gt_row gt_left">SRX958974</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H008</td>
+<td class="gt_row gt_left">SRX381865</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">11H021</td>
+<td class="gt_row gt_left">SRX332659</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H183</td>
+<td class="gt_row gt_left">SRX959001</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">13H048</td>
+<td class="gt_row gt_left">SRX959044</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">13H141</td>
+<td class="gt_row gt_left">SRX959060</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">13H150</td>
+<td class="gt_row gt_left">SRX959061</td>
+<td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_left">KMT2A-PTD</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">03H041</td>
+<td class="gt_row gt_left">SRX332627</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">03H041</td>
+<td class="gt_row gt_left">SRX332627</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">05H034</td>
+<td class="gt_row gt_left">SRX958856</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">05H163</td>
+<td class="gt_row gt_left">SRX332635</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H049</td>
+<td class="gt_row gt_left">SRX958915</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">08H049</td>
+<td class="gt_row gt_left">SRX958915</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">10H038</td>
+<td class="gt_row gt_left">SRX381861</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H027</td>
+<td class="gt_row gt_left">SRX958987</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H027</td>
+<td class="gt_row gt_left">SRX958987</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
+    <tr><td class="gt_row gt_left">11H160</td>
+<td class="gt_row gt_left">SRX332667</td>
+<td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td></tr>
+    <tr><td class="gt_row gt_left">11H160</td>
+<td class="gt_row gt_left">SRX332667</td>
+<td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_left">NUP98-NSD1</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td>
+<td class="gt_row gt_center" style="background-color: #90EE90;">TRUE</td>
+<td class="gt_row gt_center">FALSE</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code># tally up detected variants into summary table
 truth_summary &lt;- truth_table %&gt;%
     group_by(gene1, gene2, variant) %&gt;%
@@ -4211,6 +3972,7 @@ gt(truth_summary) %&gt;%
     tab_options(
         table.font.size = 12
     )</code></pre>
+<div id="jgwlujsyia" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -4267,7 +4029,7 @@ gt(truth_summary) %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -4339,7 +4101,7 @@ gt(truth_summary) %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -4544,85 +4306,75 @@ gt(truth_summary) %&gt;%
 
 #jgwlujsyia .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="jgwlujsyia" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="8" class="gt_heading gt_title gt_font_normal" style><strong>Summary of variants found in Leucegene cohort</strong></th>
+      <th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Summary of variants found in Leucegene cohort</strong></th>
     </tr>
-    <tr>
-      <th colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Gene 1</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Gene 2</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Variant</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>MINTIE Detected</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Arriba Detected</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Squid Detected</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>TAP Detected</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Total</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>MINTIE Detected</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Arriba Detected</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Squid Detected</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>TAP Detected</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Total</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">CBFB</td>
-      <td class="gt_row gt_left">MYH11</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_center">24</td>
-      <td class="gt_row gt_center">26</td>
-      <td class="gt_row gt_center">25</td>
-      <td class="gt_row gt_center">26</td>
-      <td class="gt_row gt_center">26</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">FLT3</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">ITD</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">3</td>
-      <td class="gt_row gt_center">0</td>
-      <td class="gt_row gt_center">7</td>
-      <td class="gt_row gt_center">7</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">KMT2A</td>
-      <td class="gt_row gt_left"></td>
-      <td class="gt_row gt_left">PTD</td>
-      <td class="gt_row gt_center">16</td>
-      <td class="gt_row gt_center">24</td>
-      <td class="gt_row gt_center">15</td>
-      <td class="gt_row gt_center">1</td>
-      <td class="gt_row gt_center">24</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">NUP98</td>
-      <td class="gt_row gt_left">NSD1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_center">6</td>
-      <td class="gt_row gt_center">7</td>
-      <td class="gt_row gt_center">7</td>
-      <td class="gt_row gt_center">7</td>
-      <td class="gt_row gt_center">7</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">RUNX1</td>
-      <td class="gt_row gt_left">RUNX1T1</td>
-      <td class="gt_row gt_left">fusion</td>
-      <td class="gt_row gt_center">20</td>
-      <td class="gt_row gt_center">20</td>
-      <td class="gt_row gt_center">17</td>
-      <td class="gt_row gt_center">20</td>
-      <td class="gt_row gt_center">20</td>
-    </tr>
+    <tr><td class="gt_row gt_left">CBFB</td>
+<td class="gt_row gt_left">MYH11</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_right">24</td>
+<td class="gt_row gt_right">26</td>
+<td class="gt_row gt_right">25</td>
+<td class="gt_row gt_right">26</td>
+<td class="gt_row gt_right">26</td></tr>
+    <tr><td class="gt_row gt_left">FLT3</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">ITD</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">7</td></tr>
+    <tr><td class="gt_row gt_left">KMT2A</td>
+<td class="gt_row gt_left"></td>
+<td class="gt_row gt_left">PTD</td>
+<td class="gt_row gt_right">16</td>
+<td class="gt_row gt_right">24</td>
+<td class="gt_row gt_right">15</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">24</td></tr>
+    <tr><td class="gt_row gt_left">NUP98</td>
+<td class="gt_row gt_left">NSD1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">7</td></tr>
+    <tr><td class="gt_row gt_left">RUNX1</td>
+<td class="gt_row gt_left">RUNX1T1</td>
+<td class="gt_row gt_left">fusion</td>
+<td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">17</td>
+<td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">20</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>ts &lt;- truth_summary %&gt;%
         reshape2::melt() %&gt;%
         group_by(variant, variable) %&gt;%
@@ -4642,6 +4394,9 @@ ggplot(ts[ts$method != &quot;total&quot;,], aes(method, detected)) +
     scale_x_discrete(labels=c(&quot;MINTIE&quot;, &quot;Arriba&quot;, &quot;SQUID&quot;, &quot;TAP&quot;)) +
     scale_y_discrete(limits=seq(0, 53, 5)) +
     geom_hline(data=ts[ts$method == &quot;total&quot;,], aes(yintercept=detected), colour=&quot;salmon&quot;) +
+    theme(axis.text.x = element_text(size = 11),
+          axis.text.y = element_text(size = 11),
+          strip.text.x = element_text(size = 11)) +
     facet_grid(~variant)</code></pre>
 <p><img src="figure/Leucegene_Validation.Rmd/leucegene_variants_validation-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>
@@ -4666,6 +4421,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/0355bafe2474cef6dfa74b4545eea531c5d8c211/docs/figure/Leucegene_Validation.Rmd/leucegene_variants_validation-1.png" target="_blank">0355baf</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/figure/Leucegene_Validation.Rmd/leucegene_variants_validation-1.png" target="_blank">c116fce</a>
@@ -4700,13 +4466,12 @@ Marek Cmero
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
+<pre><code>R version 4.1.1 (2021-08-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Catalina 10.15.7
+Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
@@ -4716,31 +4481,32 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] GenomicRanges_1.42.0 GenomeInfoDb_1.26.2  IRanges_2.24.1      
- [4] S4Vectors_0.28.1     BiocGenerics_0.36.0  gt_0.2.2            
- [7] ggplot2_3.3.3        stringr_1.4.0        here_1.0.1          
-[10] dplyr_1.0.4          data.table_1.13.6    workflowr_1.6.2     
+ [1] GenomicRanges_1.44.0 GenomeInfoDb_1.28.4  IRanges_2.26.0      
+ [4] S4Vectors_0.30.0     BiocGenerics_0.38.0  gt_0.3.1            
+ [7] ggplot2_3.3.5        stringr_1.4.0        here_1.0.1          
+[10] dplyr_1.0.7          data.table_1.14.0    workflowr_1.6.2     
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.0       xfun_0.21              reshape2_1.4.4        
- [4] purrr_0.3.4            colorspace_2.0-0       vctrs_0.3.6           
- [7] generics_0.1.0         htmltools_0.5.1.1      yaml_2.2.1            
-[10] rlang_0.4.10           later_1.1.0.1          pillar_1.4.7          
-[13] glue_1.4.2             withr_2.4.1            DBI_1.1.1             
-[16] RColorBrewer_1.1-2     plyr_1.8.6             GenomeInfoDbData_1.2.4
-[19] lifecycle_1.0.0        zlibbioc_1.36.0        commonmark_1.7        
-[22] munsell_0.5.0          gtable_0.3.0           evaluate_0.14         
-[25] labeling_0.4.2         knitr_1.31             httpuv_1.5.5          
-[28] highr_0.8              Rcpp_1.0.6             promises_1.2.0.1      
-[31] scales_1.1.1           backports_1.2.1        checkmate_2.0.0       
-[34] XVector_0.30.0         farver_2.0.3           fs_1.5.0              
-[37] digest_0.6.27          stringi_1.5.3          grid_4.0.3            
-[40] rprojroot_2.0.2        tools_4.0.3            bitops_1.0-6          
-[43] sass_0.3.1             magrittr_2.0.1         RCurl_1.98-1.2        
-[46] tibble_3.0.6           crayon_1.4.1           whisker_0.4           
-[49] pkgconfig_2.0.3        ellipsis_0.3.1         assertthat_0.2.1      
-[52] rmarkdown_2.6          R6_2.5.0               git2r_0.28.0          
-[55] compiler_4.0.3        </code></pre>
+ [1] Rcpp_1.0.7             assertthat_0.2.1       rprojroot_2.0.2       
+ [4] digest_0.6.27          utf8_1.2.2             R6_2.5.1              
+ [7] plyr_1.8.6             backports_1.2.1        evaluate_0.14         
+[10] highr_0.9              pillar_1.6.2           zlibbioc_1.38.0       
+[13] rlang_0.4.11           whisker_0.4            jquerylib_0.1.4       
+[16] checkmate_2.0.0        rmarkdown_2.11         labeling_0.4.2        
+[19] RCurl_1.98-1.5         munsell_0.5.0          compiler_4.1.1        
+[22] httpuv_1.6.3           xfun_0.25              pkgconfig_2.0.3       
+[25] htmltools_0.5.2        tidyselect_1.1.1       tibble_3.1.4          
+[28] GenomeInfoDbData_1.2.6 fansi_0.5.0            crayon_1.4.1          
+[31] withr_2.4.2            later_1.3.0            bitops_1.0-7          
+[34] commonmark_1.7         grid_4.1.1             gtable_0.3.0          
+[37] lifecycle_1.0.0        DBI_1.1.1              git2r_0.28.0          
+[40] magrittr_2.0.1         scales_1.1.1           stringi_1.7.4         
+[43] farver_2.1.0           XVector_0.32.0         reshape2_1.4.4        
+[46] fs_1.5.0               promises_1.2.0.1       ellipsis_0.3.2        
+[49] generics_0.1.0         vctrs_0.3.8            RColorBrewer_1.1-2    
+[52] tools_4.1.1            glue_1.4.2             purrr_0.3.4           
+[55] fastmap_1.1.0          yaml_2.2.1             colorspace_2.0-2      
+[58] knitr_1.33             sass_0.4.0            </code></pre>
 </div>
 </div>
 </div>
@@ -4789,7 +4555,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -4803,6 +4569,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

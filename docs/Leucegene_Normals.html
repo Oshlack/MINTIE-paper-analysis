@@ -13,13 +13,22 @@
 
 <title>Leucegene Normals</title>
 
-<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -50,11 +59,6 @@ div.section {
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -67,32 +71,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 
@@ -103,10 +81,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -123,40 +97,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -184,7 +131,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -196,7 +143,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -207,10 +154,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -222,7 +182,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -351,7 +310,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -399,7 +358,7 @@ div.tocify {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Oshlack/MINTIE-paper-analysis">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
     Source code
   </a>
@@ -409,11 +368,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -446,7 +405,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-28
+<strong>Last updated:</strong> 2021-10-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -537,16 +496,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeed3d2b6e220332d833ca9fdbbe458ee8d6163c5btargetblanked3d2b6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/ed3d2b6e220332d833ca9fdbbe458ee8d6163c5b" target="_blank">ed3d2b6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree4606aca4b16bcb8304cea8befbeccc1bbd960a0atargetblank4606acaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/4606aca4b16bcb8304cea8befbeccc1bbd960a0a" target="_blank">4606aca</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistreeed3d2b6e220332d833ca9fdbbe458ee8d6163c5btargetblanked3d2b6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomOshlackMINTIEpaperanalysistree4606aca4b16bcb8304cea8befbeccc1bbd960a0atargetblank4606acaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/ed3d2b6e220332d833ca9fdbbe458ee8d6163c5b" target="_blank">ed3d2b6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Oshlack/MINTIE-paper-analysis/tree/4606aca4b16bcb8304cea8befbeccc1bbd960a0a" target="_blank">4606aca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -556,21 +515,14 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
     Ignored:    analysis/cache/
     Ignored:    data/.DS_Store
     Ignored:    data/RCH_B-ALL/
     Ignored:    data/leucegene/.DS_Store
-    Ignored:    data/leucegene/KMT2A-PTD_results/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon0/.DS_Store
-    Ignored:    data/leucegene/normals_ncontrols_test_results/ncon1/.DS_Store
     Ignored:    data/leucegene/salmon_out/
+    Ignored:    data/leucegene/sample_info/.DS_Store
     Ignored:    data/leucegene/sample_info/KMT2A-PTD_8-2.fa.xls
-    Ignored:    data/leucegene/validation_results/.DS_Store
-    Ignored:    data/simu/.DS_Store
-    Ignored:    data/simu/results/.DS_Store
-    Ignored:    data/simu/results/MINTIE/.DS_Store
-    Ignored:    data/simu/results/MINTIE/varying_dispersion/.DS_Store
     Ignored:    output/Leucegene_gene_counts.tsv
     Ignored:    packrat/lib-R/
     Ignored:    packrat/lib-ext/
@@ -578,9 +530,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  data/leucegene/validation_results/TAP/
-
-Unstaged changes:
-    Modified:   .Rprofile
 
 </code></pre>
 <p>
@@ -619,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4606aca4b16bcb8304cea8befbeccc1bbd960a0a/analysis/Leucegene_Normals.Rmd" target="_blank">4606aca</a>
+</td>
+<td>
+mcmero
+</td>
+<td>
+2021-10-07
+</td>
+<td>
+Increase fig 4 text size
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Oshlack/MINTIE-paper-analysis/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/Leucegene_Normals.html" target="_blank">c116fce</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1131,6 +1114,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
         median = md(&quot;**Median**&quot;),
         max = md(&quot;**Max**&quot;)
     )</code></pre>
+<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1187,7 +1171,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -1259,7 +1243,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -1464,35 +1448,33 @@ normals_results &lt;- inner_join(normals_results, celltype,
 
 #xuwvmsdnyk .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="xuwvmsdnyk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="3" class="gt_heading gt_title gt_font_normal" style><strong>Variants called by sample summary</strong></th>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Variants called by sample summary</strong></th>
     </tr>
-    <tr>
-      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Median</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Median</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Max</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">61</td>
-      <td class="gt_row gt_center">122</td>
-      <td class="gt_row gt_center">1397</td>
-    </tr>
+    <tr><td class="gt_row gt_right">61</td>
+<td class="gt_row gt_right">122</td>
+<td class="gt_row gt_right">1397</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>collate_vartypes(normals_results) %&gt;%
     group_by(class) %&gt;%
     summarise(variants = length(unique(variant_id))) %&gt;%
@@ -1509,6 +1491,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
         variants = md(&quot;**Variants**&quot;),
         fraction = md(&quot;**Fraction**&quot;)
     )</code></pre>
+<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1565,7 +1548,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -1637,7 +1620,7 @@ normals_results &lt;- inner_join(normals_results, celltype,
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -1842,50 +1825,42 @@ normals_results &lt;- inner_join(normals_results, celltype,
 
 #odquwipzlc .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="odquwipzlc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="3" class="gt_heading gt_title gt_font_normal" style><strong>Variants called summary by class</strong></th>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Variants called summary by class</strong></th>
     </tr>
-    <tr>
-      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">class</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Variants</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Variants</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Fraction</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">Fusion</td>
-      <td class="gt_row gt_center">93</td>
-      <td class="gt_row gt_right">0.016</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Novel splice variant</td>
-      <td class="gt_row gt_center">3180</td>
-      <td class="gt_row gt_right">0.562</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Transcribed structural variant</td>
-      <td class="gt_row gt_center">1069</td>
-      <td class="gt_row gt_right">0.189</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Unknown</td>
-      <td class="gt_row gt_center">1318</td>
-      <td class="gt_row gt_right">0.233</td>
-    </tr>
+    <tr><td class="gt_row gt_left">Fusion</td>
+<td class="gt_row gt_right">93</td>
+<td class="gt_row gt_right">0.016</td></tr>
+    <tr><td class="gt_row gt_left">Novel splice variant</td>
+<td class="gt_row gt_right">3180</td>
+<td class="gt_row gt_right">0.562</td></tr>
+    <tr><td class="gt_row gt_left">Transcribed structural variant</td>
+<td class="gt_row gt_right">1069</td>
+<td class="gt_row gt_right">0.189</td></tr>
+    <tr><td class="gt_row gt_left">Unknown</td>
+<td class="gt_row gt_right">1318</td>
+<td class="gt_row gt_right">0.233</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 </div>
 <div id="variant-genes" class="section level2">
 <h2>Variant Genes</h2>
@@ -1911,6 +1886,7 @@ results_summary %&gt;%
         max = md(&quot;**Max**&quot;),
         total = md(&quot;**Total**&quot;)
     )</code></pre>
+<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -1967,7 +1943,7 @@ results_summary %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -2039,7 +2015,7 @@ results_summary %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -2244,40 +2220,40 @@ results_summary %&gt;%
 
 #epfiatiawy .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="epfiatiawy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="4" class="gt_heading gt_title gt_font_normal" style><strong>Variant genes called by sample summary</strong></th>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Variant genes called by sample summary</strong></th>
     </tr>
-    <tr>
-      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Median</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Total</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Median</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Max</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Total</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">64</td>
-      <td class="gt_row gt_center">117</td>
-      <td class="gt_row gt_center">465</td>
-      <td class="gt_row gt_center">3482</td>
-    </tr>
+    <tr><td class="gt_row gt_right">64</td>
+<td class="gt_row gt_right">117</td>
+<td class="gt_row gt_right">465</td>
+<td class="gt_row gt_right">3482</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
     geom_bar(position = position_dodge2(width = 0.9, preserve = &quot;single&quot;), stat = &quot;identity&quot;) +
     theme_bw() +
+    theme(axis.text.x = element_text(size = 11),
+      axis.text.y = element_text(size = 11)) +
     xlab(&quot;&quot;) +
     ylab(&quot;Genes with variants&quot;)</code></pre>
 <p><img src="figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" width="864" style="display: block; margin: auto;" /></p>
@@ -2303,6 +2279,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">c116fce</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4206f12a3c701670c42f5d35957cbdfa92b203a9/docs/figure/Leucegene_Normals.Rmd/plot_variant_genes-1.png" target="_blank">4206f12</a>
@@ -2416,6 +2403,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">c116fce</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4206f12a3c701670c42f5d35957cbdfa92b203a9/docs/figure/Leucegene_Normals.Rmd/libsize_var_cor-1.png" target="_blank">4206f12</a>
@@ -2538,6 +2536,7 @@ results_summary %&gt;%
         controls = md(&quot;**Controls**&quot;),
         tcount = md(&quot;**Variant genes**&quot;)
     )</code></pre>
+<div id="coctjhonfv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -2594,7 +2593,7 @@ results_summary %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -2666,7 +2665,7 @@ results_summary %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -2871,49 +2870,39 @@ results_summary %&gt;%
 
 #coctjhonfv .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="coctjhonfv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="2" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different controls</strong></th>
+      <th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Total variant genes called using different controls</strong></th>
     </tr>
-    <tr>
-      <th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Controls</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Variant genes</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Variant genes</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">twbc</td>
-      <td class="gt_row gt_center">412</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">mono</td>
-      <td class="gt_row gt_center">715</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">gran</td>
-      <td class="gt_row gt_center">763</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">tc</td>
-      <td class="gt_row gt_center">1564</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">bc</td>
-      <td class="gt_row gt_center">1630</td>
-    </tr>
+    <tr><td class="gt_row gt_center">twbc</td>
+<td class="gt_row gt_right">412</td></tr>
+    <tr><td class="gt_row gt_center">mono</td>
+<td class="gt_row gt_right">715</td></tr>
+    <tr><td class="gt_row gt_center">gran</td>
+<td class="gt_row gt_right">763</td></tr>
+    <tr><td class="gt_row gt_center">tc</td>
+<td class="gt_row gt_right">1564</td></tr>
+    <tr><td class="gt_row gt_center">bc</td>
+<td class="gt_row gt_right">1630</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>ggplot(results_summary, aes(sample, V1, fill=controls)) +
     geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
     theme_bw() +
@@ -2948,6 +2937,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">c116fce</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4206f12a3c701670c42f5d35957cbdfa92b203a9/docs/figure/Leucegene_Normals.Rmd/controls_comparison-1.png" target="_blank">4206f12</a>
@@ -3066,6 +3066,7 @@ rs %&gt;%
         min = md(&quot;**Min**&quot;),
         max = md(&quot;**Max**&quot;)
     )</code></pre>
+<div id="jgwlujsyia" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
@@ -3122,7 +3123,7 @@ rs %&gt;%
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
@@ -3194,7 +3195,7 @@ rs %&gt;%
   border-bottom-color: #D3D3D3;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
@@ -3399,213 +3400,165 @@ rs %&gt;%
 
 #jgwlujsyia .gt_footnote_marks {
   font-style: italic;
+  font-weight: normal;
   font-size: 65%;
 }
 </style>
-<div id="jgwlujsyia" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>Total variant genes called using different numbers of controls</strong></th>
+      <th colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border" style><strong>Total variant genes called using different numbers of controls</strong></th>
     </tr>
-    <tr>
-      <th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style></th>
-    </tr>
+    
   </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">sample</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Controls</strong></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Mean</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Min</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Max</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Min</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"><strong>Max</strong></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center">SRX372056</td>
-      <td class="gt_row gt_right">0</td>
-      <td class="gt_row gt_right">4129</td>
-      <td class="gt_row gt_center">4129</td>
-      <td class="gt_row gt_center">4129</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372056</td>
-      <td class="gt_row gt_right">1</td>
-      <td class="gt_row gt_right">186</td>
-      <td class="gt_row gt_center">155</td>
-      <td class="gt_row gt_center">220</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372056</td>
-      <td class="gt_row gt_right">2</td>
-      <td class="gt_row gt_right">140</td>
-      <td class="gt_row gt_center">132</td>
-      <td class="gt_row gt_center">155</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372056</td>
-      <td class="gt_row gt_right">3</td>
-      <td class="gt_row gt_right">100</td>
-      <td class="gt_row gt_center">99</td>
-      <td class="gt_row gt_center">102</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372056</td>
-      <td class="gt_row gt_right">4</td>
-      <td class="gt_row gt_right">80</td>
-      <td class="gt_row gt_center">80</td>
-      <td class="gt_row gt_center">80</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372054</td>
-      <td class="gt_row gt_right">0</td>
-      <td class="gt_row gt_right">5079</td>
-      <td class="gt_row gt_center">5079</td>
-      <td class="gt_row gt_center">5079</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372054</td>
-      <td class="gt_row gt_right">1</td>
-      <td class="gt_row gt_right">214</td>
-      <td class="gt_row gt_center">200</td>
-      <td class="gt_row gt_center">229</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372054</td>
-      <td class="gt_row gt_right">2</td>
-      <td class="gt_row gt_right">123</td>
-      <td class="gt_row gt_center">113</td>
-      <td class="gt_row gt_center">139</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372054</td>
-      <td class="gt_row gt_right">3</td>
-      <td class="gt_row gt_right">100</td>
-      <td class="gt_row gt_center">96</td>
-      <td class="gt_row gt_center">103</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372054</td>
-      <td class="gt_row gt_right">4</td>
-      <td class="gt_row gt_right">75</td>
-      <td class="gt_row gt_center">75</td>
-      <td class="gt_row gt_center">75</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372053</td>
-      <td class="gt_row gt_right">0</td>
-      <td class="gt_row gt_right">4570</td>
-      <td class="gt_row gt_center">4570</td>
-      <td class="gt_row gt_center">4570</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372053</td>
-      <td class="gt_row gt_right">1</td>
-      <td class="gt_row gt_right">292</td>
-      <td class="gt_row gt_center">168</td>
-      <td class="gt_row gt_center">346</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372053</td>
-      <td class="gt_row gt_right">2</td>
-      <td class="gt_row gt_right">227</td>
-      <td class="gt_row gt_center">102</td>
-      <td class="gt_row gt_center">295</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372053</td>
-      <td class="gt_row gt_right">3</td>
-      <td class="gt_row gt_right">190</td>
-      <td class="gt_row gt_center">88</td>
-      <td class="gt_row gt_center">291</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372053</td>
-      <td class="gt_row gt_right">4</td>
-      <td class="gt_row gt_right">72</td>
-      <td class="gt_row gt_center">72</td>
-      <td class="gt_row gt_center">72</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372055</td>
-      <td class="gt_row gt_right">0</td>
-      <td class="gt_row gt_right">6063</td>
-      <td class="gt_row gt_center">6063</td>
-      <td class="gt_row gt_center">6063</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372055</td>
-      <td class="gt_row gt_right">1</td>
-      <td class="gt_row gt_right">431</td>
-      <td class="gt_row gt_center">368</td>
-      <td class="gt_row gt_center">469</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372055</td>
-      <td class="gt_row gt_right">2</td>
-      <td class="gt_row gt_right">249</td>
-      <td class="gt_row gt_center">226</td>
-      <td class="gt_row gt_center">266</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372055</td>
-      <td class="gt_row gt_right">3</td>
-      <td class="gt_row gt_right">218</td>
-      <td class="gt_row gt_center">212</td>
-      <td class="gt_row gt_center">225</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372055</td>
-      <td class="gt_row gt_right">4</td>
-      <td class="gt_row gt_right">175</td>
-      <td class="gt_row gt_center">175</td>
-      <td class="gt_row gt_center">175</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372052</td>
-      <td class="gt_row gt_right">0</td>
-      <td class="gt_row gt_right">4543</td>
-      <td class="gt_row gt_center">4543</td>
-      <td class="gt_row gt_center">4543</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372052</td>
-      <td class="gt_row gt_right">1</td>
-      <td class="gt_row gt_right">789</td>
-      <td class="gt_row gt_center">148</td>
-      <td class="gt_row gt_center">1051</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372052</td>
-      <td class="gt_row gt_right">2</td>
-      <td class="gt_row gt_right">750</td>
-      <td class="gt_row gt_center">170</td>
-      <td class="gt_row gt_center">1040</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372052</td>
-      <td class="gt_row gt_right">3</td>
-      <td class="gt_row gt_right">598</td>
-      <td class="gt_row gt_center">185</td>
-      <td class="gt_row gt_center">1011</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center">SRX372052</td>
-      <td class="gt_row gt_right">4</td>
-      <td class="gt_row gt_right">209</td>
-      <td class="gt_row gt_center">209</td>
-      <td class="gt_row gt_center">209</td>
-    </tr>
+    <tr><td class="gt_row gt_center">SRX372056</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">4129</td>
+<td class="gt_row gt_right">4129</td>
+<td class="gt_row gt_right">4129</td></tr>
+    <tr><td class="gt_row gt_center">SRX372056</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">186</td>
+<td class="gt_row gt_right">155</td>
+<td class="gt_row gt_right">220</td></tr>
+    <tr><td class="gt_row gt_center">SRX372056</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">140</td>
+<td class="gt_row gt_right">132</td>
+<td class="gt_row gt_right">155</td></tr>
+    <tr><td class="gt_row gt_center">SRX372056</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">100</td>
+<td class="gt_row gt_right">99</td>
+<td class="gt_row gt_right">102</td></tr>
+    <tr><td class="gt_row gt_center">SRX372056</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">80</td></tr>
+    <tr><td class="gt_row gt_center">SRX372054</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">5079</td>
+<td class="gt_row gt_right">5079</td>
+<td class="gt_row gt_right">5079</td></tr>
+    <tr><td class="gt_row gt_center">SRX372054</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">214</td>
+<td class="gt_row gt_right">200</td>
+<td class="gt_row gt_right">229</td></tr>
+    <tr><td class="gt_row gt_center">SRX372054</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">123</td>
+<td class="gt_row gt_right">113</td>
+<td class="gt_row gt_right">139</td></tr>
+    <tr><td class="gt_row gt_center">SRX372054</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">100</td>
+<td class="gt_row gt_right">96</td>
+<td class="gt_row gt_right">103</td></tr>
+    <tr><td class="gt_row gt_center">SRX372054</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">75</td>
+<td class="gt_row gt_right">75</td>
+<td class="gt_row gt_right">75</td></tr>
+    <tr><td class="gt_row gt_center">SRX372053</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">4570</td>
+<td class="gt_row gt_right">4570</td>
+<td class="gt_row gt_right">4570</td></tr>
+    <tr><td class="gt_row gt_center">SRX372053</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">292</td>
+<td class="gt_row gt_right">168</td>
+<td class="gt_row gt_right">346</td></tr>
+    <tr><td class="gt_row gt_center">SRX372053</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">227</td>
+<td class="gt_row gt_right">102</td>
+<td class="gt_row gt_right">295</td></tr>
+    <tr><td class="gt_row gt_center">SRX372053</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">190</td>
+<td class="gt_row gt_right">88</td>
+<td class="gt_row gt_right">291</td></tr>
+    <tr><td class="gt_row gt_center">SRX372053</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">72</td>
+<td class="gt_row gt_right">72</td>
+<td class="gt_row gt_right">72</td></tr>
+    <tr><td class="gt_row gt_center">SRX372055</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">6063</td>
+<td class="gt_row gt_right">6063</td>
+<td class="gt_row gt_right">6063</td></tr>
+    <tr><td class="gt_row gt_center">SRX372055</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">431</td>
+<td class="gt_row gt_right">368</td>
+<td class="gt_row gt_right">469</td></tr>
+    <tr><td class="gt_row gt_center">SRX372055</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">249</td>
+<td class="gt_row gt_right">226</td>
+<td class="gt_row gt_right">266</td></tr>
+    <tr><td class="gt_row gt_center">SRX372055</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">218</td>
+<td class="gt_row gt_right">212</td>
+<td class="gt_row gt_right">225</td></tr>
+    <tr><td class="gt_row gt_center">SRX372055</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">175</td>
+<td class="gt_row gt_right">175</td>
+<td class="gt_row gt_right">175</td></tr>
+    <tr><td class="gt_row gt_center">SRX372052</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">4543</td>
+<td class="gt_row gt_right">4543</td>
+<td class="gt_row gt_right">4543</td></tr>
+    <tr><td class="gt_row gt_center">SRX372052</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">789</td>
+<td class="gt_row gt_right">148</td>
+<td class="gt_row gt_right">1051</td></tr>
+    <tr><td class="gt_row gt_center">SRX372052</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">750</td>
+<td class="gt_row gt_right">170</td>
+<td class="gt_row gt_right">1040</td></tr>
+    <tr><td class="gt_row gt_center">SRX372052</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">598</td>
+<td class="gt_row gt_right">185</td>
+<td class="gt_row gt_right">1011</td></tr>
+    <tr><td class="gt_row gt_center">SRX372052</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">209</td>
+<td class="gt_row gt_right">209</td>
+<td class="gt_row gt_right">209</td></tr>
   </tbody>
   
   
-</table></div>
+</table>
+</div>
 <pre class="r"><code>rs$n_controls &lt;- as.factor(rs$n_controls)
 ggplot(rs[rs$n_controls!=0,], aes(sample, mean, fill=n_controls)) +
     geom_bar(position=position_dodge2(width=0.9, preserve=&quot;single&quot;), stat=&quot;identity&quot;) +
     geom_errorbar(aes(ymin=min, ymax=max, group=n_controls), width=.2,
                  position=position_dodge(.9)) +
     theme_bw() +
+    theme(axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11)) +
     xlab(&quot;&quot;) +
     ylab(&quot;Mean genes with variants&quot;) +
     scale_fill_brewer(palette = &quot;Dark2&quot;) +
@@ -3635,6 +3588,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/c116fce378b8c8ab00a5158f4be29c5b79e3331e/docs/figure/Leucegene_Normals.Rmd/n_controls_comparison-1.png" target="_blank">c116fce</a>
+</td>
+<td>
+Marek Cmero
+</td>
+<td>
+2021-05-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Oshlack/MINTIE-paper-analysis/blob/4206f12a3c701670c42f5d35957cbdfa92b203a9/docs/figure/Leucegene_Normals.Rmd/n_controls_comparison-1.png" target="_blank">4206f12</a>
 </td>
 <td>
@@ -3656,13 +3620,12 @@ Marek Cmero
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.3 (2020-10-10)
+<pre><code>R version 4.1.1 (2021-08-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Catalina 10.15.7
+Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
@@ -3671,22 +3634,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] gt_0.2.2          ggplot2_3.3.3     stringr_1.4.0     here_1.0.1       
-[5] dplyr_1.0.4       data.table_1.13.6 workflowr_1.6.2  
+[1] gt_0.3.1          ggplot2_3.3.5     stringr_1.4.0     here_1.0.1       
+[5] dplyr_1.0.7       data.table_1.14.0 workflowr_1.6.2  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6         RColorBrewer_1.1-2 highr_0.8          pillar_1.4.7      
- [5] compiler_4.0.3     later_1.1.0.1      git2r_0.28.0       tools_4.0.3       
- [9] digest_0.6.27      checkmate_2.0.0    gtable_0.3.0       evaluate_0.14     
-[13] lifecycle_1.0.0    tibble_3.0.6       pkgconfig_2.0.3    rlang_0.4.10      
-[17] DBI_1.1.1          commonmark_1.7     yaml_2.2.1         xfun_0.21         
-[21] withr_2.4.1        knitr_1.31         sass_0.3.1         generics_0.1.0    
-[25] fs_1.5.0           vctrs_0.3.6        rprojroot_2.0.2    grid_4.0.3        
-[29] tidyselect_1.1.0   glue_1.4.2         R6_2.5.0           rmarkdown_2.6     
-[33] farver_2.0.3       purrr_0.3.4        magrittr_2.0.1     whisker_0.4       
-[37] backports_1.2.1    scales_1.1.1       promises_1.2.0.1   ellipsis_0.3.1    
-[41] htmltools_0.5.1.1  assertthat_0.2.1   colorspace_2.0-0   httpuv_1.5.5      
-[45] labeling_0.4.2     stringi_1.5.3      munsell_0.5.0      crayon_1.4.1      </code></pre>
+ [1] tidyselect_1.1.1   xfun_0.25          purrr_0.3.4        colorspace_2.0-2  
+ [5] vctrs_0.3.8        generics_0.1.0     htmltools_0.5.2    yaml_2.2.1        
+ [9] utf8_1.2.2         rlang_0.4.11       jquerylib_0.1.4    later_1.3.0       
+[13] pillar_1.6.2       glue_1.4.2         withr_2.4.2        DBI_1.1.1         
+[17] RColorBrewer_1.1-2 lifecycle_1.0.0    munsell_0.5.0      commonmark_1.7    
+[21] gtable_0.3.0       evaluate_0.14      labeling_0.4.2     knitr_1.33        
+[25] fastmap_1.1.0      httpuv_1.6.3       fansi_0.5.0        highr_0.9         
+[29] Rcpp_1.0.7         promises_1.2.0.1   scales_1.1.1       backports_1.2.1   
+[33] checkmate_2.0.0    farver_2.1.0       fs_1.5.0           digest_0.6.27     
+[37] stringi_1.7.4      rprojroot_2.0.2    grid_4.1.1         tools_4.1.1       
+[41] magrittr_2.0.1     sass_0.4.0         tibble_3.1.4       crayon_1.4.1      
+[45] whisker_0.4        pkgconfig_2.0.3    ellipsis_0.3.2     assertthat_0.2.1  
+[49] rmarkdown_2.11     R6_2.5.1           git2r_0.28.0       compiler_4.1.1    </code></pre>
 </div>
 </div>
 </div>
@@ -3735,7 +3699,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -3749,6 +3713,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
