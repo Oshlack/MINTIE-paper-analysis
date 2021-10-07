@@ -339,5 +339,8 @@ ggplot(ts[ts$method != "total",], aes(method, detected)) +
     scale_x_discrete(labels=c("MINTIE", "Arriba", "SQUID", "TAP")) +
     scale_y_discrete(limits=seq(0, 53, 5)) +
     geom_hline(data=ts[ts$method == "total",], aes(yintercept=detected), colour="salmon") +
+    theme(axis.text.x = element_text(size = 11),
+          axis.text.y = element_text(size = 11),
+          strip.text.x = element_text(size = 11)) +
     facet_grid(~variant)
 ```

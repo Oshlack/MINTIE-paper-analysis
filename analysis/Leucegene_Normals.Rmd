@@ -137,6 +137,8 @@ results_summary %>%
 ggplot(results_summary, aes(cell_type, V1, group=sample)) + 
     geom_bar(position = position_dodge2(width = 0.9, preserve = "single"), stat = "identity") +
     theme_bw() +
+    theme(axis.text.x = element_text(size = 11),
+      axis.text.y = element_text(size = 11)) +
     xlab("") +
     ylab("Genes with variants")
 ```
@@ -296,6 +298,8 @@ ggplot(rs[rs$n_controls!=0,], aes(sample, mean, fill=n_controls)) +
     geom_errorbar(aes(ymin=min, ymax=max, group=n_controls), width=.2,
                  position=position_dodge(.9)) +
     theme_bw() +
+    theme(axis.text.x = element_text(size = 11),
+        axis.text.y = element_text(size = 11)) +
     xlab("") +
     ylab("Mean genes with variants") +
     scale_fill_brewer(palette = "Dark2") +
